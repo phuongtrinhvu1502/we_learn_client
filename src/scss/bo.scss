@@ -1,0 +1,36 @@
+.select-currency{
+    float: right;
+    height: 32px;
+    margin-top: 4px!important;
+    border: none;
+}
+.trans-route-box{
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-top: 5px;
+}
+.btn.btn-danger{
+    background: #d9534f;
+    border-color: #d43f3a;
+}
+.ant-btn-primary[disabled]{
+    background-color: #777!important;
+    color: white!important;
+}
+.ant-steps-item-title:after{
+    top: 14px!important;
+}
+label.ant-checkbox-wrapper{
+    margin-left: 0px!important;
+    font-weight: 400;
+    font-size: 14px!important;
+}
+
+.button.ant-btn.btn.btn-success.btn-footer-modal{
+    color: white;
+}
+
+button.ant-btn.open-modal{
+    padding: 0px 0px;
+    border: none;
+}

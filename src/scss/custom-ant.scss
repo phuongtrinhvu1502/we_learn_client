@@ -1,0 +1,73 @@
+
+form.ant-form div.ant-form-item-label{
+  text-align: left;
+  white-space: pre-wrap;
+  line-height: 30px;
+  font-weight: 600;
+}
+
+button.margin-bottom-5{
+  margin-bottom: 5px;
+}
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}
+#map_input{
+  margin-bottom: 5px;
+}
+.ant-collapse{
+  border-radius: 0px!important;
+  margin-bottom: 5px!important;
+}
+.ant-table-thead > tr > th, 
+.ant-table-tbody > tr > td{
+  word-break: break-word !important;
+}
+.ant-table-tbody > tr > td a.white-space-nowrap{
+  white-space: normal;
+}
+.ant-row.margin-bottom-10{
+  margin-bottom: 10px;
+}
+.ant-table-thead > tr > th.ant-table-selection-column, .ant-table-tbody > tr > td.ant-table-selection-column {
+  min-width: 34px!important;
+  width: 34px!important;
+}
+.ant-form label{
+  font-weight: bold;
+  font-size: 16px!important;
+  color: rgba(0,0,0,0.65)!important;
+}
+
+.ant-row.row-btn-right {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.ant-checkbox-wrapper + span{
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.ant-spin-nested-loading{
+  height: 100%!important;
+}
+
+.ant-spin-nested-loading > div > .ant-spin{
+  position: fixed!important;
+  max-height: none!important;
+  width: 85%!important;
+}
+
+.anticon-cross:before{
+  font-size: 20px;
+}
+

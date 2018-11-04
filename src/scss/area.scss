@@ -1,0 +1,48 @@
+.edit-country{
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding-top: 15px;
+}
+.button-group{
+	margin-top: 20px;
+	text-align: center;
+}
+.btn.btn-success{
+	background: #27B399;
+	border: none;
+}
+.ant-form-item-label.ant-col-5{
+	text-align: left;
+}
+.gutter-row.hidden-elm {
+	display: none
+}
+.collapse-search-area-frm {
+	.ant-collapse-content-box {
+		padding-bottom: 0px !important;
+		form.ant-form.ant-form-vertical{
+			.ant-row.ant-form-item{
+				margin-bottom: 0px;
+			}
+		}
+	}
+}
+
+.collapse-search-area-frm-district {
+	width: 90%;
+	float:left;
+}
+
+.collapse-search-area-frm-city {
+	width: 70%;
+	float:left;
+}
+
+.collapse-search-area-frm-country {
+	width: 50%;
+	float:left;
+}
+
+.hidden-element {
+	display: none !important;
+}
