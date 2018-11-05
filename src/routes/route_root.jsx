@@ -45,6 +45,11 @@ const routes = [
 					.then(module => module.default), { name: 'name' })
 			},
 			{
+				path: '/system-control/post-article',
+				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
 				path: '/not-found',
 				component: (
 					asyncComponent(

@@ -149,18 +149,22 @@ class Sidebar extends Component {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
-                    {lstPermission.indexOf("SYS") > -1 &&
-                        <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
-                            {lstPermission.indexOf("PER-GROUP") > -1 &&
-                                <Menu.Item key="#/system-control/grant-permission" >
-                                    <Link to={'/system-control/grant-permission'} className="nav-link" >
-                                        <Icon type="flag" />
-                                        <span>Quản lý phân quyền</span>
-                                    </Link>
-                                </Menu.Item>
-                            }
-                        </SubMenu>
-                    }
+                    <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
+                        <Menu.Item key="#/system-control/post-article" >
+                            <Link to={'/system-control/post-article'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Đăng bài viết</span>
+                            </Link>
+                        </Menu.Item>
+                        {lstPermission.indexOf("PER-GROUP") > -1 &&
+                            <Menu.Item key="#/system-control/grant-permission" >
+                                <Link to={'/system-control/grant-permission'} className="nav-link" >
+                                    <Icon type="flag" />
+                                    <span>Quản lý phân quyền</span>
+                                </Link>
+                            </Menu.Item>
+                        }
+                    </SubMenu>
                 </Menu>
             </Sider>
         )
