@@ -71,3 +71,18 @@ button.margin-bottom-5{
   font-size: 20px;
 }
 
+.list-provider-filter{
+  .ant-select.ant-select-enabled{
+      width: 100%;
+  }
+  .ant-form-item-label label{
+      font-weight: bold;
+      color: rgba(0,0,0,0.65);
+  }
+  .ant-form-item-label{
+      text-align: left;
+  }
+  .ant-form-item-control-wrapper{
+      padding: 0px 5px;
+  }
+}

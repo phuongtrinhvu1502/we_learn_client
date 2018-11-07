@@ -36,6 +36,10 @@ class FormTemplate extends Component {
                 let params = JSON.parse(JSON.stringify(values))
                 params.content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
                 console.log(params)
+                if (this.props.match.params.id == undefined)
+                    this.props.insertArticle(params)
+                else
+                    this.props.updateArticle(params)
             } else {
                 scrollToErrorForm(err)
             }
@@ -59,14 +63,18 @@ class FormTemplate extends Component {
                 <Row>
                     <Col className="formInputRow" span={24}>
                         <FormItem {...formItemLayout} label="Danh mục bài viết">
-                            {getFieldDecorator('place_type_code',
+                            {getFieldDecorator('topic_type',
                                 {
-                                    rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
-                                    { type: "string", required: true, whitespace: true, message: "Nhập Chọn danh mục bài viết" },
+                                    rules: [
+                                        { type: "number", required: true, whitespace: true, message: "Nhập Chọn danh mục bài viết" },
                                     ],
                                 }
                             )(
-                                <Input placeholder="Nhập Chọn danh mục bài viết" />
+                                <Select placeholder="Nhập Chọn danh mục bài viết">
+                                    <Option key={0} value={0}>News</Option>
+                                    <Option key={1} value={1}>Grammar</Option>
+                                    <Option key={2} value={2}>Event</Option>
+                                </Select>
                             )}
                         </FormItem>
                     </Col>
@@ -74,7 +82,7 @@ class FormTemplate extends Component {
                 <Row>
                     <Col className="formInputRow" span={24}>
                         <FormItem {...formItemLayout} label="Nhập tiêu đề bài viết">
-                            {getFieldDecorator('place_type_code',
+                            {getFieldDecorator('topic_title',
                                 {
                                     rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
                                     { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề bài viết" },

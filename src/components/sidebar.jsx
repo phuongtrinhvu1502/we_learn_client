@@ -126,7 +126,7 @@ class Sidebar extends Component {
                     <Menu.Item key="#/">
                         <Link to={'/dashboard'} className="nav-link" >
                             <i style={{ width: '16px', height: '16px' }} className="fas fa-home"></i>&nbsp;&nbsp;
-                            <span>Dashboard</span>
+                            <span>Homepage</span>
                         </Link>
                     </Menu.Item>
                     <SubMenu key="subMenuGrammar" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Ngữ pháp</span></span>}>
@@ -150,10 +150,10 @@ class Sidebar extends Component {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
-                        <Menu.Item key="#/system-control/post-article" >
-                            <Link to={'/system-control/post-article'} className="nav-link" >
+                        <Menu.Item key="#/system-control/list-article" >
+                            <Link to={'/system-control/list-article'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Đăng bài viết</span>
+                                <span>Danh sách bài viết</span>
                             </Link>
                         </Menu.Item>
                         {lstPermission.indexOf("PER-GROUP") > -1 &&

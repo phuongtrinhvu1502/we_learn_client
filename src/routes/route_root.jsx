@@ -39,9 +39,16 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/login.jsx')
 					.then(module => module.default), { name: 'login' })
 			},
+			//Grammar
 			{
 				path: '/grammar/present-tenses',
 				component: asyncComponent(() => System.import('../containers/grammar/present_container.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			//Article
+			{
+				path: '/system-control/list-article',
+				component: asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			{
