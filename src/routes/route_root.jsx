@@ -56,6 +56,17 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//Image
+			// {
+			// 	path: '/system-control/list-image',
+			// 	component: asyncComponent(() => System.import('../containers/adminPanel/listImage.jsx')
+			// 		.then(module => module.default), { name: 'name' })
+			// },
+			{
+				path: '/system-control/upload-image',
+				component: asyncComponent(() => System.import('../containers/adminPanel/uploadImg.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 			{
 				path: '/not-found',
 				component: (

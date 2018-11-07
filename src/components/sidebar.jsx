@@ -156,6 +156,12 @@ class Sidebar extends Component {
                                 <span>Danh sách bài viết</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="#/system-control/upload-image" >
+                            <Link to={'/system-control/upload-image'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Upload Ảnh</span>
+                            </Link>
+                        </Menu.Item>
                         {lstPermission.indexOf("PER-GROUP") > -1 &&
                             <Menu.Item key="#/system-control/grant-permission" >
                                 <Link to={'/system-control/grant-permission'} className="nav-link" >
