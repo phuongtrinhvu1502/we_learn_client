@@ -52,7 +52,7 @@ const routes = [
 					.then(module => module.default), { name: 'name' })
 			},
 			{
-				path: '/system-control/post-article',
+				path: '/system-control/post-article/:id?',
 				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},

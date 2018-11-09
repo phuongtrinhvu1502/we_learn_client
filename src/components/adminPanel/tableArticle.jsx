@@ -36,13 +36,13 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
 
         },
         {
-            title: 'Danh mục', dataIndex: "article_type", width: '20%',
+            title: 'Danh mục', dataIndex: "article_type_name", width: '20%',
         },
         {
             title: 'Ngày tạo', dataIndex: "created_date", width: '15%',
         },
         {
-            title: 'Người tạo', dataIndex: "created_name", width: '15%',
+            title: 'Người tạo', dataIndex: "full_name", width: '15%',
         },
         {
             title: 'Chức năng', dataIndex: "action", width: '10%', align: "center",
@@ -56,7 +56,7 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
                             <span>
                                 <Divider type="vertical" />
-                                <Popconfirm className="nav-link" title="Bạn có muốn xóa phòng ban này không?" onConfirm={() => onRemove(record.article_id)}>
+                                <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.article_id)}>
                                     <a href="#" title="Xóa"><i className="far fa-trash-alt"></i></a>
                                 </Popconfirm>
                             </span>

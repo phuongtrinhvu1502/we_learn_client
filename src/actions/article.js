@@ -18,11 +18,11 @@ export const insertArticle = (params) => {
 export const updateArticle = (params) => {
     let url = '/article/update'
     let type = 'UPDATE_ARTICLE'
-    return requestPutJsonReturnDispatch(url, params, type)
+    return requestPostJsonReturnDispatch(url, params, type)
 }
 
 export const fetchArticleById = (params) => {
-    let url = '/article/get-article-by-id?id=' + params
+    let url = '/article/get-article-by-id?article_id=' + params
     let type = 'GET_ARTICLE_BY_ID'
     return requestGetJsonReturnDispatch(url, type)
 }

@@ -29,6 +29,7 @@ const mapStateToProps = (state) => {
         msg: state.article.msg,
         success: state.article.success,
         countUpdate: state.article.countUpdate,
+        data: state.article.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {

@@ -67,7 +67,6 @@ class ListPlaceType extends Component {
         pagination.current = 1
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject, this.state.searchText);
-        console.log(params)
         this.props.listArticlePagination(params);
     }
 
@@ -98,7 +97,7 @@ class ListPlaceType extends Component {
         } else {
             params = { ...this.state.pagination, ...this.state.filterParam }
         }
-        // this.props.listArticlePagination(params);
+        this.props.listArticlePagination(params);
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -287,7 +286,6 @@ class ListPlaceType extends Component {
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject);
         this.resetSelected();
-        console.log(params)
         this.props.listArticlePagination(params);
     }
 
