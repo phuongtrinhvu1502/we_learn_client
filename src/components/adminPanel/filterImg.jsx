@@ -8,9 +8,6 @@ const Panel = Collapse.Panel
 
 const InsertImage = (props) => {
     const { img_lstfile, onInsert, props_upload } = props
-    // const dateString = moment('2014-12-13', 'YYYY-MM-DD').toDate();
-    // const dateObj = new Date(dateString);
-    // const momentObj = moment(dateObj);
     return (
         <Collapse className="collapse-search-area-frm">
             <Panel header="Tìm kiếm">

@@ -49,7 +49,7 @@ const TableOpportunity = ({ listImage, filterDropdownVisible, searchText, change
             onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'article_type'),
         },
         {
-            title: 'Nội dung', dataIndex: "content", width: '30%',
+            title: 'Người tạo', dataIndex: "created_name", width: '30%',
         },
         {
             title: 'Chức năng', dataIndex: "action", width: '10%', align: "center",

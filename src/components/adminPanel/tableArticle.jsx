@@ -36,21 +36,13 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
 
         },
         {
-            title: 'Danh mục', dataIndex: "article_type", width: '20%', filter: false, sorter: true,
-            sortOrder: pagination.sortField == 'article_type' ? pagination.sortOrder : false,
-            filterDropdown: <FilterTable
-                value={searchText.article_type}
-                onInputChange={onInputChange}
-                searchInput={searchInput}
-                changeInputSearch={changeInputSearch}
-                fieldName="article_type"
-            />,
-            filterIcon: <Icon type="filter" style={{ color: '#108ee9' }} />,
-            filterDropdownVisible: filterDropdownVisible.article_type,
-            onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'article_type'),
+            title: 'Danh mục', dataIndex: "article_type", width: '20%',
         },
         {
-            title: 'Nội dung', dataIndex: "content", width: '30%',
+            title: 'Ngày tạo', dataIndex: "created_date", width: '15%',
+        },
+        {
+            title: 'Người tạo', dataIndex: "created_name", width: '15%',
         },
         {
             title: 'Chức năng', dataIndex: "action", width: '10%', align: "center",

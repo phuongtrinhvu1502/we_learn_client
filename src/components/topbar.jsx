@@ -22,13 +22,7 @@ class Topbar extends Component {
     render() {
         const { logout, sidebarCollapse, activeSidebar } = this.props
         return (
-            <Header style={{ background: '#fff', paddingLeft: '15px', paddingRight: '10px' }}>
-                <Icon
-                    style={{ fontSize: '30px' }}
-                    className="glyphicon glyphicon-align-justify"
-                    type={activeSidebar ? 'menu-unfold' : 'menu-fold'}
-                    onClick={sidebarCollapse}
-                />
+            <Header style={{ background: '#fff', paddingLeft: '15px', paddingRight: '10px', borderBottom: '2px solid cadetblue' }}>
                 {/* <Link to={'/user/change-password/'}
                     className="nav-link" ><span>PhuNB</span></Link> */}
                 {this.token === undefined || this.token == "" ?
