@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Button, Modal, Form, Input, Radio, Col, Select, Row, Divider, notification, DatePicker, Upload } from 'antd';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
-import { stateFromHTML } from 'draft-js-import-html';
 import { scrollToErrorForm } from '../../actions/reuse_action/reuse';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { Editor } from 'react-draft-wysiwyg';
-import { Link } from 'react-router-dom'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import CommentPanel from '../../components/ultilities/commentPanel.jsx';
 const { TextArea } = Input;
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -107,6 +104,9 @@ class FormTemplate extends Component {
                     {ReactHtmlParser(this.props.articleItem.article_content)}
                 </Row>
                 <Divider />
+                <CommentPanel
+                    articleItem={this.props.articleItem}
+                />
             </div>
         )
     }

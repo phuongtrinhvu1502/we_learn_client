@@ -4,11 +4,12 @@ const initialState = {
         article_title: "Tieu de bai viet",
         article_content: "<div>Example <b>HTML</b> string</div>",
         listCommentByPage: [
-            { user_id: 1, user_login: "hongpx", comment_id: 1, comment_content: "<div>Example <b>HTML</b> string</div>" },
-            { user_id: 1, user_login: "hongpx", comment_id: 2, comment_content: "<div>Example <b>HTML</b> string</div>" },
-            { user_id: 1, user_login: "hongpx", comment_id: 3, comment_content: "<div>Example <b>HTML</b> string</div>" },
-            { user_id: 1, user_login: "hongpx", comment_id: 4, comment_content: "<div>Example <b>HTML</b> string</div>" },
-        ]
+            { user_id: 1, user_login: "hongpx", comment_id: 1, comment_content: "<div>Example <b>HTML</b> string</div>", created_date: "11-11-2018" },
+            { user_id: 1, user_login: "hongpx", comment_id: 2, comment_content: "<div>Example <b>HTML</b> string</div>", created_date: "11-11-2018" },
+            { user_id: 1, user_login: "hongpx", comment_id: 3, comment_content: "<div>Example <b>HTML</b> string</div>", created_date: "11-11-2018" },
+            { user_id: 1, user_login: "hongpx", comment_id: 4, comment_content: "<div>Example <b>HTML</b> string</div>", created_date: "11-11-2018" },
+        ],
+        total: 4,
     },
     listArticle: [],
     actionName: '',
