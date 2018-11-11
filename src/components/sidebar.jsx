@@ -129,11 +129,11 @@ class Sidebar extends Component {
                             <span>Homepage</span>
                         </Link>
                     </Menu.Item>
-                    <SubMenu key="subMenuLocation" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Ngữ pháp</span></span>}>
-                        <Menu.Item key="#/grammar/present-tenses" >
-                            <Link to={'/grammar/present-tenses'} className="nav-link" >
+                    <SubMenu key="subMenuLocation" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Bài viết</span></span>}>
+                        <Menu.Item key="#/article/view-article" >
+                            <Link to={'/article/view-article'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Thì hiện tại</span>
+                                <span>Bài viết</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>

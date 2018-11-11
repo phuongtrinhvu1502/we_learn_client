@@ -39,13 +39,24 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/login.jsx')
 					.then(module => module.default), { name: 'login' })
 			},
+			//Article
+			// {
+			// 	path: '/article/list-article',
+			// 	component: asyncComponent(() => System.import('../containers/userPanel/listArticle.jsx')
+			// 		.then(module => module.default), { name: 'name' })
+			// },
+			{
+				path: '/article/view-article/:id?',
+				component: asyncComponent(() => System.import('../containers/userPanel/viewArticle.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 			//Grammar
 			{
 				path: '/grammar/present-tenses',
 				component: asyncComponent(() => System.import('../containers/grammar/present_container.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
-			//Article
+			//System control Article
 			{
 				path: '/system-control/list-article',
 				component: asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')

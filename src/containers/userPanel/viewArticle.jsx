@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { insertArticle, updateArticle, fetchArticleById } from '../../actions/article';
-import Article from '../../components/adminPanel/postArticle.jsx';
+import { postComment, editComment, viewArticleById } from '../../actions/viewArticle';
+import Article from '../../components/userPanel/viewArticle.jsx';
 import { notification, Input, Divider } from 'antd';
 
 class viewArticle extends Component {
@@ -12,7 +12,7 @@ class viewArticle extends Component {
     render() {
         return (
             <div>
-                <h3>Đăng bài</h3>
+                <h3>{this.props.articleItem.article_title}</h3>
                 <Divider />
                 <Article {...this.props}
                 />
@@ -22,25 +22,25 @@ class viewArticle extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        articleItem: state.article.articleItem,
-        actionName: state.article.actionName,
-        countFetchById: state.article.countFetchById,
-        msg: state.article.msg,
-        success: state.article.success,
-        countUpdate: state.article.countUpdate,
-        data: state.article.data,
+        articleItem: state.viewArt.articleItem,
+        actionName: state.viewArt.actionName,
+        countFetchById: state.viewArt.countFetchById,
+        msg: state.viewArt.msg,
+        success: state.viewArt.success,
+        countUpdate: state.viewArt.countUpdate,
+        data: state.viewArt.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        insertArticle: (params) => {
-            dispatch(insertArticle(params))
+        postComment: (params) => {
+            dispatch(postComment(params))
         },
-        updateArticle: (params) => {
-            dispatch(updateArticle(params))
+        editComment: (params) => {
+            dispatch(editComment(params))
         },
-        fetchArticleById: (params) => {
-            dispatch(fetchArticleById(params))
+        viewArticleById: (params) => {
+            dispatch(viewArticleById(params))
         },
     }
 }

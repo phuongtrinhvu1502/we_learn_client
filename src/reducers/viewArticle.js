@@ -1,6 +1,15 @@
 
 const initialState = {
-    articleItem: {},
+    articleItem: {
+        article_title: "Tieu de bai viet",
+        article_content: "<div>Example <b>HTML</b> string</div>",
+        listCommentByPage: [
+            { user_id: 1, user_login: "hongpx", comment_id: 1, comment_content: "<div>Example <b>HTML</b> string</div>" },
+            { user_id: 1, user_login: "hongpx", comment_id: 2, comment_content: "<div>Example <b>HTML</b> string</div>" },
+            { user_id: 1, user_login: "hongpx", comment_id: 3, comment_content: "<div>Example <b>HTML</b> string</div>" },
+            { user_id: 1, user_login: "hongpx", comment_id: 4, comment_content: "<div>Example <b>HTML</b> string</div>" },
+        ]
+    },
     listArticle: [],
     actionName: '',
     countUpdate: 0,
@@ -14,7 +23,7 @@ const initialState = {
     msg: '',
     data: null,
 }
-const article = (state = initialState, action = {}) => {
+const viewArt = (state = initialState, action = {}) => {
     switch (action.type) {
         case 'VIEW_ARTICLE_BY_ID':
             return {
@@ -29,4 +38,4 @@ const article = (state = initialState, action = {}) => {
             return state;
     }
 }
-export default article
+export default viewArt

@@ -27,9 +27,9 @@ class FormTemplate extends Component {
     }
 
     componentDidMount() {
-        // if (this.props.match.params.id != undefined) {
-        //     this.props.fetchArticleById(this.props.match.params.id)
-        // }
+        if (this.props.match.params.id != undefined) {
+            this.props.fetchArticleById(this.props.match.params.id)
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -77,13 +77,13 @@ class FormTemplate extends Component {
             if (!err) {
                 let params = JSON.parse(JSON.stringify(values))
                 params.article_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-                console.log(params)
-                // if (this.props.match.params.id == undefined)
-                //     this.props.insertArticle(params)
-                // else {
-                //     params.article_id = this.props.match.params.id
-                //     this.props.updateArticle(params)
-                // }
+
+                if (this.props.match.params.id == undefined)
+                    this.props.insertArticle(params)
+                else {
+                    params.article_id = this.props.match.params.id
+                    this.props.updateArticle(params)
+                }
             } else {
                 scrollToErrorForm(err)
             }
@@ -100,14 +100,65 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
+        const html = '<div>Example <b>HTML</b> string</div>';
 
         return (
-            <div>
+            <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
-                    {ReactHtmlParser(this.props.articleItem.article_content)}
+                    <Col className="formInputRow" span={24}>
+                        <FormItem {...formItemLayout} label="Danh mục bài viết">
+                            {getFieldDecorator('article_type',
+                                {
+                                    rules: [
+                                        { type: "number", required: true, whitespace: true, message: "Nhập Chọn danh mục bài viết" },
+                                    ],
+                                }
+                            )(
+                                <Select placeholder="Nhập Chọn danh mục bài viết">
+                                    <Option key={1} value={1}>News</Option>
+                                    <Option key={2} value={2}>Grammar</Option>
+                                    <Option key={3} value={3}>Event</Option>
+                                </Select>
+                            )}
+                        </FormItem>
+                    </Col>
                 </Row>
-                <Divider />
-            </div>
+                <Row>
+                    <Col className="formInputRow" span={24}>
+                        <FormItem {...formItemLayout} label="Nhập tiêu đề bài viết">
+                            {getFieldDecorator('article_title',
+                                {
+                                    rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
+                                    { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề bài viết" },
+                                    ],
+                                }
+                            )(
+                                <Input placeholder="Nhập Nhập tiêu đề bài viết" />
+                            )}
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Editor
+                        placeholder="Insert comment ... "
+                        editorState={this.state.editorState}
+                        wrapperClassName="demo-wrapper"
+                        editorClassName="demo-editor"
+                        onEditorStateChange={this.onEditorStateChange}
+                    />
+                </Row>
+
+                <Row style={{ textAlign: 'center', marginTop: '5px' }}>
+                    <Button type="primary" className="text-right btn btn-success" htmlType="submit">
+                        {this.props.match.params.id == undefined ? "Create" : "Update"}
+                    </Button>
+                    &nbsp;
+                    <Button type="primary" className="text-right btn btn-success">
+                        <Link to={'/place-type/list-place-type'}
+                            className="nav-link" >Back</Link>
+                    </Button>
+                </Row>
+            </Form >
         )
     }
 }
