@@ -47,7 +47,7 @@ class FormTemplate extends Component {
         };
 
         return (
-            <div>
+            <div className="ant-row"> 
                 <Row>
                     <Editor
                         placeholder="Insert comment ... "
@@ -66,10 +66,10 @@ class FormTemplate extends Component {
                     {
                         this.props.articleItem.listCommentByPage.map(item => {
                             return (
-                                <div className="cmt-box col-md-12">
+                                <div className="cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div className="cmt-user">
-                                        <div className="cmt-user-info col-md-2">
-                                            <div className="cmt-user-avatar col-md-12">
+                                        <div className="cmt-user-info col-md-2 col-sm-2 col-xs-2 col-lg-2">
+                                            <div className="cmt-user-avatar col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                                 <img src="https://image.flaticon.com/icons/png/512/149/149071.png"
                                                     width="48" height="48" alt={item.user_login} />
                                             </div>
@@ -77,7 +77,7 @@ class FormTemplate extends Component {
                                                 {item.user_login}
                                             </p>
                                         </div>
-                                        <div className="cmt-user-content col-md-10">
+                                        <div className="cmt-user-content col-md-10 col-sm-10 col-xs-10 col-lg-10">
                                             <p>Commented at: {item.created_date}</p>
                                             <p>{ReactHtmlParser(item.comment_content)}</p>
                                         </div>

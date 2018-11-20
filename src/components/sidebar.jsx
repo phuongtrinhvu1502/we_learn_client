@@ -44,11 +44,8 @@ class Sidebar extends Component {
         if (window.location.hash.includes('/area/')) {
             this.setState({ activeKey: "subMenuArea" })
         }
-        else if (window.location.hash.includes('/location/')) {
-            this.setState({ activeKey: "subMenuLocation" })
-        }
-        else if (window.location.hash.includes('/place/')) {
-            this.setState({ activeKey: "subMenuLocation" })
+        else if (window.location.hash.includes('/forums/')) {
+            this.setState({ activeKey: "subMenuForum" })
         }
         else if (window.location.hash.includes('/opportunity/')) {
             this.setState({ activeKey: "subMenuGrammar" })
@@ -81,11 +78,8 @@ class Sidebar extends Component {
             if (nextProps.hash.includes('/area/')) {
                 this.setState({ activeKey: "subMenuArea" })
             }
-            else if (nextProps.hash.includes('/location/')) {
-                this.setState({ activeKey: "subMenuLocation" })
-            }
-            else if (nextProps.hash.includes('/place/')) {
-                this.setState({ activeKey: "subMenuLocation" })
+            else if (nextProps.hash.includes('/forums/')) {
+                this.setState({ activeKey: "subMenuForum" })
             }
             else if (nextProps.hash.includes('/opportunity/')) {
                 this.setState({ activeKey: "subMenuGrammar" })
@@ -129,11 +123,11 @@ class Sidebar extends Component {
                             <span>Homepage</span>
                         </Link>
                     </Menu.Item>
-                    <SubMenu key="subMenuLocation" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Bài viết</span></span>}>
-                        <Menu.Item key="#/article/view-article" >
-                            <Link to={'/article/view-article'} className="nav-link" >
+                    <SubMenu key="subMenuForum" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Diễn đàn</span></span>}>
+                        <Menu.Item key="#/forums/list-qa" >
+                            <Link to={'/forums/list-qa'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Bài viết</span>
+                                <span>Hỏi đáp</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>
