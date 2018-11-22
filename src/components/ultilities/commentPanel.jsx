@@ -8,7 +8,6 @@ import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { Editor } from 'react-draft-wysiwyg';
-import { Link } from 'react-router-dom'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -47,7 +46,7 @@ class FormTemplate extends Component {
         };
 
         return (
-            <div className="ant-row"> 
+            <div className="ant-row">
                 <Row>
                     <Editor
                         placeholder="Insert comment ... "
@@ -64,7 +63,7 @@ class FormTemplate extends Component {
                 </Row>
                 <Row>
                     {
-                        this.props.articleItem.listCommentByPage.map(item => {
+                        this.props.qaItem.listCommentByPage != undefined && this.props.qaItem.listCommentByPage.map(item => {
                             return (
                                 <div className="cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div className="cmt-user">
@@ -88,7 +87,7 @@ class FormTemplate extends Component {
                     }
                 </Row>
                 <Row style={{ float: 'right', marginTop: "5px" }}>
-                    <Pagination defaultCurrent={1} total={this.props.articleItem.total} pageSize={2} />
+                    <Pagination defaultCurrent={1} total={this.props.qaItem.total} pageSize={2} />
                 </Row>
             </div>
         )

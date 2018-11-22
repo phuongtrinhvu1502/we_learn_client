@@ -20,23 +20,13 @@ class FormTemplate extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id != undefined) {
-            this.props.viewArticleById(this.props.match.params.id)
+            this.props.viewQAById(this.props.match.params.id)
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.match.params.id != this.props.match.params.id) {
-            if (nextProps.match.params.id != undefined && !isNaN(nextProps.match.params.id)) {
-                this.props.viewArticleById(nextProps.match.params.id)
-            }
-            else if (nextProps.match.params.id == undefined) {
-                window.location.reload();
-            }
-            else
-                this.props.history.push('/not-found')
-        }
         if (nextProps.countFetchById > this.props.countFetchById) {
-            let contentBlock = htmlToDraft(nextProps.articleItem.article_content);
+            let contentBlock = htmlToDraft(nextProps.qaItem.qa_content);
             if (contentBlock) {
                 let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 let editorState = EditorState.createWithContent(contentState);
@@ -61,8 +51,12 @@ class FormTemplate extends Component {
         return (
             <div>
                 <Row>
-                    {ReactHtmlParser(this.props.articleItem.article_content)}
+                    {ReactHtmlParser(this.props.qaItem.qa_content)}
                 </Row>
+                <Divider />
+                <CommentPanel
+                    qaItem={this.props.qaItem}
+                />
             </div>
         )
     }

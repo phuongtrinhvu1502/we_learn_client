@@ -28,18 +28,17 @@ class FormTemplate extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id != undefined) {
-            this.props.fetchArticleById(this.props.match.params.id)
+            this.props.fetchQAById(this.props.match.params.id)
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.countFetchById > this.props.countFetchById) {
             this.props.form.setFieldsValue({
-                article_title: nextProps.articleItem.article_title,
-                article_type: nextProps.articleItem.article_type,
+                qa_title: nextProps.qaItem.qa_title,
             })
 
-            let contentBlock = htmlToDraft(nextProps.articleItem.article_content);
+            let contentBlock = htmlToDraft(nextProps.qaItem.qa_content);
             if (contentBlock) {
                 let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 let editorState = EditorState.createWithContent(contentState);
@@ -52,14 +51,14 @@ class FormTemplate extends Component {
             if (nextProps.actionName == "insert") {
                 notification.success({
                     message: "Success",
-                    description: "Insert Article Success"
+                    description: "Insert QA Success"
                 })
-                this.props.history.push("/system-control/list-article/")
+                this.props.history.push("/forums/list-qa/")
             }
             else if (nextProps.actionName == "update") {
                 notification.success({
                     message: "Success",
-                    description: "Update Article Success"
+                    description: "Update QA Success"
                 })
             }
         }
@@ -76,13 +75,13 @@ class FormTemplate extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let params = JSON.parse(JSON.stringify(values))
-                params.article_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+                params.qa_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
 
                 if (this.props.match.params.id == undefined)
-                    this.props.insertArticle(params)
+                    this.props.insertQA(params)
                 else {
-                    params.article_id = this.props.match.params.id
-                    this.props.updateArticle(params)
+                    params.qa_id = this.props.match.params.id
+                    this.props.updateQA(params)
                 }
             } else {
                 scrollToErrorForm(err)
@@ -100,40 +99,20 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
-        const html = '<div>Example <b>HTML</b> string</div>';
 
         return (
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Danh mục bài viết">
-                            {getFieldDecorator('article_type',
+                        <FormItem {...formItemLayout} label="Nhập tiêu đề câu hỏi">
+                            {getFieldDecorator('qa_title',
                                 {
-                                    rules: [
-                                        { type: "number", required: true, whitespace: true, message: "Nhập Chọn danh mục bài viết" },
+                                    rules: [{ type: "string", max: 50, message: "Không nhập quá 50 ký tự" },
+                                    { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề câu hỏi" },
                                     ],
                                 }
                             )(
-                                <Select placeholder="Nhập Chọn danh mục bài viết">
-                                    <Option key={1} value={1}>News</Option>
-                                    <Option key={2} value={2}>Grammar</Option>
-                                    <Option key={3} value={3}>Event</Option>
-                                </Select>
-                            )}
-                        </FormItem>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Nhập tiêu đề bài viết">
-                            {getFieldDecorator('article_title',
-                                {
-                                    rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
-                                    { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề bài viết" },
-                                    ],
-                                }
-                            )(
-                                <Input placeholder="Nhập Nhập tiêu đề bài viết" />
+                                <Input placeholder="Nhập Nhập tiêu đề câu hỏi" />
                             )}
                         </FormItem>
                     </Col>
@@ -142,7 +121,7 @@ class FormTemplate extends Component {
                     <Editor
                         editorState={this.state.editorState}
                         wrapperClassName="demo-wrapper"
-                        editorClassName="demo-editor"
+                        editorClassName="demo-editor-qa"
                         onEditorStateChange={this.onEditorStateChange}
                     />
                 </Row>
@@ -153,7 +132,7 @@ class FormTemplate extends Component {
                     </Button>
                     &nbsp;
                     <Button type="primary" className="text-right btn btn-success">
-                        <Link to={'/place-type/list-place-type'}
+                        <Link to={'/forums/list-qa'}
                             className="nav-link" >Back</Link>
                     </Button>
                 </Row>

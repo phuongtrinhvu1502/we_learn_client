@@ -4,7 +4,7 @@ import { viewArticleById } from '../../actions/viewArticle';
 import Article from '../../components/userPanel/viewArticle.jsx';
 import { notification, Input, Divider } from 'antd';
 
-class viewArticle extends Component {
+class Grammar extends Component {
     constructor(props) {
         super(props)
     }
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch) => {
         },
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(viewArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(Grammar);

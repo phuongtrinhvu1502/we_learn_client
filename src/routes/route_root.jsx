@@ -47,13 +47,13 @@ const routes = [
 			// },
 			{
 				path: '/article/view-article/:id?',
-				component: asyncComponent(() => System.import('../containers/userPanel/viewArticle.jsx')
+				component: asyncComponent(() => System.import('../containers/userPanel/view_QA.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//Grammar
 			{
-				path: '/grammar/present-tenses',
-				component: asyncComponent(() => System.import('../containers/grammar/present_container.jsx')
+				path: '/grammar/:id?',
+				component: asyncComponent(() => System.import('../containers/grammar/grammar_container.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//System control Article
@@ -76,6 +76,11 @@ const routes = [
 			{
 				path: '/forums/post-qa/:id?',
 				component: asyncComponent(() => System.import('../containers/userPanel/post_QA.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/forums/view-qa/:id?',
+				component: asyncComponent(() => System.import('../containers/userPanel/view_QA.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//Image

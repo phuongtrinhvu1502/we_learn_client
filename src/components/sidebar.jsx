@@ -47,7 +47,7 @@ class Sidebar extends Component {
         else if (window.location.hash.includes('/forums/')) {
             this.setState({ activeKey: "subMenuForum" })
         }
-        else if (window.location.hash.includes('/opportunity/')) {
+        else if (window.location.hash.includes('/grammar/')) {
             this.setState({ activeKey: "subMenuGrammar" })
         }
         else if (window.location.hash.includes('/provider/')) {
@@ -81,7 +81,7 @@ class Sidebar extends Component {
             else if (nextProps.hash.includes('/forums/')) {
                 this.setState({ activeKey: "subMenuForum" })
             }
-            else if (nextProps.hash.includes('/opportunity/')) {
+            else if (nextProps.hash.includes('/grammar/')) {
                 this.setState({ activeKey: "subMenuGrammar" })
             }
             else if (nextProps.hash.includes('/provider/')) {
@@ -132,20 +132,20 @@ class Sidebar extends Component {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu key="subMenuGrammar" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Ngữ pháp</span></span>}>
-                        <Menu.Item key="#/grammar/present-tenses" >
-                            <Link to={'/grammar/present-tenses'} className="nav-link" >
+                        <Menu.Item key="#/grammar/4" >
+                            <Link to={'/grammar/4'} className="nav-link" >
                                 <Icon type="flag" />
                                 <span>Thì hiện tại</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="#/grammar/past-tenses" >
-                            <Link to={'/grammar/past-tenses'} className="nav-link" >
+                        <Menu.Item key="#/grammar/5" >
+                            <Link to={'/grammar/5'} className="nav-link" >
                                 <Icon type="flag" />
                                 <span>Thì quá khứ</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="#/grammar/future-tenses" >
-                            <Link to={'/grammar/future-tenses'} className="nav-link" >
+                        <Menu.Item key="#/grammar/6" >
+                            <Link to={'/grammar/6'} className="nav-link" >
                                 <Icon type="flag" />
                                 <span>Thì tương lai</span>
                             </Link>
