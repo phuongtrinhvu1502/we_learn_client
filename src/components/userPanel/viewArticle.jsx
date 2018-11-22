@@ -5,6 +5,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { scrollToErrorForm } from '../../actions/reuse_action/reuse';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
+import { Link } from 'react-router-dom'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import CommentPanel from '../ultilities/commentPanel.jsx';
 import cookie from 'react-cookies'
@@ -62,6 +63,12 @@ class FormTemplate extends Component {
             <div>
                 <Row>
                     {ReactHtmlParser(this.props.articleItem.article_content)}
+                </Row>
+                <Row style={{ textAlign: 'center', marginTop: '5px' }}>
+                    <Button type="primary" className="text-right btn btn-success">
+                        <Link to={'/'}
+                            className="nav-link" >Back</Link>
+                    </Button>
                 </Row>
             </div>
         )

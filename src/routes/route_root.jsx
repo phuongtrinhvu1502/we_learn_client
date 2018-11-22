@@ -47,7 +47,7 @@ const routes = [
 			// },
 			{
 				path: '/article/view-article/:id?',
-				component: asyncComponent(() => System.import('../containers/userPanel/view_QA.jsx')
+				component: asyncComponent(() => System.import('../containers/userPanel/viewArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//Grammar

@@ -9,6 +9,7 @@ import img from './image';
 import viewQA from './viewQA';
 import qa from './qa';
 import viewArticle from './viewArticle';
+import home from './homepage';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -16,7 +17,8 @@ const reducers = combineReducers({
 	article: article,
 	img: img,
 	viewQA: viewQA,
-	qa: qa,
 	viewArticle: viewArticle,
+	qa: qa,
+	home: home,
 });
 export default reducers;
