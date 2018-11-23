@@ -27,7 +27,7 @@
     padding: 0px
 }
 .cmt-user{
-    display: table-row;
+    display: flex;
 }
 .user-information{
     margin-bottom: 5px;
@@ -40,4 +40,12 @@
     padding: 15px;
     text-align: center;
     border-right: 1px dashed gray;
+}
+.cmt-user-content.col-md-10{
+    position:relative;
+}
+.cmt-user-content.col-md-10 > a {
+    position:absolute;
+    bottom:5px;
+    right:12px;
 }

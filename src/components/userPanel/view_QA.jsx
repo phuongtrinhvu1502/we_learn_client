@@ -55,7 +55,13 @@ class FormTemplate extends Component {
                 </Row>
                 <Divider />
                 <CommentPanel
-                    qaItem={this.props.qaItem}
+                    match={this.props.match}
+                    listCommentByPage={this.props.listCommentByPage}
+                    lstComment={this.props.lstComment}
+                    postComment={this.props.postComment}
+                    editComment={this.props.editComment}
+                    countUpdate={this.props.countUpdate}
+                    actionName={this.props.actionName}
                 />
             </div>
         )

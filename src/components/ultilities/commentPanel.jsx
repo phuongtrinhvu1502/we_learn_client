@@ -13,19 +13,78 @@ const { TextArea } = Input;
 const FormItem = Form.Item;
 const Option = Select.Option;
 import cookie from 'react-cookies'
-
+const regex = /(<([^>]+)>)/ig;
 
 class FormTemplate extends Component {
     constructor(props) {
         super(props)
         this.state = {
             editorState: EditorState.createEmpty(),
+            paginateComment: {
+                current: 1,
+                pageSize: 10,
+            },
+            is_edited: undefined,
         }
         this.onEditorStateChange = this.onEditorStateChange.bind(this)
+        this.handleCommentChange = this.handleCommentChange.bind(this)
+        this.editComment = this.editComment.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    editComment(item) {
+        let contentBlock = htmlToDraft(item.comment_content);
+        if (contentBlock) {
+            let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+            let editorState = EditorState.createWithContent(contentState);
+            this.setState({
+                is_edited: item.comment_id,
+                editorState,
+            })
+        }
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.countUpdate > this.props.countUpdate) {
+            if (nextProps.actionName == "postComment") {
+                notification.success({
+                    message: "Thành công",
+                    description: "Đăng comment thành công"
+                })
+                this.setState({
+                    editorState: EditorState.createEmpty(),
+                })
+                let paginateComment = { ...this.state.paginateComment }
+                this.props.listCommentByPage(paginateComment)
+            }
+            else if (nextProps.actionName == "editComment") {
+                notification.success({
+                    message: "Thành công",
+                    description: "Cập nhật comment thành công"
+                })
+                this.setState({
+                    editorState: EditorState.createEmpty(),
+                    is_edited: undefined,
+                })
+                let paginateComment = { ...this.state.paginateComment }
+                this.props.listCommentByPage(paginateComment)
+            }
+        }
+    }
 
+    handleCommentChange(pagination) {
+        let paginateComment = { ...this.state.paginateComment }
+        paginateComment.current = pagination
+        this.setState({
+            paginateComment
+        })
+        this.props.listCommentByPage(paginateComment)
+    }
+
+    componentDidMount() {
+        if (this.props.match.params.id != undefined) {
+            this.props.listCommentByPage(Object.assign(this.state.paginateComment, { qa_id: this.props.match.params.id }))
+        }
     }
 
     onEditorStateChange(editorState) {
@@ -33,6 +92,25 @@ class FormTemplate extends Component {
             editorState,
         });
     };
+
+    handleSubmit() {
+        let params = {};
+        params.qa_id = this.props.match.params.id
+        params.content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        if (params.content.replace(regex, '').length < 22) {
+            notification.warn({
+                message: "Thông báo",
+                description: "Comment phải có độ dài lớn hơn 20 ký tự"
+            })
+            return
+        }
+        if (this.state.is_edited == undefined)
+            this.props.postComment(params)
+        else {
+            params.qa_comment_id = this.state.is_edited
+            this.props.editComment(params)
+        }
+    }
 
     render() {
         const { form } = this.props;
@@ -57,13 +135,13 @@ class FormTemplate extends Component {
                     />
                 </Row>
                 <Row style={{ textAlign: 'right', marginTop: '5px' }}>
-                    <Button size="small" type="primary" className="text-right btn btn-success" htmlType="submit">
-                        Post Comment
+                    <Button size="small" type="primary" className="text-right btn btn-success" onClick={() => this.handleSubmit()}>
+                        {this.state.is_edited == undefined ? "Post Comment" : "Update Comment"}
                     </Button>
                 </Row>
                 <Row>
                     {
-                        this.props.qaItem.listCommentByPage != undefined && this.props.qaItem.listCommentByPage.map(item => {
+                        this.props.lstComment.results != undefined && this.props.lstComment.results.map(item => {
                             return (
                                 <div className="cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                     <div className="cmt-user">
@@ -79,6 +157,7 @@ class FormTemplate extends Component {
                                         <div className="cmt-user-content col-md-10 col-sm-10 col-xs-10 col-lg-10">
                                             <p>Commented at: {item.created_date}</p>
                                             <p>{ReactHtmlParser(item.comment_content)}</p>
+                                            <a style={{ float: 'right' }} href="javascript:void(0);" onClick={() => this.editComment(item)}>Edit</a>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +166,10 @@ class FormTemplate extends Component {
                     }
                 </Row>
                 <Row style={{ float: 'right', marginTop: "5px" }}>
-                    <Pagination defaultCurrent={1} total={this.props.qaItem.total} pageSize={2} />
+                    <Pagination defaultCurrent={1}
+                        onChange={this.handleCommentChange}
+                        total={this.props.lstComment.total}
+                        pageSize={this.state.paginateComment.pageSize} />
                 </Row>
             </div>
         )

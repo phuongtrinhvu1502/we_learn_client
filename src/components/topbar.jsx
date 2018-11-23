@@ -16,7 +16,7 @@ class Topbar extends Component {
             cookie.remove('userInfo')
             cookie.remove('token', { path: '/' })
             this.props.resetStoreBar()
-            this.props.history.push('/login')
+            window.location.reload()
         }
     }
     render() {

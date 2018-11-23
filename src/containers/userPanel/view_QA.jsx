@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postComment, editComment, viewQAById } from '../../actions/viewQA';
+import { postComment, editComment, viewQAById, listCommentByPage } from '../../actions/viewQA';
 import QA from '../../components/userPanel/view_QA.jsx';
 import { notification, Input, Divider } from 'antd';
 
@@ -24,6 +24,7 @@ class viewQA extends Component {
 const mapStateToProps = (state) => {
     return {
         qaItem: state.viewQA.qaItem,
+        lstComment: state.viewQA.lstComment,
         actionName: state.viewQA.actionName,
         countFetchById: state.viewQA.countFetchById,
         msg: state.viewQA.msg,
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         viewQAById: (params) => {
             dispatch(viewQAById(params))
+        },
+        listCommentByPage: (params) => {
+            dispatch(listCommentByPage(params))
         },
     }
 }

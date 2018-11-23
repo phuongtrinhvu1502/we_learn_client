@@ -10,13 +10,19 @@ export const viewQAById = (params) => {
 }
 
 export const postComment = (params) => {
-    let url = '/qa/post-comment'
+    let url = '/qa-comment/insert'
     let type = 'POST_COMMENT_QA'
-    return requestDeleteJsonReturnDispatch(url, params, type)
+    return requestPostJsonReturnDispatch(url, params, type)
 }
 
 export const editComment = (params) => {
-    let url = '/qa/edit-comment'
+    let url = '/qa-comment/update'
     let type = 'EDIT_COMMENT_QA'
-    return requestPutJsonReturnDispatch(url, params, type)
+    return requestPostJsonReturnDispatch(url, params, type)
+}
+
+export const listCommentByPage = (params) => {
+    let url = '/qa-comment/list-comment-by-page'
+    let type = 'LIST_COMMENT_BY_PAGE'
+    return requestPostJsonReturnDispatch(url, params, type)
 }
