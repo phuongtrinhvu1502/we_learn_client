@@ -83,6 +83,18 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/userPanel/view_QA.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//List Test
+			{
+				path: '/test/list-reading',
+				component: asyncComponent(() => System.import('../containers/test/list_reading.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/test/view-reading/:id?',
+				component: asyncComponent(() => System.import('../containers/test/view_reading.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+
 			//Image
 			// {
 			// 	path: '/system-control/list-image',
