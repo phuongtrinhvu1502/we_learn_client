@@ -37,7 +37,7 @@ class ViewReadingComponent extends Component {
                         ]
                     },
                     {
-                        tq_id: 1, tq_content: "What is hello?",
+                        tq_id: 4, tq_content: "What is hello?",
                         lst_answer: [
                             { ta_id: 1, ta_content: "Hello is hello" },
                             { ta_id: 2, ta_content: "Hello is hi" },
@@ -45,7 +45,7 @@ class ViewReadingComponent extends Component {
                         ]
                     },
                     {
-                        tq_id: 2, tq_content: "What is hello1?",
+                        tq_id: 5, tq_content: "What is hello1?",
                         lst_answer: [
                             { ta_id: 4, ta_content: "Hello is hello" },
                             { ta_id: 5, ta_content: "Hello is hi" },
@@ -53,7 +53,7 @@ class ViewReadingComponent extends Component {
                         ]
                     },
                     {
-                        tq_id: 3, tq_content: "What is hello2?",
+                        tq_id: 6, tq_content: "What is hello2?",
                         lst_answer: [
                             { ta_id: 7, ta_content: "Hello is hello" },
                             { ta_id: 8, ta_content: "Hello is hi" },
@@ -61,29 +61,40 @@ class ViewReadingComponent extends Component {
                         ]
                     },
                 ],
-                total: 30
+                total: 6
             },
+            lstUserAnswer: [],
             current: 1,
             lstQuestionDisplay: [],
         }
         this.renderLstQuestion = this.renderLstQuestion.bind(this)
         this.changePage = this.changePage.bind(this)
         this.onChangeAnswer = this.onChangeAnswer.bind(this)
+        this.setLstUserAnswerDefault = this.setLstUserAnswerDefault.bind(this)
     }
 
     onChangeAnswer(ta_id, tq_id) {
-        console.log(tq_id, ta_id)
+        let lstUserAnswer = [...this.state.lstUserAnswer]
+        lstUserAnswer.forEach(item => {
+            if (item.tq_id == tq_id) {
+                item.us_choice = ta_id
+            }
+        })
+        this.setState({
+            lstUserAnswer
+        })
     }
 
     changePage(current) {
         this.setState({
             current
         })
+        this.renderLstQuestion(current);
     }
 
-    renderLstQuestion() {
+    renderLstQuestion(currentPage) {
         let lstQuestionDisplay = []
-        let current = (this.state.current - 1) * 5
+        let current = (currentPage - 1) * 5
         for (var i = current; i < current + 5; i++) {
             if (this.state.lstQuestion.results[i] == undefined)
                 break;
@@ -94,8 +105,25 @@ class ViewReadingComponent extends Component {
         })
     }
 
+    setLstUserAnswerDefault() {
+        let lstUserAnswer = [];
+        if (this.state.lstQuestion.results != undefined) {
+            let answerItem = {}
+            this.state.lstQuestion.results.map(item => {
+                answerItem.tq_id = item.tq_id
+                answerItem.us_choice = null
+                lstUserAnswer.push(answerItem)
+                answerItem = {}
+            })
+        }
+        this.setState({
+            lstUserAnswer
+        })
+    }
+
     componentDidMount() {
-        this.renderLstQuestion();
+        this.setLstUserAnswerDefault();
+        this.renderLstQuestion(this.state.current);
     }
 
     render() {
@@ -126,12 +154,14 @@ class ViewReadingComponent extends Component {
                         )
                     }
                 </Row>
-                <Pagination
-                    onChange={this.changePage}
-                    defaultCurrent={this.state.current}
-                    current={this.state.current}
-                    pageSize={5}
-                    total={this.state.lstQuestion.total} />
+                <Row style={{ textAlign: 'center' }}>
+                    <Pagination
+                        onChange={this.changePage}
+                        defaultCurrent={this.state.current}
+                        current={this.state.current}
+                        pageSize={5}
+                        total={this.state.lstQuestion.total} />
+                </Row>
             </Row>
         )
     }
