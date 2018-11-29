@@ -39,6 +39,11 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/login.jsx')
 					.then(module => module.default), { name: 'login' })
 			},
+			{
+				path: '/sign-up',
+				component: asyncComponent(() => System.import('../containers/signup.jsx')
+					.then(module => module.default), { name: 'sign-up' })
+			},
 			//Article
 			// {
 			// 	path: '/article/list-article',

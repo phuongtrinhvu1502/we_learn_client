@@ -16,8 +16,6 @@ class ViewReadingContainer extends Component {
     render() {
         return (
             <div>
-                <h3>Làm bài thi</h3>
-                <Divider />
                 <ViewReadingComponent
                     {...this.props}
                 />

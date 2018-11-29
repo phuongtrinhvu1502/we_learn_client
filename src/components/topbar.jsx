@@ -26,7 +26,11 @@ class Topbar extends Component {
                 {/* <Link to={'/user/change-password/'}
                     className="nav-link" ><span>PhuNB</span></Link> */}
                 {this.token === undefined || this.token == "" ?
-                    <a href="#/login" className="logout">Login</a>
+                    <span>
+                        <a href="#/login" className="logout">Login</a>
+                        <span className="logout"><Divider type="vertical" /></span>
+                        <a href="#/sign-up" className="logout">Sign Up</a>
+                    </span>
                     :
                     <span>
                         <a href="#" className="logout" onClick={logout}>Logout</a>

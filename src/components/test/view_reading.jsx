@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
-import { notification, Row, Pagination, Button, Radio } from 'antd';
+import { notification, Row, Pagination, Button, Radio, Divider } from 'antd';
 import '../../scss/test.scss';
 const RadioGroup = Radio.Group;
 
@@ -71,6 +71,7 @@ class ViewReadingComponent extends Component {
         this.changePage = this.changePage.bind(this)
         this.onChangeAnswer = this.onChangeAnswer.bind(this)
         this.setLstUserAnswerDefault = this.setLstUserAnswerDefault.bind(this)
+        this.sendUserAnswer = this.sendUserAnswer.bind(this)
     }
 
     onChangeAnswer(ta_id, tq_id) {
@@ -124,6 +125,37 @@ class ViewReadingComponent extends Component {
     componentDidMount() {
         this.setLstUserAnswerDefault();
         this.renderLstQuestion(this.state.current);
+        let _that = this
+        var countDownDate = new Date().getTime() + 45 * 60000;
+        // Update the count down every 1 second
+        this.x = setInterval(function () {
+            // Get todays date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now an the count down date
+            var distance = countDownDate - now;
+            // Time calculations for days, hours, minutes and seconds
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.round((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").innerHTML =
+                + minutes + ":" + seconds;
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "Hết giờ"
+                _that.sendUserAnswer();
+            }
+        }, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.x)
+    }
+
+    sendUserAnswer() {
+        console.log(this.state.lstUserAnswer)
     }
 
     render() {
@@ -136,33 +168,45 @@ class ViewReadingComponent extends Component {
             marginLeft: 30,
         };
         return (
-            <Row>
+            <div>
+                <h3 style={{ float: 'left' }}>Làm bài thi</h3>
+                <h3 id="demo" style={{ float: 'right', color: 'green' }}>45:00</h3>
+                <Divider />
                 <Row>
-                    {
-                        this.state.lstQuestionDisplay.map((item, key) =>
-                            <div>
-                                <h5>Câu {(key + 1) + ((current - 1) * 5)} : {item.tq_content}</h5>
-                                <RadioGroup onChange={(e) => this.onChangeAnswer(e.target.value, item.tq_id)}>
-                                    {item.lst_answer.map(itemAnswer =>
-                                        <Radio style={radioStyle} value={itemAnswer.ta_id}>{itemAnswer.ta_content}</Radio>
-                                    )}
-                                </RadioGroup>
-                                <ul>
+                    <Row>
+                        {
+                            this.state.lstQuestionDisplay.map((item, key) =>
+                                <div>
+                                    <h5>Câu {(key + 1) + ((current - 1) * 5)} : {item.tq_content}</h5>
+                                    <RadioGroup onChange={(e) => this.onChangeAnswer(e.target.value, item.tq_id)}>
+                                        {item.lst_answer.map(itemAnswer =>
+                                            <Radio style={radioStyle} value={itemAnswer.ta_id}>{itemAnswer.ta_content}</Radio>
+                                        )}
+                                    </RadioGroup>
+                                    <ul>
 
-                                </ul>
-                            </div>
-                        )
-                    }
+                                    </ul>
+                                </div>
+                            )
+                        }
+                    </Row>
+                    <Row style={{ textAlign: 'center' }}>
+                        <Pagination
+                            onChange={this.changePage}
+                            defaultCurrent={this.state.current}
+                            current={this.state.current}
+                            pageSize={5}
+                            total={this.state.lstQuestion.total} />
+                        <Button
+                            style={{ color: '#fff', background: '#5cb85c', borderColor: '#4cae4c', marginTop: '10px' }}
+                            onClick={() => this.sendUserAnswer()}
+                        >
+                            Nộp bài
+                        </Button>
+                    </Row>
                 </Row>
-                <Row style={{ textAlign: 'center' }}>
-                    <Pagination
-                        onChange={this.changePage}
-                        defaultCurrent={this.state.current}
-                        current={this.state.current}
-                        pageSize={5}
-                        total={this.state.lstQuestion.total} />
-                </Row>
-            </Row>
+            </div>
+
         )
     }
 }
