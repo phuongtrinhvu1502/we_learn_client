@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
-import TableArticle from '../../components/adminPanel/tableArticle.jsx';
-import FilterArticle from '../../components/adminPanel/filterArticle.jsx';
-import { listArticlePagination, removeArticle, restoreArticle, deleteArticle, setLastSearchArticle } from '../../actions/article';
+import TableTest from '../../components/adminPanel/tableTest.jsx';
+import FilterTest from '../../components/adminPanel/filterTest.jsx';
+import { listTestPagination, removeTest, restoreTest, deleteTest, setLastSearchTest } from '../../actions/test';
 import { notification } from 'antd';
-class ListArticle extends Component {
+class ListTest extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -52,7 +52,7 @@ class ListArticle extends Component {
         this.onInputChange = this.onInputChange.bind(this)
         this.changeInputSearch = this.changeInputSearch.bind(this)
         this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(this)
-        this.changeArticleType = this.changeArticleType.bind(this)
+        this.changeTestType = this.changeTestType.bind(this)
     }
 
     onInputChange(e, column) {
@@ -67,7 +67,7 @@ class ListArticle extends Component {
         pagination.current = 1
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject, this.state.searchText);
-        this.props.listArticlePagination(params);
+        this.props.listTestPagination(params);
     }
 
     changeInputSearch(ele) {
@@ -97,7 +97,7 @@ class ListArticle extends Component {
         } else {
             params = { ...this.state.pagination, ...this.state.filterParam }
         }
-        this.props.listArticlePagination(params);
+        this.props.listTestPagination(params);
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -106,7 +106,7 @@ class ListArticle extends Component {
 
     componentWillUnmount() {
         let params = Object.assign({}, this.state.pagination, this.state.filterParam)
-        this.props.setLastSearchArticle(params)
+        this.props.setLastSearchTest(params)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -121,7 +121,7 @@ class ListArticle extends Component {
         }
         if (nextProps.countFetchPage > this.props.countFetchPage) {
             const pagination = { ...this.state.pagination }
-            pagination.total = nextProps.listArticle.total
+            pagination.total = nextProps.listTest.total
             // this.resetSelected();
             this.setState({
                 pagination
@@ -133,7 +133,7 @@ class ListArticle extends Component {
                 description: 'Xóa bài viết thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listArticlePagination(params);
+            this.props.listTestPagination(params);
         }
         if (nextProps.countRemove > this.props.countRemove) {
             notification.success({
@@ -141,7 +141,7 @@ class ListArticle extends Component {
                 description: 'Xóa tạm thời bài viết thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listArticlePagination(params);
+            this.props.listTestPagination(params);
         }
         if (nextProps.countRestore > this.props.countRestore) {
             notification.success({
@@ -149,7 +149,7 @@ class ListArticle extends Component {
                 description: 'Hoàn tác thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listArticlePagination(params);
+            this.props.listTestPagination(params);
         }
     }
 
@@ -157,21 +157,21 @@ class ListArticle extends Component {
         let params = {
             article_id
         }
-        this.props.deleteArticle(params)
+        this.props.deleteTest(params)
     }
 
     onRemove(article_id) {
         let params = {
             article_id: article_id
         }
-        this.props.removeArticle(params)
+        this.props.removeTest(params)
     }
 
     onRestore(article_id) {
         let params = {
             article_id: article_id
         }
-        this.props.restoreArticle(params)
+        this.props.restoreTest(params)
     }
 
     resetSelected() {
@@ -190,7 +190,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreArticle({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreTest({ article_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -200,7 +200,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteArticle({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteTest({ article_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {
@@ -221,7 +221,7 @@ class ListArticle extends Component {
         this.setState({
             pagination: pagination
         })
-        this.props.listArticlePagination(params)
+        this.props.listTestPagination(params)
 
     }
     changePageSize(value) {
@@ -231,7 +231,7 @@ class ListArticle extends Component {
             pagination: paginationState
         })
         let params = Object.assign({}, paginationState, this.state.filterParam)
-        this.props.listArticlePagination(params)
+        this.props.listTestPagination(params)
     }
 
     changeStatusFilter(value) {
@@ -241,7 +241,7 @@ class ListArticle extends Component {
             filterParam
         })
     }
-    changeArticleType(value) {
+    changeTestType(value) {
         let filterParam = { ...this.state.filterParam }
         filterParam.article_type = value;
         this.setState({
@@ -274,7 +274,7 @@ class ListArticle extends Component {
 
         this.setState({ pagination, filterParam, searchText, filterDropdownVisible, selectedRowKeys })
         let params = Object.assign({}, pagination, filterParam);
-        this.props.listArticlePagination(params);
+        this.props.listTestPagination(params);
         this.resetSelected();
     }
 
@@ -286,7 +286,7 @@ class ListArticle extends Component {
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject);
         this.resetSelected();
-        this.props.listArticlePagination(params);
+        this.props.listTestPagination(params);
     }
 
     render() {
@@ -308,14 +308,14 @@ class ListArticle extends Component {
         { name: "Đã xóa", type_name: -2 }]
         return (
             <div>
-                <FilterArticle
+                <FilterTest
                     status={status}
                     onClickSearch={this.onClickSearch}
                     changeStatusFilter={this.changeStatusFilter}
-                    changeArticleType={this.changeArticleType}
+                    changeTestType={this.changeTestType}
                     clearFilter={this.clearFilter}
                 />
-                <TableArticle rowKey='index'
+                <TableTest rowKey='index'
                     pagination={this.state.pagination}
                     searchText={this.state.searchText}
                     filterDropdownVisible={this.state.filterDropdownVisible}
@@ -328,7 +328,7 @@ class ListArticle extends Component {
                     onRemove={this.onRemove}
                     onRestore={this.onRestore}
                     changePageSize={this.changePageSize}
-                    listArticle={this.props.listArticle}
+                    listTest={this.props.listTest}
                     filterParam={this.state.filterParam}
                     handleDelete={this.handleDelete}
                     handleRestore={this.handleRestore}
@@ -340,34 +340,34 @@ class ListArticle extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        listArticle: state.article.listArticle,
-        success: state.article.success,
-        msg: state.article.msg,
-        countDelete: state.article.countDelete,
-        countRemove: state.article.countRemove,
-        countRestore: state.article.countRestore,
-        countFetchPage: state.article.countFetchPage,
-        countUpdate: state.article.countUpdate,
-        lastSearchObj: state.article.lastSearchObj,
+        listTest: state.test.listTest,
+        success: state.test.success,
+        msg: state.test.msg,
+        countDelete: state.test.countDelete,
+        countRemove: state.test.countRemove,
+        countRestore: state.test.countRestore,
+        countFetchPage: state.test.countFetchPage,
+        countUpdate: state.test.countUpdate,
+        lastSearchObj: state.test.lastSearchObj,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        listArticlePagination: (params) => {
-            dispatch(listArticlePagination(params))
+        listTestPagination: (params) => {
+            dispatch(listTestPagination(params))
         },
-        removeArticle: (params) => {
-            dispatch(removeArticle(params))
+        removeTest: (params) => {
+            dispatch(removeTest(params))
         },
-        restoreArticle: (params) => {
-            dispatch(restoreArticle(params))
+        restoreTest: (params) => {
+            dispatch(restoreTest(params))
         },
-        deleteArticle: (params) => {
-            dispatch(deleteArticle(params))
+        deleteTest: (params) => {
+            dispatch(deleteTest(params))
         },
-        setLastSearchArticle: (param) => {
-            dispatch(setLastSearchArticle(param))
+        setLastSearchTest: (param) => {
+            dispatch(setLastSearchTest(param))
         },
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ListArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(ListTest);

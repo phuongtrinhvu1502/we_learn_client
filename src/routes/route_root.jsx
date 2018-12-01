@@ -72,6 +72,17 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//System control Test
+			{
+				path: '/system-control/list-test',
+				component: asyncComponent(() => System.import('../containers/adminPanel/listTest.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/system-control/post-test/:id?',
+				component: asyncComponent(() => System.import('../containers/adminPanel/postTest.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 			//List QA
 			{
 				path: '/forums/list-qa',

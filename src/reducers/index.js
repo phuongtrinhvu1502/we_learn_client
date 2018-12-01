@@ -10,6 +10,7 @@ import viewQA from './viewQA';
 import qa from './qa';
 import viewArticle from './viewArticle';
 import home from './homepage';
+import test from './test';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -20,5 +21,6 @@ const reducers = combineReducers({
 	viewArticle: viewArticle,
 	qa: qa,
 	home: home,
+	test: test,
 });
 export default reducers;

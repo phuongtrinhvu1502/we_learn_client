@@ -6,8 +6,6 @@ const { TextArea } = Input;
 const FormItem = Form.Item;
 const Option = Select.Option;
 import cookie from 'react-cookies'
-
-
 class FormTemplate extends Component {
     constructor(props) {
         super(props)
