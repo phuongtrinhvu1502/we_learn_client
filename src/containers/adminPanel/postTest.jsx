@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { insertTest, updateTest, fetchTestById } from '../../actions/test';
+import { insertTest, fetchTestById } from '../../actions/test';
 import Test from '../../components/adminPanel/postTest.jsx';
 import { notification, Input, Divider } from 'antd';
 
@@ -36,9 +36,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         insertTest: (params) => {
             dispatch(insertTest(params))
-        },
-        updateTest: (params) => {
-            dispatch(updateTest(params))
         },
         fetchTestById: (params) => {
             dispatch(fetchTestById(params))

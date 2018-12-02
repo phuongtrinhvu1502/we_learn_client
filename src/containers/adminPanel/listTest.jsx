@@ -4,23 +4,23 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 import TableTest from '../../components/adminPanel/tableTest.jsx';
 import FilterTest from '../../components/adminPanel/filterTest.jsx';
-import { listTestPagination, removeTest, restoreTest, deleteTest, setLastSearchTest } from '../../actions/test';
+import { listTestPagination, setLastSearchTest } from '../../actions/test';
 import { notification } from 'antd';
 class ListTest extends Component {
     constructor(props) {
         super(props)
         this.state = {
             filterParam: {
-                article_title: '',
-                article_type: -1,
+                test_name: '',
+                test_type: 1,
                 status: -1,
                 currentStatus: -1
             },
             filterDropdownVisible: {
-                article_title: false,
+                test_name: false,
             },
             searchText: {
-                article_title: '',
+                test_name: '',
             },
             filtered: false,
             pagination: {
@@ -41,14 +41,9 @@ class ListTest extends Component {
         this.changeStatusFilter = this.changeStatusFilter.bind(this);
 
         //Xử lý table
-        this.onDelete = this.onDelete.bind(this)
-        this.onRemove = this.onRemove.bind(this)
-        this.onRestore = this.onRestore.bind(this)
         this.resetSelected = this.resetSelected.bind(this)
         this.handleTableChange = this.handleTableChange.bind(this)
         this.changePageSize = this.changePageSize.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.handleRestore = this.handleRestore.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
         this.changeInputSearch = this.changeInputSearch.bind(this)
         this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(this)
@@ -127,51 +122,6 @@ class ListTest extends Component {
                 pagination
             })
         }
-        if (nextProps.countDelete > this.props.countDelete) {
-            notification.success({
-                message: 'Thành công',
-                description: 'Xóa bài viết thành công'
-            });
-            let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listTestPagination(params);
-        }
-        if (nextProps.countRemove > this.props.countRemove) {
-            notification.success({
-                message: 'Thành công',
-                description: 'Xóa tạm thời bài viết thành công'
-            });
-            let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listTestPagination(params);
-        }
-        if (nextProps.countRestore > this.props.countRestore) {
-            notification.success({
-                message: 'Thành công',
-                description: 'Hoàn tác thành công'
-            });
-            let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listTestPagination(params);
-        }
-    }
-
-    onDelete(article_id) {
-        let params = {
-            article_id
-        }
-        this.props.deleteTest(params)
-    }
-
-    onRemove(article_id) {
-        let params = {
-            article_id: article_id
-        }
-        this.props.removeTest(params)
-    }
-
-    onRestore(article_id) {
-        let params = {
-            article_id: article_id
-        }
-        this.props.restoreTest(params)
     }
 
     resetSelected() {
@@ -180,27 +130,6 @@ class ListTest extends Component {
                 selectedRowKeys: []
             });
         }, 100);
-    }
-
-    handleRestore() {
-        if (this.state.selectedRowKeys.length == 0) {
-            return;
-        }
-        let lstId = "";
-        this.state.selectedRowKeys.forEach(function (val, index) {
-            lstId += val + ",";
-        })
-        this.props.restoreTest({ article_id: lstId.substring(0, lstId.length - 1) });
-    }
-    handleDelete() {
-        if (this.state.selectedRowKeys.length == 0) {
-            return;
-        }
-        let lstId = "";
-        this.state.selectedRowKeys.forEach(function (val, index) {
-            lstId += val + ",";
-        })
-        this.props.deleteTest({ article_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {
@@ -243,7 +172,7 @@ class ListTest extends Component {
     }
     changeTestType(value) {
         let filterParam = { ...this.state.filterParam }
-        filterParam.article_type = value;
+        filterParam.test_type = value;
         this.setState({
             filterParam
         })
@@ -251,16 +180,16 @@ class ListTest extends Component {
 
     clearFilter() {
         let filterParam = {
-            article_title: '',
-            article_type: -1,
+            test_name: '',
+            test_type: 1,
             status: -1,
             currentStatus: -1
         }
         let filterDropdownVisible = {
-            article_title: false,
+            test_name: false,
         }
         let searchText = {
-            article_title: '',
+            test_name: '',
         }
         let pagination = {
             pageSize: 10,
@@ -308,13 +237,13 @@ class ListTest extends Component {
         { name: "Đã xóa", type_name: -2 }]
         return (
             <div>
-                <FilterTest
+                {/* <FilterTest
                     status={status}
                     onClickSearch={this.onClickSearch}
                     changeStatusFilter={this.changeStatusFilter}
                     changeTestType={this.changeTestType}
                     clearFilter={this.clearFilter}
-                />
+                /> */}
                 <TableTest rowKey='index'
                     pagination={this.state.pagination}
                     searchText={this.state.searchText}
@@ -324,14 +253,9 @@ class ListTest extends Component {
                     changeInputSearch={this.changeInputSearch}
                     onFilterDropdownVisibleChange={this.onFilterDropdownVisibleChange}
                     handleTableChange={this.handleTableChange}
-                    onDelete={this.onDelete}
-                    onRemove={this.onRemove}
-                    onRestore={this.onRestore}
                     changePageSize={this.changePageSize}
                     listTest={this.props.listTest}
                     filterParam={this.state.filterParam}
-                    handleDelete={this.handleDelete}
-                    handleRestore={this.handleRestore}
                     rowSelection={rowSelection}
                 />
             </div>
@@ -355,15 +279,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         listTestPagination: (params) => {
             dispatch(listTestPagination(params))
-        },
-        removeTest: (params) => {
-            dispatch(removeTest(params))
-        },
-        restoreTest: (params) => {
-            dispatch(restoreTest(params))
-        },
-        deleteTest: (params) => {
-            dispatch(deleteTest(params))
         },
         setLastSearchTest: (param) => {
             dispatch(setLastSearchTest(param))

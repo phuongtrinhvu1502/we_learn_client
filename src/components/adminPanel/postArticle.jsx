@@ -154,7 +154,7 @@ class FormTemplate extends Component {
                     &nbsp;
                     <Button type="primary" className="text-right btn btn-success">
                         <Link to={'/system-control/list-article'}
-                            className="nav-link" >Back</Link>
+                            className="nav-link" >Trở lại</Link>
                     </Button>
                 </Row>
             </Form >

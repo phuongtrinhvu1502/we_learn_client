@@ -94,3 +94,11 @@ button.margin-bottom-5{
 .ant-modal.modal-question{
   width: 60%!important;
 }
+
+.ant-form-item-label label{
+  float: left;
+}
+
+thead.ant-table-thead>tr>th {
+  text-align: center;
+}

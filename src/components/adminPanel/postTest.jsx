@@ -29,6 +29,7 @@ class GeneralInfoForm extends Component {
                 position: 'both'
             },
             ta_content: undefined,
+            test_name: undefined,
         }
         this.editRecordAnswer = {};
         this.editRecordQuestion = null;
@@ -44,13 +45,38 @@ class GeneralInfoForm extends Component {
         this.addAnswer = this.addAnswer.bind(this)
         this.deleteAnswer = this.deleteAnswer.bind(this)
         this.changeInputAnswer = this.changeInputAnswer.bind(this)
+        this.changeTestName = this.changeTestName.bind(this)
         this.createTest = this.createTest.bind(this)
+    }
+
+    componentDidMount() {
+        if (this.props.match.params.id != undefined) {
+            this.props.fetchTestById(this.props.match.params.id)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.countUpdate > this.props.countUpdate) {
+            if (nextProps.actionName == "insert") {
+                notification.success({
+                    message: "Thành công",
+                    description: "Tạo đề thi thành công"
+                })
+                this.props.history.push('/system-control/list-test')
+            }
+        }
+        if (nextProps.countFetchById > this.props.countFetchById) {
+            this.setState({
+                lstQuestion: nextProps.testItem.lstQuestion,
+                test_name: nextProps.testItem.testObject.test_name
+            })
+        }
     }
 
     setIndexArrObject(listObj) {
         let i = 0;
         listObj.forEach(function (element) {
-            element.index = i++;
+            element.rowKey = i++;
         })
         return listObj
     }
@@ -78,9 +104,9 @@ class GeneralInfoForm extends Component {
     addQuestion(newEdit) {
         newEdit.is_change = true;
         let oldList = [...this.state.lstQuestion];
-        let findEdit = oldList.findIndex(item => newEdit.index === item.index);
+        let findEdit = oldList.findIndex(item => newEdit.rowKey === item.rowKey);
         if (findEdit != -1) {
-            Object.assign(oldList.filter(item => newEdit.index === item.index)[0], newEdit);
+            Object.assign(oldList.filter(item => newEdit.rowKey === item.rowKey)[0], newEdit);
         }
         else {
             oldList.push(newEdit);
@@ -92,10 +118,10 @@ class GeneralInfoForm extends Component {
         this.modalQuestionCancel()
     }
 
-    deleteQuestion(tq_id, index) {
+    deleteQuestion(tq_id, rowKey) {
         let arrlstQuestion = [...this.state.lstQuestion]
         //Xử lý xóa
-        arrlstQuestion.splice(index, 1)
+        arrlstQuestion.splice(rowKey, 1)
         arrlstQuestion = this.setIndexArrObject(arrlstQuestion);
         this.setState({
             lstQuestion: arrlstQuestion
@@ -135,14 +161,20 @@ class GeneralInfoForm extends Component {
         })
     }
 
+    changeTestName(value) {
+        this.setState({
+            test_name: value.target.value
+        })
+    }
+
     addAnswer() {
         if (this.state.ta_content != undefined && this.state.ta_content.trim() != "") {
             Object.assign(this.editRecordAnswer, { ta_content: this.state.ta_content })
             this.editRecordAnswer.is_change = true;
             let oldList = [...this.state.lst_answer];
-            let findEdit = oldList.findIndex(item => this.editRecordAnswer.index === item.index);
+            let findEdit = oldList.findIndex(item => this.editRecordAnswer.rowKey === item.rowKey);
             if (findEdit != -1) {
-                Object.assign(oldList.filter(item => this.editRecordAnswer.index === item.index)[0], this.editRecordAnswer);
+                Object.assign(oldList.filter(item => this.editRecordAnswer.rowKey === item.rowKey)[0], this.editRecordAnswer);
             }
             else {
                 oldList.push(this.editRecordAnswer);
@@ -160,10 +192,10 @@ class GeneralInfoForm extends Component {
         }
     }
 
-    deleteAnswer(ta_id, index) {
+    deleteAnswer(ta_id, rowKey) {
         let arrLstAnswer = [...this.state.lst_answer]
         //Xử lý xóa
-        arrLstAnswer.splice(index, 1)
+        arrLstAnswer.splice(rowKey, 1)
         arrLstAnswer = this.setIndexArrObject(arrLstAnswer);
         this.setState({
             lst_answer: arrLstAnswer
@@ -191,7 +223,7 @@ class GeneralInfoForm extends Component {
             if (!err) {
                 let params = { ...values }
                 if (this.editRecordQuestion != null)
-                    params.index = this.editRecordQuestion.index
+                    params.rowKey = this.editRecordQuestion.rowKey
                 params.lst_answer = this.state.lst_answer
                 this.addQuestion(params)
             } else {
@@ -201,7 +233,23 @@ class GeneralInfoForm extends Component {
     }
 
     createTest() {
-        console.log(this.state.lstQuestion)
+        if (this.state.test_name == undefined || this.state.test_name == "") {
+            notification.warn({
+                message: "Thông báo",
+                description: "Tên đề thi không được để trống"
+            })
+            return;
+        } else if (this.state.lstQuestion.length == 0) {
+            notification.warn({
+                message: "Thông báo",
+                description: "Phải tạo câu hỏi cho đề thi"
+            })
+            return;
+        }
+        let params = {}
+        params.test_name = this.state.test_name
+        params.lstQuestion = this.state.lstQuestion
+        this.props.insertTest(params)
     }
 
     render() {
@@ -223,7 +271,7 @@ class GeneralInfoForm extends Component {
                 )
             },
             {
-                title: 'Câu hỏi', dataIndex: "test_name",
+                title: 'Câu hỏi', dataIndex: "tq_content",
             }, {
                 title: 'Số lượng câu trả lời', dataIndex: "lst_answer", align: 'center', width: '20%',
                 render: (text, record) => {
@@ -236,17 +284,17 @@ class GeneralInfoForm extends Component {
                     return (
                         (record.tq_id != undefined) && (record.tq_id > 0) ?
                             <div>
-                                <a onClick={() => this.showQuestionModal(record, record.index)}><i className="fa fa-edit"></i></a>
+                                <a onClick={() => this.showQuestionModal(record, record.rowKey)}><i className="fa fa-edit"></i></a>
                                 <Divider type="vertical" />
-                                <Popconfirm className="nav-link" title="Bạn có muốn xóa phân xưởng này không?" onConfirm={() => this.deleteQuestion(record.tq_id, record.index)}>
+                                <Popconfirm className="nav-link" title="Bạn có muốn xóa phân xưởng này không?" onConfirm={() => this.deleteQuestion(record.tq_id, record.rowKey)}>
                                     <a href="#"><i className="far fa-trash-alt"></i></a>
                                 </Popconfirm>
                             </div>
                             :
                             <div>
-                                <a onClick={() => this.showQuestionModal(record, record.index)}><i className="fa fa-edit"></i></a>
+                                <a onClick={() => this.showQuestionModal(record, record.rowKey)}><i className="fa fa-edit"></i></a>
                                 <Divider type="vertical" />
-                                <a onClick={() => this.deleteQuestion(record.tq_id, record.index)}><i className="far fa-trash-alt"></i></a>
+                                <a onClick={() => this.deleteQuestion(record.tq_id, record.rowKey)}><i className="far fa-trash-alt"></i></a>
                             </div>
                     )
                 },
@@ -264,11 +312,12 @@ class GeneralInfoForm extends Component {
             }, {
                 title: 'Chức năng', dataIndex: "action", width: '15%', align: 'center',
                 render: (text, record, index) => {
-                    return (
-                        <div>
-                            <a onClick={() => this.showModalAnswer(record, index)}><i className="fa fa-edit"></i></a>
-                        </div>
-                    )
+                    if (this.props.match.params.id == undefined)
+                        return (
+                            <div>
+                                <a onClick={() => this.showModalAnswer(record, index)}><i className="fa fa-edit"></i></a>
+                            </div>
+                        )
                 },
             }
         ]
@@ -306,19 +355,19 @@ class GeneralInfoForm extends Component {
                 >
                     <Form layout="vertical" className="contact-modal" onSubmit={this.handleSubmit}>
                         <Row>
-                            <Col className="formInputRow" span={24} >
+                            <Col className="formInputRow" span={12} >
                                 <FormItem {...formItemLayout} label="Câu hỏi">
-                                    {getFieldDecorator('test_name', {
+                                    {getFieldDecorator('tq_content', {
                                         rules: [
                                             { required: true, whitespace: true, message: "Nhập Câu hỏi" },
                                             { max: 500, message: "Câu hỏi tối đa 500 ký tự" }],
-                                        initialValue: this.editRecordQuestion == null ? undefined : this.editRecordQuestion.test_name
+                                        initialValue: this.editRecordQuestion == null ? undefined : this.editRecordQuestion.tq_content
                                     })(
                                         <TextArea placeholder="Nhập Câu hỏi" />
                                     )}
                                 </FormItem>
                             </Col>
-                            <Col className="formInputRow" span={24} >
+                            <Col className="formInputRow" span={12} >
                                 <FormItem {...formItemLayout} label="Câu trả lời đúng">
                                     {getFieldDecorator('correct_answer', {
                                         rules: [
@@ -332,7 +381,7 @@ class GeneralInfoForm extends Component {
                                         >
                                             {
                                                 this.state.lst_answer.map(item =>
-                                                    <Select.Option key={item.index} value={item.index}>{item.ta_content}</Select.Option>
+                                                    <Select.Option key={item.rowKey} value={item.rowKey}>{item.ta_content}</Select.Option>
                                                 )
                                             }
                                         </Select>
@@ -340,44 +389,67 @@ class GeneralInfoForm extends Component {
                                 </FormItem>
                             </Col>
                         </Row>
-                        <Button type="primary" key="add-contact" size='large' className="margin-bottom-5" onClick={() => this.showModalAnswer(undefined)}>
-                            Thêm đáp án
+                        {
+                            this.props.match.params.id == undefined &&
+                            <Button type="primary" key="add-contact" size='large' className="margin-bottom-5" onClick={() => this.showModalAnswer(undefined)}>
+                                Thêm đáp án
 				            </Button>
+                        }
                         <Table
                             size='small'
                             className='table-provider'
                             columns={columnsQuestion}
-                            rowKey="index"
+                            rowKey="rowKey"
                             bordered
                             // pagination={this.state.paginationTrans}
                             // onChange={this.changeTableHandle}
                             dataSource={this.state.lst_answer}
                             scrollY={500} />
-                        <Row style={{ textAlign: "right", marginTop: '10px' }}>
-                            <Button htmlType="submit">Cập nhật</Button>
-                        </Row>
+                        {
+                            this.props.match.params.id == undefined &&
+                            <Row style={{ textAlign: "right", marginTop: '10px' }}>
+                                <Button htmlType="submit">Cập nhật</Button>
+                            </Row>
+                        }
                     </Form>
                 </Modal>
-                <Button type="primary" key="add-contact" size='large' className="margin-bottom-5" onClick={() => this.showQuestionModal(undefined)}>
-                    Thêm câu hỏi
-				</Button>
+                <Row>
+                    <Col className="formInputRow" span={12} >
+                        <FormItem {...formItemLayout} label="Tên đề thi">
+                            <Input placeholder="Nhập Tên đề thi"
+                                onChange={this.changeTestName}
+                                value={this.state.test_name}
+                            />
+                        </FormItem>
+                    </Col>
+                </Row>
+                {
+                    this.props.match.params.id == undefined &&
+                    <Button type="primary" key="add-contact" size='large' className="margin-bottom-5" onClick={() => this.showQuestionModal(undefined)}>
+                        Thêm câu hỏi
+				    </Button>
+                }
                 <Table
                     size='small'
                     className='table-provider'
                     dataSource={this.state.lstQuestion}
                     columns={columns}
-                    rowKey="index"
+                    rowKey="rowKey"
                     bordered
                     pagination={this.state.pagination}
                 />
                 <Row style={{ textAlign: 'center', marginTop: 10 }}>
-                    <Button type="primary" key="add-test" size='large' className="margin-bottom-5" onClick={this.createTest}>
-                        Tạo đề thi
-				    </Button>
+                    {
+                        this.props.match.params.id == undefined &&
+                        <Button type="primary" key="add-test" size='large' className="margin-bottom-5" onClick={this.createTest}>
+                            Tạo đề thi
+				        </Button>
+                    }
                     &nbsp;
                     <Button type="primary" key="return" size='large' className="margin-bottom-5">
-                        Trở lại
-				    </Button>
+                        <Link to={'/system-control/list-test'}
+                            className="nav-link" >Trở lại</Link>
+                    </Button>
                 </Row>
             </span >
         )
