@@ -11,6 +11,8 @@ import qa from './qa';
 import viewArticle from './viewArticle';
 import home from './homepage';
 import test from './test';
+import topicContent from './topic_content';
+import topic from './topic';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -22,5 +24,7 @@ const reducers = combineReducers({
 	qa: qa,
 	home: home,
 	test: test,
+	topicContent: topicContent,
+	topic: topic,
 });
 export default reducers;

@@ -83,6 +83,28 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/adminPanel/postTest.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//System control topic
+			{
+				path: '/system-control/list-topic',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopic.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/system-control/post-topic/:id?',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			//System control topic-content
+			{
+				path: '/system-control/list-topic-content',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopicContent.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/system-control/post-topic-content/:id?',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopicContent.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 			//List QA
 			{
 				path: '/forums/list-qa',

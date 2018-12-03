@@ -166,6 +166,18 @@ class Sidebar extends Component {
                                 <span>Danh sách đề thi</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="#/system-control/list-topic" >
+                            <Link to={'/system-control/list-topic'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Danh sách đề tài</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="#/system-control/list-topic-content" >
+                            <Link to={'/system-control/list-topic-content'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Bài viết theo đề tài</span>
+                            </Link>
+                        </Menu.Item>
                         <Menu.Item key="#/system-control/upload-image" >
                             <Link to={'/system-control/upload-image'} className="nav-link" >
                                 <Icon type="flag" />
