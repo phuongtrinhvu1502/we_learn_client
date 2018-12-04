@@ -61,14 +61,36 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/grammar/grammar_container.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
-			//System control Article
+			//System control topic
 			{
 				path: '/system-control/list-article',
-				component: asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			{
 				path: '/system-control/post-article/:id?',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			//System control topic
+			{
+				path: '/system-control/list-article-topic',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/system-control/post-article-topic/:id?',
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			//System control Article topic content
+			{
+				path: '/system-control/list-atc',
+				component: asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/system-control/post-atc/:id?',
 				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
@@ -81,28 +103,6 @@ const routes = [
 			{
 				path: '/system-control/post-test/:id?',
 				component: asyncComponent(() => System.import('../containers/adminPanel/postTest.jsx')
-					.then(module => module.default), { name: 'name' })
-			},
-			//System control topic
-			{
-				path: '/system-control/list-topic',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopic.jsx')
-					.then(module => module.default), { name: 'name' })
-			},
-			{
-				path: '/system-control/post-topic/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
-					.then(module => module.default), { name: 'name' })
-			},
-			//System control topic-content
-			{
-				path: '/system-control/list-topic-content',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopicContent.jsx')
-					.then(module => module.default), { name: 'name' })
-			},
-			{
-				path: '/system-control/post-topic-content/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopicContent.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//List QA

@@ -105,7 +105,7 @@ class FormTemplate extends Component {
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Loại ngữ pháp">
+                        <FormItem {...formItemLayout} label="Loại đề tài">
                             {getFieldDecorator('at_id',
                                 {
                                     rules: [

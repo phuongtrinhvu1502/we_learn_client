@@ -154,26 +154,26 @@ class Sidebar extends Component {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
-                        <Menu.Item key="#/system-control/list-article" >
-                            <Link to={'/system-control/list-article'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Danh sách bài viết</span>
-                            </Link>
-                        </Menu.Item>
                         <Menu.Item key="#/system-control/list-test" >
                             <Link to={'/system-control/list-test'} className="nav-link" >
                                 <Icon type="flag" />
                                 <span>Danh sách đề thi</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="#/system-control/list-topic" >
-                            <Link to={'/system-control/list-topic'} className="nav-link" >
+                        <Menu.Item key="#/system-control/list-article" >
+                            <Link to={'/system-control/list-article'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Danh sách đề tài</span>
+                                <span>Danh mục</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="#/system-control/list-topic-content" >
-                            <Link to={'/system-control/list-topic-content'} className="nav-link" >
+                        <Menu.Item key="#/system-control/list-article-topic" >
+                            <Link to={'/system-control/list-article-topic'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Đề tài theo danh mục</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="#/system-control/list-atc" >
+                            <Link to={'/system-control/list-atc'} className="nav-link" >
                                 <Icon type="flag" />
                                 <span>Bài viết theo đề tài</span>
                             </Link>

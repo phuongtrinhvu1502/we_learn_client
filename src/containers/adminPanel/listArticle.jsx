@@ -11,16 +11,16 @@ class ListArticle extends Component {
         super(props)
         this.state = {
             filterParam: {
-                article_title: '',
-                article_type: -1,
+                atc_title: '',
+                at_id: -1,
                 status: -1,
                 currentStatus: -1
             },
             filterDropdownVisible: {
-                article_title: false,
+                atc_title: false,
             },
             searchText: {
-                article_title: '',
+                atc_title: '',
             },
             filtered: false,
             pagination: {
@@ -153,23 +153,23 @@ class ListArticle extends Component {
         }
     }
 
-    onDelete(article_id) {
+    onDelete(atc_id) {
         let params = {
-            article_id
+            atc_id
         }
         this.props.deleteArticle(params)
     }
 
-    onRemove(article_id) {
+    onRemove(atc_id) {
         let params = {
-            article_id: article_id
+            atc_id: atc_id
         }
         this.props.removeArticle(params)
     }
 
-    onRestore(article_id) {
+    onRestore(atc_id) {
         let params = {
-            article_id: article_id
+            atc_id: atc_id
         }
         this.props.restoreArticle(params)
     }
@@ -190,7 +190,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreArticle({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreArticle({ atc_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -200,7 +200,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteArticle({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteArticle({ atc_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {
@@ -243,7 +243,7 @@ class ListArticle extends Component {
     }
     changeArticleType(value) {
         let filterParam = { ...this.state.filterParam }
-        filterParam.article_type = value;
+        filterParam.at_id = value;
         this.setState({
             filterParam
         })
@@ -251,16 +251,16 @@ class ListArticle extends Component {
 
     clearFilter() {
         let filterParam = {
-            article_title: '',
-            article_type: -1,
+            atc_title: '',
+            at_id: -1,
             status: -1,
             currentStatus: -1
         }
         let filterDropdownVisible = {
-            article_title: false,
+            atc_title: false,
         }
         let searchText = {
-            article_title: '',
+            atc_title: '',
         }
         let pagination = {
             pageSize: 10,

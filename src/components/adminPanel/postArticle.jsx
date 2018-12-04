@@ -35,11 +35,11 @@ class FormTemplate extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.countFetchById > this.props.countFetchById) {
             this.props.form.setFieldsValue({
-                article_title: nextProps.articleItem.article_title,
-                article_type: nextProps.articleItem.article_type,
+                atc_title: nextProps.articleItem.atc_title,
+                at_id: nextProps.articleItem.at_id,
             })
 
-            let contentBlock = htmlToDraft(nextProps.articleItem.article_content);
+            let contentBlock = htmlToDraft(nextProps.articleItem.atc_content);
             if (contentBlock) {
                 let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 let editorState = EditorState.createWithContent(contentState);
@@ -52,14 +52,14 @@ class FormTemplate extends Component {
             if (nextProps.actionName == "insert") {
                 notification.success({
                     message: "Success",
-                    description: "Insert Article Success"
+                    description: "Thêm mới thành công"
                 })
-                this.props.history.push("/system-control/list-article/")
+                this.props.history.push("/system-control/list-atc/")
             }
             else if (nextProps.actionName == "update") {
                 notification.success({
                     message: "Success",
-                    description: "Update Article Success"
+                    description: "Cập nhật thành công"
                 })
             }
         }
@@ -76,12 +76,12 @@ class FormTemplate extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let params = JSON.parse(JSON.stringify(values))
-                params.article_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+                params.atc_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
 
                 if (this.props.match.params.id == undefined)
                     this.props.insertArticle(params)
                 else {
-                    params.article_id = this.props.match.params.id
+                    params.atc_id = this.props.match.params.id
                     this.props.updateArticle(params)
                 }
             } else {
@@ -100,21 +100,20 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
-        const html = '<div>Example <b>HTML</b> string</div>';
 
         return (
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Danh mục bài viết">
-                            {getFieldDecorator('article_type',
+                        <FormItem {...formItemLayout} label="Đề tài bài viết">
+                            {getFieldDecorator('at_id',
                                 {
                                     rules: [
-                                        { type: "number", required: true, whitespace: true, message: "Nhập Chọn danh mục bài viết" },
+                                        { type: "number", required: true, whitespace: true, message: "Nhập Chọn Đề tài bài viết" },
                                     ],
                                 }
                             )(
-                                <Select placeholder="Nhập Chọn danh mục bài viết">
+                                <Select placeholder="Nhập Chọn Đề tài bài viết">
                                     <Option key={1} value={1}>News</Option>
                                     <Option key={2} value={2}>Grammar</Option>
                                     <Option key={3} value={3}>Event</Option>
@@ -126,7 +125,7 @@ class FormTemplate extends Component {
                 <Row>
                     <Col className="formInputRow" span={24}>
                         <FormItem {...formItemLayout} label="Nhập tiêu đề bài viết">
-                            {getFieldDecorator('article_title',
+                            {getFieldDecorator('atc_title',
                                 {
                                     rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
                                     { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề bài viết" },
@@ -153,7 +152,7 @@ class FormTemplate extends Component {
                     </Button>
                     &nbsp;
                     <Button type="primary" className="text-right btn btn-success">
-                        <Link to={'/system-control/list-article'}
+                        <Link to={'/system-control/list-atc'}
                             className="nav-link" >Trở lại</Link>
                     </Button>
                 </Row>
