@@ -1,7 +1,7 @@
 
 const initialState = {
     articleItem: {},
-    listTopicContent: [],
+    listArticle: [],
     actionName: '',
     countUpdate: 0,
     countDelete: 0,
@@ -14,32 +14,32 @@ const initialState = {
     msg: '',
     data: null,
 }
-const topicContent = (state = initialState, action = {}) => {
+const article = (state = initialState, action = {}) => {
     switch (action.type) {
-        case 'LIST_TOPIC_CONTENT_PAGINATION':
+        case 'LIST_ART_PAGINATION':
             return {
-                ...state, listTopicContent: action.data.data ? action.data.data : [], success: action.data.success,
+                ...state, listArticle: action.data.data ? action.data.data : [], success: action.data.success,
                 countFetchPage: state.countFetchPage + 1
             }
-        case 'GET_TOPIC_CONTENT_BY_ID':
+        case 'GET_ART_BY_ID':
             return {
                 ...state, articleItem: action.data.data ? action.data.data : {},
                 success: action.data.success, msg: action.data.msg, countFetchById: state.countFetchById + 1,
             }
-        case 'INSERT_TOPIC_CONTENT':
+        case 'INSERT_ART':
             return { ...state, actionName: 'insert', countUpdate: state.countUpdate + 1, data: action.data.data ? action.data.data : undefined, }
-        case 'UPDATE_TOPIC_CONTENT':
+        case 'UPDATE_ART':
             return { ...state, actionName: 'update', countUpdate: state.countUpdate + 1, }
-        case 'DELETE_TOPIC_CONTENT':
+        case 'DELETE_ART':
             return { ...state, success: action.data.success, msg: action.data.msg, countDelete: state.countDelete + 1, }
-        case 'REMOVE_TOPIC_CONTENT':
+        case 'REMOVE_ART':
             return { ...state, success: action.data.success, msg: action.data.msg, countRemove: state.countRemove + 1, }
-        case 'RESTORE_TOPIC_CONTENT':
+        case 'RESTORE_ART':
             return { ...state, success: action.data.success, msg: action.data.msg, countRestore: state.countRestore + 1, }
-        case 'SET_LAST_SEARCH_TOPIC_CONTENT':
+        case 'SET_LAST_SEARCH_ART':
             return { ...state, lastSearchObj: action.data, }
         default:
             return state;
     }
 }
-export default topicContent
+export default article

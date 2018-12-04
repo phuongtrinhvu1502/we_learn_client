@@ -102,3 +102,11 @@ button.margin-bottom-5{
 thead.ant-table-thead>tr>th {
   text-align: center;
 }
+
+.ant-select-disabled .ant-select-selection{
+  background: none!important;
+}
+
+.ant-select-selection-selected-value{
+  color: gray;
+}

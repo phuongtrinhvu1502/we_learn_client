@@ -18,20 +18,19 @@ const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, change
             )
         },
         {
-            title: 'Tiêu đề bài viết', dataIndex: "at_title", filter: false, sorter: true,
-            sortOrder: pagination.sortField == 'at_title' ? pagination.sortOrder : false,
+            title: 'Danh mục', dataIndex: "article_title",
             filterDropdown: <FilterTable
-                value={searchText.at_title}
+                value={searchText.article_title}
                 onInputChange={onInputChange}
                 searchInput={searchInput}
                 changeInputSearch={changeInputSearch}
-                fieldName="at_title"
+                fieldName="article_title"
             />,
             filterIcon: <Icon type="filter" style={{ color: '#108ee9' }} />,
-            filterDropdownVisible: filterDropdownVisible.at_title,
-            onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'at_title'),
+            filterDropdownVisible: filterDropdownVisible.article_title,
+            onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'article_title'),
             render: (text, record) =>
-                <Link to={'/system-control/post-article-topic/' + record.at_id}
+                <Link to={'/system-control/post-article/' + record.article_id}
                     className="nav-link" ><span>{text}</span></Link>
 
         },
@@ -50,13 +49,13 @@ const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, change
                 filterParam.currentStatus != -2 ?
                     <span>
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
-                            <Link to={'/system-control/post-article-topic/' + record.at_id}
+                            <Link to={'/system-control/post-article/' + record.article_id}
                                 className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
                         }
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
                             <span>
                                 <Divider type="vertical" />
-                                <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.at_id)}>
+                                <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.article_id)}>
                                     <a href="#" title="Xóa"><i className="far fa-trash-alt"></i></a>
                                 </Popconfirm>
                             </span>
@@ -65,12 +64,12 @@ const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, change
                     :
                     <span>
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
-                            <a onClick={() => onRestore(record.at_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
+                            <a onClick={() => onRestore(record.article_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
                         }
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
                             <span>
                                 <Divider type="vertical" />
-                                <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.at_id)}>
+                                <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.article_id)}>
                                     <a href="#" title="Xóa vĩnh viễn"><i className="fas fa-eraser"></i></a>
                                 </Popconfirm>
                             </span>
@@ -82,7 +81,7 @@ const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, change
         <div>
             {lstPermission.indexOf("PROPERTIES-8") > -1 &&
                 <Button type="primary" size='large' className="margin-bottom-5">
-                    <Link to={'/system-control/post-article-topic/'}
+                    <Link to={'/system-control/post-article/'}
                         className="nav-link" >Add</Link>
                 </Button>
             }
@@ -116,7 +115,7 @@ const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, change
                 size='small'
                 className='table-provider'
                 columns={columns}
-                rowKey="at_id"
+                rowKey="article_id"
                 bordered
                 pagination={pagination}
                 onChange={handleTableChange}

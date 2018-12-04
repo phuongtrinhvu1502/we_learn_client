@@ -28,15 +28,15 @@ class FormTemplate extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id != undefined) {
-            this.props.fetchTopicById(this.props.match.params.id)
+            this.props.fetchArticleById(this.props.match.params.id)
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.countFetchById > this.props.countFetchById) {
             this.props.form.setFieldsValue({
-                at_title: nextProps.articleItem.at_title,
-                article_id: nextProps.articleItem.article_id,
+                article_title: nextProps.articleItem.article_title,
+                type_id: nextProps.articleItem.type_id,
             })
 
         }
@@ -46,7 +46,7 @@ class FormTemplate extends Component {
                     message: "Success",
                     description: "Thêm mới thành công"
                 })
-                this.props.history.push("/system-control/list-article-topic/")
+                this.props.history.push("/system-control/list-article/")
             }
             else if (nextProps.actionName == "update") {
                 notification.success({
@@ -69,10 +69,10 @@ class FormTemplate extends Component {
             if (!err) {
                 let params = JSON.parse(JSON.stringify(values))
                 if (this.props.match.params.id == undefined)
-                    this.props.insertTopic(params)
+                    this.props.insertArticle(params)
                 else {
-                    params.at_id = this.props.match.params.id
-                    this.props.updateTopic(params)
+                    params.article_id = this.props.match.params.id
+                    this.props.updateArticle(params)
                 }
             } else {
                 scrollToErrorForm(err)
@@ -95,18 +95,19 @@ class FormTemplate extends Component {
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Danh mục">
-                            {getFieldDecorator('article_id',
+                        <FormItem {...formItemLayout} label="Loại">
+                            {getFieldDecorator('type_id',
                                 {
                                     rules: [
-                                        { type: "number", required: true, whitespace: true, message: "Chọn Danh mục" },
+                                        { type: "number", required: true, whitespace: true, message: "Chọn Loại" },
                                     ],
+                                    initialValue: 2
                                 }
                             )(
-                                <Select placeholder="Chọn Danh mục">
-                                    <Option key={1} value={1}>News</Option>
-                                    <Option key={2} value={2}>Grammar</Option>
-                                    <Option key={3} value={3}>Event</Option>
+                                <Select placeholder="Chọn Loại" disabled>
+                                    <Option key={1} value={1}>Tin tức</Option>
+                                    <Option key={2} value={2}>Ngữ pháp</Option>
+                                    <Option key={3} value={3}>Sự kiện</Option>
                                 </Select>
                             )}
                         </FormItem>
@@ -114,15 +115,15 @@ class FormTemplate extends Component {
                 </Row>
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Tên đề tài">
-                            {getFieldDecorator('at_title',
+                        <FormItem {...formItemLayout} label="Tên danh mục">
+                            {getFieldDecorator('article_title',
                                 {
                                     rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
-                                    { type: "string", required: true, whitespace: true, message: "Nhập Tiêu đề topic" },
+                                    { type: "string", required: true, whitespace: true, message: "Nhập tên danh mục" },
                                     ],
                                 }
                             )(
-                                <Input placeholder="Nhập Tiêu đề topic" />
+                                <Input placeholder="Nhập tên danh mục" />
                             )}
                         </FormItem>
                     </Col>
@@ -134,7 +135,7 @@ class FormTemplate extends Component {
                     </Button>
                     &nbsp;
                     <Button type="primary" className="text-right btn btn-success">
-                        <Link to={'/system-control/list-article-topic'}
+                        <Link to={'/system-control/list-article'}
                             className="nav-link" >Trở lại</Link>
                     </Button>
                 </Row>

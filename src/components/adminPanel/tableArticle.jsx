@@ -18,8 +18,7 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
             )
         },
         {
-            title: 'Tiêu đề bài viết', dataIndex: "atc_title", filter: false, sorter: true,
-            sortOrder: pagination.sortField == 'atc_title' ? pagination.sortOrder : false,
+            title: 'Tiêu đề bài viết', dataIndex: "atc_title",
             filterDropdown: <FilterTable
                 value={searchText.atc_title}
                 onInputChange={onInputChange}

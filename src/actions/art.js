@@ -3,52 +3,52 @@ import {
     requestPostJsonReturnDispatch, requestPutJsonReturnDispatch, requestGetJsonReturnDispatch, requestDeleteJsonReturnDispatch
 } from './index.js';
 
-export const listTopicContentPagination = (params) => {
+export const listArticlePagination = (params) => {
     let url = 'article/get-article-by-page';
-    let type = 'LIST_TOPIC_CONTENT_PAGINATION'
+    let type = 'LIST_ART_PAGINATION'
     return requestPostJsonReturnDispatch(url, params, type)
 }
 
-export const insertTopicContent = (params) => {
+export const insertArticle = (params) => {
     let url = '/article/insert'
-    let type = 'INSERT_TOPIC_CONTENT'
+    let type = 'INSERT_ART'
     return requestPostJsonReturnDispatch(url, params, type)
 }
 
-export const updateTopicContent = (params) => {
+export const updateArticle = (params) => {
     let url = '/article/update'
-    let type = 'UPDATE_TOPIC_CONTENT'
+    let type = 'UPDATE_ART'
     return requestPostJsonReturnDispatch(url, params, type)
 }
 
-export const fetchTopicContentById = (params) => {
+export const fetchArticleById = (params) => {
     let url = '/article/get-article-by-id?article_id=' + params
-    let type = 'GET_TOPIC_CONTENT_BY_ID'
+    let type = 'GET_ART_BY_ID'
     return requestGetJsonReturnDispatch(url, type)
 }
 
-export const deleteTopicContent = (params) => {
+export const deleteArticle = (params) => {
     let url = '/article/delete'
-    let type = 'DELETE_TOPIC_CONTENT'
+    let type = 'DELETE_ART'
     return requestDeleteJsonReturnDispatch(url, params, type)
 }
 
-export const removeTopicContent = (params) => {
+export const removeArticle = (params) => {
     let url = '/article/remove'
-    let type = 'REMOVE_TOPIC_CONTENT'
+    let type = 'REMOVE_ART'
     return requestPutJsonReturnDispatch(url, params, type)
 }
 
-export const restoreTopicContent = (params) => {
+export const restoreArticle = (params) => {
     let url = '/article/restore'
-    let type = 'RESTORE_TOPIC_CONTENT'
+    let type = 'RESTORE_ART'
     return requestPutJsonReturnDispatch(url, params, type)
 }
 
 
-export const setLastSearchTopicContent = (obj) => {
+export const setLastSearchArticle = (obj) => {
     return {
-        type: 'SET_LAST_SEARCH_TOPIC_CONTENT',
+        type: 'SET_LAST_SEARCH_ART',
         data: obj
     }
 }

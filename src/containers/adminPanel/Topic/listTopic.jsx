@@ -14,16 +14,16 @@ class ListTopic extends Component {
         super(props)
         this.state = {
             filterParam: {
-                article_title: '',
-                article_type: -1,
+                at_title: '',
+                article_id: -1,
                 status: -1,
                 currentStatus: -1
             },
             filterDropdownVisible: {
-                article_title: false,
+                at_title: false,
             },
             searchText: {
-                article_title: '',
+                at_title: '',
             },
             filtered: false,
             pagination: {
@@ -156,23 +156,23 @@ class ListTopic extends Component {
         }
     }
 
-    onDelete(article_id) {
+    onDelete(at_id) {
         let params = {
-            article_id
+            at_id
         }
         this.props.deleteTopic(params)
     }
 
-    onRemove(article_id) {
+    onRemove(at_id) {
         let params = {
-            article_id: article_id
+            at_id: at_id
         }
         this.props.removeTopic(params)
     }
 
-    onRestore(article_id) {
+    onRestore(at_id) {
         let params = {
-            article_id: article_id
+            at_id: at_id
         }
         this.props.restoreTopic(params)
     }
@@ -193,7 +193,7 @@ class ListTopic extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreTopic({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreTopic({ at_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -203,7 +203,7 @@ class ListTopic extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteTopic({ article_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteTopic({ at_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {
@@ -246,7 +246,7 @@ class ListTopic extends Component {
     }
     changeTopicType(value) {
         let filterParam = { ...this.state.filterParam }
-        filterParam.article_type = value;
+        filterParam.article_id = value;
         this.setState({
             filterParam
         })
@@ -254,16 +254,16 @@ class ListTopic extends Component {
 
     clearFilter() {
         let filterParam = {
-            article_title: '',
-            article_type: -1,
+            at_title: '',
+            article_id: -1,
             status: -1,
             currentStatus: -1
         }
         let filterDropdownVisible = {
-            article_title: false,
+            at_title: false,
         }
         let searchText = {
-            article_title: '',
+            at_title: '',
         }
         let pagination = {
             pageSize: 10,

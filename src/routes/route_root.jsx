@@ -61,7 +61,7 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/grammar/grammar_container.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
-			//System control topic
+			//System control article
 			{
 				path: '/system-control/list-article',
 				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
@@ -69,13 +69,13 @@ const routes = [
 			},
 			{
 				path: '/system-control/post-article/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			//System control topic
 			{
 				path: '/system-control/list-article-topic',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
+				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopic.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			{

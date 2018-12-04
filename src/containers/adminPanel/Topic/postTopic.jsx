@@ -13,7 +13,7 @@ class PostTopic extends Component {
     render() {
         return (
             <div>
-                <h3>Nội dung bài viết</h3>
+                <h3>Nội dung đề tài</h3>
                 <Divider />
                 <Topic {...this.props}
                 />
