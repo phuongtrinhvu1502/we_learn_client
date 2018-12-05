@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { viewArticleById } from '../../actions/viewArticle';
-import Article from '../../components/userPanel/viewArticle.jsx';
+import GrammarComponent from '../../components/grammar/grammar_component.jsx';
 import { notification, Input, Divider } from 'antd';
 
 class Grammar extends Component {
@@ -12,10 +11,7 @@ class Grammar extends Component {
     render() {
         return (
             <div>
-                <h3>{this.props.articleItem.article_title}</h3>
-                <p>Đăng bởi: {this.props.articleItem.full_name}</p>
-                <Divider />
-                <Article {...this.props}
+                <GrammarComponent {...this.props}
                 />
             </div>
         )
@@ -23,20 +19,10 @@ class Grammar extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        articleItem: state.viewArticle.articleItem,
-        actionName: state.viewArticle.actionName,
-        countFetchById: state.viewArticle.countFetchById,
-        msg: state.viewArticle.msg,
-        success: state.viewArticle.success,
-        countUpdate: state.viewArticle.countUpdate,
-        data: state.viewArticle.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        viewArticleById: (params) => {
-            dispatch(viewArticleById(params))
-        },
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Grammar);

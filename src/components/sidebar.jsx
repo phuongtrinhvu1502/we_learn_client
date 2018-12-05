@@ -48,7 +48,7 @@ class Sidebar extends Component {
             this.setState({ activeKey: "subMenuForum" })
         }
         else if (window.location.hash.includes('/grammar/')) {
-            this.setState({ activeKey: "subMenuGrammar" })
+            this.setState({ activeKey: "subMenuSkill" })
         }
         else if (window.location.hash.includes('/test/')) {
             this.setState({ activeKey: "subMenuTest" })
@@ -79,7 +79,7 @@ class Sidebar extends Component {
                 this.setState({ activeKey: "subMenuForum" })
             }
             else if (nextProps.hash.includes('/grammar/')) {
-                this.setState({ activeKey: "subMenuGrammar" })
+                this.setState({ activeKey: "subMenuSkill" })
             }
             else if (nextProps.hash.includes('/test/')) {
                 this.setState({ activeKey: "subMenuTest" })
@@ -125,23 +125,11 @@ class Sidebar extends Component {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
-                    <SubMenu key="subMenuGrammar" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Ngữ pháp</span></span>}>
-                        <Menu.Item key="#/grammar/4" >
-                            <Link to={'/grammar/4'} className="nav-link" >
+                    <SubMenu key="subMenuSkill" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Các kỹ năng</span></span>}>
+                        <Menu.Item key="#/grammar/all-grammar" >
+                            <Link to={'/grammar/all-grammar'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Thì hiện tại</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/grammar/5" >
-                            <Link to={'/grammar/5'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Thì quá khứ</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/grammar/6" >
-                            <Link to={'/grammar/6'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Thì tương lai</span>
+                                <span>Ngữ pháp</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>

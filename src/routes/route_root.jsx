@@ -57,7 +57,7 @@ const routes = [
 			},
 			//Grammar
 			{
-				path: '/grammar/:id?',
+				path: '/grammar/all-grammar',
 				component: asyncComponent(() => System.import('../containers/grammar/grammar_container.jsx')
 					.then(module => module.default), { name: 'name' })
 			},

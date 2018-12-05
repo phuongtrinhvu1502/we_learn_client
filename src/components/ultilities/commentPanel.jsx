@@ -26,6 +26,7 @@ class FormTemplate extends Component {
             },
             is_edited: undefined,
         }
+        this.userInfo = cookie.load('userInfo')
         this.onEditorStateChange = this.onEditorStateChange.bind(this)
         this.handleCommentChange = this.handleCommentChange.bind(this)
         this.editComment = this.editComment.bind(this)
@@ -42,6 +43,8 @@ class FormTemplate extends Component {
                 editorState,
             })
         }
+        var elmnt = document.getElementById("wysiwyg-box");
+        elmnt.scrollIntoView();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -125,7 +128,7 @@ class FormTemplate extends Component {
 
         return (
             <div className="ant-row">
-                <Row>
+                <Row id="wysiwyg-box">
                     <Editor
                         placeholder="Insert comment ... "
                         editorState={this.state.editorState}
@@ -157,7 +160,13 @@ class FormTemplate extends Component {
                                         <div className="cmt-user-content col-md-10 col-sm-10 col-xs-10 col-lg-10">
                                             <p>Commented at: {item.created_date}</p>
                                             <p>{ReactHtmlParser(item.comment_content)}</p>
-                                            <a style={{ float: 'right' }} href="javascript:void(0);" onClick={() => this.editComment(item)}>Edit</a>
+                                            {
+                                                this.userInfo.id == item.user_id &&
+                                                <a style={{ float: 'right' }} href="javascript:void(0);"
+                                                    onClick={() => this.editComment(item)}>
+                                                    {this.state.is_edited == item.comment_id ? "Editing" : "Edit"}
+                                                </a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
