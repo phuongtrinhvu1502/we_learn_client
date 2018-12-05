@@ -42,8 +42,8 @@ class FormTemplate extends Component {
     }
 
     componentDidMount() {
-        this.props.listNewestPagination(this.state.paginateNews)
-        this.props.listGrammarPagination(this.state.paginateGrammar)
+        // this.props.listNewestPagination(this.state.paginateNews)
+        // this.props.listGrammarPagination(this.state.paginateGrammar)
     }
 
     componentWillReceiveProps(nextProps) {

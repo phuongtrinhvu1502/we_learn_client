@@ -30,6 +30,7 @@ class FormTemplate extends Component {
         if (this.props.match.params.id != undefined) {
             this.props.fetchArticleById(this.props.match.params.id)
         }
+        this.props.getAllListArticleTopic();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -114,9 +115,9 @@ class FormTemplate extends Component {
                                 }
                             )(
                                 <Select placeholder="Nhập Chọn Đề tài bài viết">
-                                    <Option key={1} value={1}>News</Option>
-                                    <Option key={2} value={2}>Grammar</Option>
-                                    <Option key={3} value={3}>Event</Option>
+                                    {this.props.lstArticleTopic.map(item =>
+                                        <Option key={item.at_id} value={item.at_id}>{item.at_title}</Option>
+                                    )}
                                 </Select>
                             )}
                         </FormItem>

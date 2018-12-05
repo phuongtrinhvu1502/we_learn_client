@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { insertArticle, updateArticle, fetchArticleById } from '../../actions/article';
+import { insertArticle, updateArticle, fetchArticleById, getAllListArticleTopic } from '../../actions/article';
 import Article from '../../components/adminPanel/postArticle.jsx';
 import { notification, Input, Divider } from 'antd';
 
@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
         success: state.article.success,
         countUpdate: state.article.countUpdate,
         data: state.article.data,
+        lstArticleTopic: state.article.lstArticleTopic,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchArticleById: (params) => {
             dispatch(fetchArticleById(params))
+        },
+        getAllListArticleTopic: (params) => {
+            dispatch(getAllListArticleTopic(params))
         },
     }
 }

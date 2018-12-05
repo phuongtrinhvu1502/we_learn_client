@@ -7,7 +7,7 @@ const Option = Select.Option;
 const Panel = Collapse.Panel
 
 const FilterOpportunity = (props) => {
-    const { status, onClickSearch, changeStatusFilter, clearFilter, changeTopicType } = props
+    const { filterParam, status, onClickSearch, changeStatusFilter, clearFilter, changeTopicType, lstArticle } = props
     // const dateString = moment('2014-12-13', 'YYYY-MM-DD').toDate();
     // const dateObj = new Date(dateString);
     // const momentObj = moment(dateObj);
@@ -17,17 +17,17 @@ const FilterOpportunity = (props) => {
                 <Row>
                     <Col className="gutter-row list-provider-filter" span={12}>
                         <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Danh mục">
-                            <Select placeholder="Chọn Danh mục" defaultValue={-1} onChange={changeTopicType}>
+                            <Select placeholder="Chọn Danh mục" value={filterParam.article_id} onChange={changeTopicType}>
                                 <Option key={-1} value={-1}>Tất cả</Option>
-                                <Option key={0} value={0}>News</Option>
-                                <Option key={1} value={1}>Grammar</Option>
-                                <Option key={2} value={2}>Event</Option>
+                                {lstArticle.map(item =>
+                                    <Option key={item.article_id} value={item.article_id}>{item.article_title}</Option>
+                                )}
                             </Select>
                         </FormItem>
                     </Col>
                     <Col className="gutter-row list-provider-filter" span={12}>
                         <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Trạng thái">
-                            <Select placeholder="Chọn Trạng thái" defaultValue={-1} onChange={changeStatusFilter}>
+                            <Select placeholder="Chọn Trạng thái" value={filterParam.status} onChange={changeStatusFilter}>
                                 {status.map(type =>
                                     <Select.Option key={type.type_name} value={type.type_name}>{type.name}</Select.Option>
                                 )

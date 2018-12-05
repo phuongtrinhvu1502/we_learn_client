@@ -6,7 +6,7 @@ import TableTopic from '../../../components/adminPanel/Topic/tableTopic.jsx';
 import FilterTopic from '../../../components/adminPanel/Topic/filterTopic.jsx';
 import {
     listTopicPagination, removeTopic, restoreTopic,
-    deleteTopic, setLastSearchTopic
+    deleteTopic, setLastSearchTopic, getAllListArticle
 } from '../../../actions/topic';
 import { notification } from 'antd';
 class ListTopic extends Component {
@@ -101,6 +101,7 @@ class ListTopic extends Component {
             params = { ...this.state.pagination, ...this.state.filterParam }
         }
         this.props.listTopicPagination(params);
+        this.props.getAllListArticle();
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -317,6 +318,8 @@ class ListTopic extends Component {
                     changeStatusFilter={this.changeStatusFilter}
                     changeTopicType={this.changeTopicType}
                     clearFilter={this.clearFilter}
+                    lstArticle={this.props.lstArticle}
+                    filterParam={this.state.filterParam}
                 />
                 <TableTopic rowKey='index'
                     pagination={this.state.pagination}
@@ -352,6 +355,7 @@ const mapStateToProps = (state) => {
         countFetchPage: state.topic.countFetchPage,
         countUpdate: state.topic.countUpdate,
         lastSearchObj: state.topic.lastSearchObj,
+        lstArticle: state.topic.lstArticle,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -370,6 +374,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setLastSearchTopic: (param) => {
             dispatch(setLastSearchTopic(param))
+        },
+        getAllListArticle: () => {
+            dispatch(getAllListArticle())
         },
     }
 }

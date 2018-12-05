@@ -14,7 +14,7 @@ const initialState = {
     msg: '',
     data: null,
 }
-const article = (state = initialState, action = {}) => {
+const art = (state = initialState, action = {}) => {
     switch (action.type) {
         case 'LIST_ART_PAGINATION':
             return {
@@ -42,4 +42,4 @@ const article = (state = initialState, action = {}) => {
             return state;
     }
 }
-export default article
+export default art

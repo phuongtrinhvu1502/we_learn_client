@@ -6,9 +6,9 @@ import cookie from 'react-cookies'
 
 const lstPermission = cookie.load('lstPermission') || [];
 
-const TableOpportunity = ({ listTopic, filterDropdownVisible, searchText, changeInputSearch, onFilterDropdownVisibleChange, onInputChange, pagination, onDelete, onRemove,
+const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, changeInputSearch, onFilterDropdownVisibleChange, onInputChange, pagination, onDelete, onRemove,
     searchInput, onRestore, changePageSize, handleDelete, handleRestore, filterParam, rowSelection, handleTableChange }) => {
-    let data = listTopic.results;
+    let data = listArticle.results;
     let disableFunc = rowSelection == undefined || rowSelection.selectedRowKeys.length == 0
     const columns = [
         {

@@ -2,6 +2,7 @@
 const initialState = {
     articleItem: {},
     listArticle: [],
+    lstArticleTopic: [],
     actionName: '',
     countUpdate: 0,
     countDelete: 0,
@@ -20,6 +21,10 @@ const article = (state = initialState, action = {}) => {
             return {
                 ...state, listArticle: action.data.data ? action.data.data : [], success: action.data.success,
                 countFetchPage: state.countFetchPage + 1
+            }
+        case 'GET_ALL_LST_ARTICLE_TOPIC':
+            return {
+                ...state, lstArticleTopic: action.data.data ? action.data.data : [], success: action.data.success,
             }
         case 'GET_ARTICLE_BY_ID':
             return {

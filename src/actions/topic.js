@@ -53,3 +53,8 @@ export const setLastSearchTopic = (obj) => {
     }
 }
 
+export const getAllListArticle = () => {
+    let url = '/article/get-all-list-article'
+    let type = 'GET_ALL_LST_ARTICLE'
+    return requestGetJsonReturnDispatch(url, type)
+}

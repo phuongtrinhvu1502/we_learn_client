@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 import TableArticle from '../../components/adminPanel/tableArticle.jsx';
 import FilterArticle from '../../components/adminPanel/filterArticle.jsx';
-import { listArticlePagination, removeArticle, restoreArticle, deleteArticle, setLastSearchArticle } from '../../actions/article';
+import {
+    listArticlePagination, removeArticle, restoreArticle,
+    deleteArticle, setLastSearchArticle, getAllListArticleTopic
+} from '../../actions/article';
 import { notification } from 'antd';
 class ListArticle extends Component {
     constructor(props) {
@@ -98,6 +101,7 @@ class ListArticle extends Component {
             params = { ...this.state.pagination, ...this.state.filterParam }
         }
         this.props.listArticlePagination(params);
+        this.props.getAllListArticleTopic()
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -314,6 +318,8 @@ class ListArticle extends Component {
                     changeStatusFilter={this.changeStatusFilter}
                     changeArticleType={this.changeArticleType}
                     clearFilter={this.clearFilter}
+                    lstArticleTopic={this.props.lstArticleTopic}
+                    filterParam={this.state.filterParam}
                 />
                 <TableArticle rowKey='index'
                     pagination={this.state.pagination}
@@ -349,6 +355,7 @@ const mapStateToProps = (state) => {
         countFetchPage: state.article.countFetchPage,
         countUpdate: state.article.countUpdate,
         lastSearchObj: state.article.lastSearchObj,
+        lstArticleTopic: state.article.lstArticleTopic,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -367,6 +374,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setLastSearchArticle: (param) => {
             dispatch(setLastSearchArticle(param))
+        },
+        getAllListArticleTopic: (param) => {
+            dispatch(getAllListArticleTopic(param))
         },
     }
 }
