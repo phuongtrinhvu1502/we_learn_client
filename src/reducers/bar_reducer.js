@@ -6,7 +6,8 @@ const initialState = {
 	loginSuccess: false,
 	loginFail: false,
 	msg: '',
-	logoutSuccess: false
+	logoutSuccess: false,
+	countSignUp: 0,
 }
 const bar_reducer = (state = initialState, action = {}) => {
 	switch (action.type) {
@@ -21,6 +22,8 @@ const bar_reducer = (state = initialState, action = {}) => {
 			return { ...state, msg: action.msg, loginFail: true, loginSuccess: false, }
 		case 'LOGOUT':
 			return { ...state, msg: action.data, logoutSuccess: true, }
+		case 'SIGN_UP':
+			return { ...state, countSignUp: state.countSignUp + 1, }
 		case 'RESET_STORE_BAR':
 			return state = initialState
 		default:

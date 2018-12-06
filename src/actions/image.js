@@ -10,7 +10,7 @@ export const listImagePagination = (params) => {
 }
 
 export const insertImage = (params) => {
-    let url = '/image/insert'
+    let url = '/document/insert'
     let type = 'INSERT_IMAGE'
     return requestPostJsonReturnDispatch(url, params, type)
 }

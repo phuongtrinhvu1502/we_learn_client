@@ -14,79 +14,11 @@ class FormTemplate extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            lstData: [
-                {
-                    article_id: 1,
-                    article_title: "Từ loại",
-                    lstArticleTopic: [
-                        {
-                            at_id: 1,
-                            at_title: "Tính từ",
-                            lstATC: [
-                                // {
-                                //     atc_id: 1,
-                                //     atc_title: "Bài viết 1"
-                                // }
-                            ]
-                        },
-                        {
-                            at_id: 1,
-                            at_title: "Tính từ",
-                            lstATC: [
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                },
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                },
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                },
-                            ]
-                        },
-                        {
-                            at_id: 1,
-                            at_title: "Tính từ",
-                            lstATC: [
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                }
-                            ]
-                        },
-                        {
-                            at_id: 1,
-                            at_title: "Tính từ",
-                            lstATC: [
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                }
-                            ]
-                        },
-                    ]
-                },
-                {
-                    article_id: 1,
-                    article_title: "Từ loại",
-                    lstArticleTopic: [
-                        {
-                            at_id: 1,
-                            at_title: "Tính từ",
-                            lstATC: [
-                                {
-                                    atc_id: 1,
-                                    atc_title: "Bài viết 1"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
         }
+    }
+    
+    componentDidMount() {
+        this.props.getListArticleByType({ type_id: 2 });
     }
 
     render() {
@@ -99,17 +31,16 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
-        console.log(this.state.lstData)
         return (
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 {
-                    this.state.lstData.map(articleItem =>
+                    this.props.lstData.map(articleItem =>
                         <Row style={{ borderBottom: '1px solid #3cb878' }}>
                             <div className="type-sentence-title">
                                 {articleItem.article_title}
                             </div>
                             {
-                                articleItem.lstArticleTopic.map((at, at_key) => {
+                                articleItem.listTopic.map((at, at_key) => {
                                     if (at_key == 2 || ((3 % at_key) == 2) && at_key != 1)
                                         return (
                                             <div>
@@ -118,7 +49,7 @@ class FormTemplate extends Component {
                                                     <div className="type-sentence-list">
                                                         <ul>
                                                             {
-                                                                at.lstATC.map(atc =>
+                                                                at.listContent.map(atc =>
                                                                     <li>
                                                                         <a href="/phan-loai-tinh-tu-cd">
                                                                             <span>{atc.atc_title}</span>
@@ -139,7 +70,7 @@ class FormTemplate extends Component {
                                                 <div className="type-sentence-list">
                                                     <ul>
                                                         {
-                                                            at.lstATC.map(atc =>
+                                                            at.listContent.map(atc =>
                                                                 <li>
                                                                     <a href="/phan-loai-tinh-tu-cd">
                                                                         <span>{atc.atc_title}</span>

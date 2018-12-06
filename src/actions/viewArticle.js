@@ -8,3 +8,9 @@ export const viewArticleById = (params) => {
     let type = 'VIEW_ARTICLE_BY_ID'
     return requestGetJsonReturnDispatch(url, type)
 }
+
+export const getListArticleByType = (params) => {
+    let url = '/article/get-list-article-by-type'
+    let type = 'GET_LIST_ARTICLE_BY_TYPE'
+    return requestPostJsonReturnDispatch(url, params, type)
+}

@@ -49,7 +49,7 @@ class NormalLoginForm extends Component {
 					username: '',
 					password: ''
 				})
-				// this.props.login(username, password)
+				this.props.signUp(values)
 			} else {
 				scrollToErrorForm(err)
 			}
@@ -60,15 +60,15 @@ class NormalLoginForm extends Component {
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<Form onSubmit={this.handleSubmit} className="login-form">
-				<FormItem key="fullName">
-					{getFieldDecorator('fullName', {
+				<FormItem key="full_name">
+					{getFieldDecorator('full_name', {
 						rules: [{ required: true, message: 'Please input your Full Name!' }],
 					})(
 						<Input placeholder="Full name" />
 					)}
 				</FormItem>
-				<FormItem key="userName">
-					{getFieldDecorator('userName', {
+				<FormItem key="user_login">
+					{getFieldDecorator('user_login', {
 						rules: [{ required: true, message: 'Please input your username!' }],
 					})(
 						<Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />

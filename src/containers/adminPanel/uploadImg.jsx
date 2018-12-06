@@ -5,7 +5,11 @@ import moment from 'moment'
 import TableImage from '../../components/adminPanel/tableImg.jsx';
 import InsertImage from '../../components/adminPanel/filterImg.jsx';
 import { listImagePagination, deleteImage, insertImage } from '../../actions/image';
-import { notification } from 'antd';
+import { Upload, Select, Button, Row, Col, Collapse, Divider, Input, Form, DatePicker, notification } from 'antd';
+
+const FormItem = Form.Item;
+const Option = Select.Option;
+const Panel = Collapse.Panel
 class ListPlaceType extends Component {
     constructor(props) {
         super(props)
@@ -165,12 +169,8 @@ class ListPlaceType extends Component {
     onInsert() {
         let params = new FormData();
         this.state.img_lstfile.forEach(function (item) {
-            if (item.img_lstfile != null && item.img_lstfile.length > 0) {
-                item.img_lstfile.forEach(function (img_element) {
-                    if (!img_element.uploaded) {
-                        params.append("img_file", img_element.originFileObj)
-                    }
-                })
+            if (!item.uploaded) {
+                params.append("attachment", item.originFileObj)
             }
         })
         this.props.insertImage(params);
@@ -262,11 +262,24 @@ class ListPlaceType extends Component {
 
         return (
             <div>
-                <InsertImage
-                    img_lstfile={this.state.img_lstfile}
-                    onInsert={this.onInsert}
-                    props_upload={props_upload}
-                />
+                <Collapse className="collapse-search-area-frm">
+                    <Panel header="Tìm kiếm">
+                        <Row>
+                            <Col className="gutter-row list-provider-filter" span={12}>
+                                <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Ảnh">
+                                    <Upload {...props_upload} fileList={this.state.img_lstfile}>
+                                        <Button type="primary" className="btn btn-success" id="images">Add</Button>
+                                    </Upload>
+                                </FormItem>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="gutter-row" span={24}>
+                                <Button type="primary" className={"margin-bottom-5"} style={{ float: 'right' }} onClick={this.onInsert}>Thêm Ảnh</Button>
+                            </Col>
+                        </Row>
+                    </Panel>
+                </Collapse >
                 <TableImage rowKey='index'
                     pagination={this.state.pagination}
                     searchText={this.state.searchText}
