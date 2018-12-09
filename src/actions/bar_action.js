@@ -69,3 +69,15 @@ export const resetStoreBar = () => {
 		type: 'RESET_STORE_BAR'
 	}
 }
+
+export const activeUser = (params) => {
+	let url = '/active-account'
+	let type = 'ACTIVE_ACCOUNT'
+	return requestPostJsonReturnDispatch(url, params, type)
+}
+
+export const resendActiveCode = (params) => {
+	let url = '/resend-active-code'
+	let type = 'RESEND_ACTIVE_CODE'
+	return requestPostJsonReturnDispatch(url, params, type)
+}

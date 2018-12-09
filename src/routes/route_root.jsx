@@ -40,6 +40,16 @@ const routes = [
 					.then(module => module.default), { name: 'login' })
 			},
 			{
+				path: '/resend-active-code',
+				component: asyncComponent(() => System.import('../containers/resend_active_code.jsx')
+					.then(module => module.default), { name: 'login' })
+			},
+			{
+				path: '/active-account',
+				component: asyncComponent(() => System.import('../containers/active_user.jsx')
+					.then(module => module.default), { name: 'login' })
+			},
+			{
 				path: '/sign-up',
 				component: asyncComponent(() => System.import('../containers/signup.jsx')
 					.then(module => module.default), { name: 'sign-up' })
