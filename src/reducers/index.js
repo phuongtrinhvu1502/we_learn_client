@@ -13,10 +13,11 @@ import home from './homepage';
 import test from './test';
 import topic from './topic';
 import art from './art';
+import user_test from './user_test';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
-	re_use_function:re_use_function,
+	re_use_function: re_use_function,
 	article: article,
 	img: img,
 	viewQA: viewQA,
@@ -26,5 +27,6 @@ const reducers = combineReducers({
 	test: test,
 	topic: topic,
 	art: art,
+	user_test: user_test,
 });
 export default reducers;

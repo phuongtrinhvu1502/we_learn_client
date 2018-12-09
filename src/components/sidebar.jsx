@@ -134,10 +134,10 @@ class Sidebar extends Component {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu key="subMenuTest" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Luyện đề thi</span></span>}>
-                        <Menu.Item key="#/test/list-reading" >
-                            <Link to={'/test/list-reading'} className="nav-link" >
+                        <Menu.Item key="#/test/list-test" >
+                            <Link to={'/test/list-test'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Reading</span>
+                                <span>Danh sách đề thi</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>

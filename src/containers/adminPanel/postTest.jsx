@@ -13,7 +13,7 @@ class PostTest extends Component {
     render() {
         return (
             <div>
-                <h3>Đăng bài</h3>
+                <h3>Đăng bài thi</h3>
                 <Divider />
                 <Test {...this.props}
                 />

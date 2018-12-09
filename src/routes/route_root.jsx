@@ -133,13 +133,13 @@ const routes = [
 			},
 			//List Test
 			{
-				path: '/test/list-reading',
-				component: asyncComponent(() => System.import('../containers/test/list_reading.jsx')
+				path: '/test/list-test',
+				component: asyncComponent(() => System.import('../containers/test/list_test.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 			{
-				path: '/test/view-reading/:id?',
-				component: asyncComponent(() => System.import('../containers/test/view_reading.jsx')
+				path: '/test/view-test/:id?',
+				component: asyncComponent(() => System.import('../containers/test/view_test.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
 

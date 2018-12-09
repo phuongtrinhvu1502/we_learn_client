@@ -11,61 +11,13 @@ class ViewReadingComponent extends Component {
         super(props)
         this.state = {
             lstQuestion: {
-                results: [
-                    {
-                        tq_id: 1, tq_content: "What is hello?",
-                        lst_answer: [
-                            { ta_id: 1, ta_content: "Hello is hello" },
-                            { ta_id: 2, ta_content: "Hello is hi" },
-                            { ta_id: 3, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                    {
-                        tq_id: 2, tq_content: "What is hello1?",
-                        lst_answer: [
-                            { ta_id: 4, ta_content: "Hello is hello" },
-                            { ta_id: 5, ta_content: "Hello is hi" },
-                            { ta_id: 6, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                    {
-                        tq_id: 3, tq_content: "What is hello2?",
-                        lst_answer: [
-                            { ta_id: 7, ta_content: "Hello is hello" },
-                            { ta_id: 8, ta_content: "Hello is hi" },
-                            { ta_id: 9, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                    {
-                        tq_id: 4, tq_content: "What is hello?",
-                        lst_answer: [
-                            { ta_id: 1, ta_content: "Hello is hello" },
-                            { ta_id: 2, ta_content: "Hello is hi" },
-                            { ta_id: 3, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                    {
-                        tq_id: 5, tq_content: "What is hello1?",
-                        lst_answer: [
-                            { ta_id: 4, ta_content: "Hello is hello" },
-                            { ta_id: 5, ta_content: "Hello is hi" },
-                            { ta_id: 6, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                    {
-                        tq_id: 6, tq_content: "What is hello2?",
-                        lst_answer: [
-                            { ta_id: 7, ta_content: "Hello is hello" },
-                            { ta_id: 8, ta_content: "Hello is hi" },
-                            { ta_id: 9, ta_content: "Hello is good bye" },
-                        ]
-                    },
-                ],
-                total: 6
+                results: [],
+                total: 0,
             },
             lstUserAnswer: [],
             current: 1,
             lstQuestionDisplay: [],
+            renderQuestion: false,
         }
         this.renderLstQuestion = this.renderLstQuestion.bind(this)
         this.changePage = this.changePage.bind(this)
@@ -123,7 +75,6 @@ class ViewReadingComponent extends Component {
     }
 
     componentDidMount() {
-        this.setLstUserAnswerDefault();
         this.renderLstQuestion(this.state.current);
         let _that = this
         var countDownDate = new Date().getTime() + 45 * 60000;
@@ -148,6 +99,24 @@ class ViewReadingComponent extends Component {
                 _that.sendUserAnswer();
             }
         }, 1000);
+
+        if (this.props.match.params.id != undefined) {
+            this.props.fetchTestById(this.props.match.params.id)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.countFetchById > this.props.countFetchById) {
+            this.setState({
+                lstQuestion: nextProps.testItem,
+                renderQuestion: true,
+            })
+        }
+        if (nextProps.countUpdate > this.props.countUpdate) {
+            if (nextProps.actionName == "insert") {
+                alert("nộp bài thành công, yêu cầu tính toán điểm")
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -155,10 +124,21 @@ class ViewReadingComponent extends Component {
     }
 
     sendUserAnswer() {
-        console.log(this.state.lstUserAnswer)
+        let params = {
+            user_answer: this.state.lstUserAnswer,
+            test_id: this.props.match.params.id
+        }
+        this.props.insertTest(params)
     }
 
     render() {
+        if (this.state.renderQuestion) {
+            this.renderLstQuestion(this.state.current)
+            this.setLstUserAnswerDefault(this.state.lstQuestion)
+            this.setState({
+                renderQuestion: false,
+            })
+        }
         const { current } = this.state;
         const radioStyle = {
             display: 'block',
@@ -179,7 +159,7 @@ class ViewReadingComponent extends Component {
                                 <div>
                                     <h5>Câu {(key + 1) + ((current - 1) * 5)} : {item.tq_content}</h5>
                                     <RadioGroup onChange={(e) => this.onChangeAnswer(e.target.value, item.tq_id)}>
-                                        {item.lst_answer.map(itemAnswer =>
+                                        {item.lst_anwser.map(itemAnswer =>
                                             <Radio style={radioStyle} value={itemAnswer.ta_id}>{itemAnswer.ta_content}</Radio>
                                         )}
                                     </RadioGroup>

@@ -47,6 +47,16 @@ class GeneralInfoForm extends Component {
         this.changeInputAnswer = this.changeInputAnswer.bind(this)
         this.changeTestName = this.changeTestName.bind(this)
         this.createTest = this.createTest.bind(this)
+        this.handleTableChange = this.handleTableChange.bind(this)
+    }
+
+    handleTableChange(pagination, filters, sorter) {
+        let params = { ...this.state.pagination }
+        params.pageSize = pagination.pageSize
+        params.page = pagination.current
+        this.setState({
+            pagination: params
+        })
     }
 
     componentDidMount() {
@@ -285,10 +295,10 @@ class GeneralInfoForm extends Component {
                         (record.tq_id != undefined) && (record.tq_id > 0) ?
                             <div>
                                 <a onClick={() => this.showQuestionModal(record, record.rowKey)}><i className="fa fa-edit"></i></a>
-                                <Divider type="vertical" />
-                                <Popconfirm className="nav-link" title="Bạn có muốn xóa phân xưởng này không?" onConfirm={() => this.deleteQuestion(record.tq_id, record.rowKey)}>
+                                {/* <Divider type="vertical" />
+                                <Popconfirm className="nav-link" title="Bạn có muốn xóa câu hỏi này không?" onConfirm={() => this.deleteQuestion(record.tq_id, record.rowKey)}>
                                     <a href="#"><i className="far fa-trash-alt"></i></a>
-                                </Popconfirm>
+                                </Popconfirm> */}
                             </div>
                             :
                             <div>
@@ -402,7 +412,7 @@ class GeneralInfoForm extends Component {
                             rowKey="rowKey"
                             bordered
                             // pagination={this.state.paginationTrans}
-                            // onChange={this.changeTableHandle}
+                            onChange={this.changeTableHandle}
                             dataSource={this.state.lst_answer}
                             scrollY={500} />
                         {
@@ -434,6 +444,7 @@ class GeneralInfoForm extends Component {
                     className='table-provider'
                     dataSource={this.state.lstQuestion}
                     columns={columns}
+                    onChange={this.handleTableChange}
                     rowKey="rowKey"
                     bordered
                     pagination={this.state.pagination}
