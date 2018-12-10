@@ -82,6 +82,12 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postArticle.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//System control user
+			{
+				path: '/system-control/list-user',
+				component: asyncComponent(() => System.import('../containers/adminPanel/listUser.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 			//System control topic
 			{
 				path: '/system-control/list-article-topic',

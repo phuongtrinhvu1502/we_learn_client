@@ -19,7 +19,7 @@ class FormTemplate extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            editorState: EditorState.createEmpty(),
+            // editorState: EditorState.createEmpty(),
             paginateComment: {
                 current: 1,
                 pageSize: 10,
@@ -34,15 +34,18 @@ class FormTemplate extends Component {
     }
 
     editComment(item) {
-        let contentBlock = htmlToDraft(item.comment_content);
-        if (contentBlock) {
-            let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-            let editorState = EditorState.createWithContent(contentState);
-            this.setState({
-                is_edited: item.comment_id,
-                editorState,
-            })
-        }
+        this.props.form.setFieldsValue({
+            content: item.comment_content
+        })
+        // let contentBlock = htmlToDraft(item.comment_content);
+        // if (contentBlock) {
+        //     let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+        //     let editorState = EditorState.createWithContent(contentState);
+        this.setState({
+            is_edited: item.comment_id,
+            // editorState,
+        })
+        // }
         var elmnt = document.getElementById("wysiwyg-box");
         elmnt.scrollIntoView();
     }
@@ -66,8 +69,11 @@ class FormTemplate extends Component {
                     description: "Cập nhật comment thành công"
                 })
                 this.setState({
-                    editorState: EditorState.createEmpty(),
+                    // editorState: EditorState.createEmpty(),
                     is_edited: undefined,
+                })
+                this.props.form.setFieldsValue({
+                    content: undefined
                 })
                 let paginateComment = { ...this.state.paginateComment }
                 this.props.listCommentByPage(paginateComment)
@@ -99,14 +105,15 @@ class FormTemplate extends Component {
     handleSubmit() {
         let params = {};
         params.qa_id = this.props.match.params.id
-        params.content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-        if (params.content.replace(regex, '').length < 22) {
-            notification.warn({
-                message: "Thông báo",
-                description: "Comment phải có độ dài lớn hơn 20 ký tự"
-            })
-            return
-        }
+        // params.content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+        // if (params.content.replace(regex, '').length < 22) {
+        //     notification.warn({
+        //         message: "Thông báo",
+        //         description: "Comment phải có độ dài lớn hơn 20 ký tự"
+        //     })
+        //     return
+        // }
+        params.content = this.props.form.getFieldsValue().content
         if (this.state.is_edited == undefined)
             this.props.postComment(params)
         else {
@@ -122,26 +129,44 @@ class FormTemplate extends Component {
         //note using col for divide col. 
         //default 24.
         const formItemLayout = {
-            labelCol: { span: 8 },
-            wrapperCol: { span: 16 },
+            labelCol: { span: 0 },
+            wrapperCol: { span: 24 },
         };
 
         return (
             <div className="ant-row">
-                <Row id="wysiwyg-box">
-                    <Editor
+                <h4>Bình luận</h4>
+                {this.userInfo != undefined &&
+                    <div>
+                        <Row id="wysiwyg-box">
+                            {/* <Editor
                         placeholder="Insert comment ... "
                         editorState={this.state.editorState}
                         wrapperClassName="demo-wrapper"
                         editorClassName="demo-editor comment-box"
                         onEditorStateChange={this.onEditorStateChange}
-                    />
-                </Row>
-                <Row style={{ textAlign: 'right', marginTop: '5px' }}>
-                    <Button size="small" type="primary" className="text-right btn btn-success" onClick={() => this.handleSubmit()}>
-                        {this.state.is_edited == undefined ? "Post Comment" : "Update Comment"}
-                    </Button>
-                </Row>
+                    /> */}
+                            <Col className="formInputRow" span={24}>
+                                <FormItem {...formItemLayout} label="">
+                                    {getFieldDecorator('content',
+                                        {
+                                            rules: [
+                                                { type: "string", required: true, whitespace: true, message: "Nhập bình luận" },
+                                            ],
+                                        }
+                                    )(
+                                        <TextArea placeholder="Nhập bình luận" rows={4} />
+                                    )}
+                                </FormItem>
+                            </Col>
+                        </Row>
+                        <Row style={{ textAlign: 'right', marginTop: '5px' }}>
+                            <Button size="small" type="primary" className="text-right btn btn-success" onClick={() => this.handleSubmit()}>
+                                {this.state.is_edited == undefined ? "Post Comment" : "Update Comment"}
+                            </Button>
+                        </Row>
+                    </div>
+                }
                 <Row>
                     {
                         this.props.lstComment.results != undefined && this.props.lstComment.results.map(item => {
@@ -161,7 +186,7 @@ class FormTemplate extends Component {
                                             <p>Commented at: {item.created_date}</p>
                                             <p>{ReactHtmlParser(item.comment_content)}</p>
                                             {
-                                                this.userInfo.id == item.user_id &&
+                                                this.userInfo != undefined && this.userInfo.id == item.user_id &&
                                                 <a style={{ float: 'right' }} href="javascript:void(0);"
                                                     onClick={() => this.editComment(item)}>
                                                     {this.state.is_edited == item.comment_id ? "Editing" : "Edit"}

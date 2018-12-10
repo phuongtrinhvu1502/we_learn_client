@@ -104,15 +104,15 @@ class FormTemplate extends Component {
             <Form layout="horizontal" className="frm_properties" onSubmit={this.handleSubmit} >
                 <Row>
                     <Col className="formInputRow" span={24}>
-                        <FormItem {...formItemLayout} label="Nhập tiêu đề câu hỏi">
+                        <FormItem {...formItemLayout} label="Tiêu đề câu hỏi">
                             {getFieldDecorator('qa_title',
                                 {
                                     rules: [{ type: "string", max: 50, message: "Không nhập quá 50 ký tự" },
-                                    { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề câu hỏi" },
+                                    { type: "string", required: true, whitespace: true, message: "Nhập tiêu đề câu hỏi" },
                                     ],
                                 }
                             )(
-                                <Input placeholder="Nhập Nhập tiêu đề câu hỏi" />
+                                <Input placeholder="Nhập tiêu đề câu hỏi" />
                             )}
                         </FormItem>
                     </Col>

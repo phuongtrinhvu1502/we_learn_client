@@ -173,6 +173,14 @@ class Sidebar extends Component {
                             </Link>
                         </Menu.Item>
                         {lstPermission.indexOf("PER-GROUP") > -1 &&
+                            <Menu.Item key="#/system-control/list-user" >
+                                <Link to={'/system-control/list-user'} className="nav-link" >
+                                    <Icon type="flag" />
+                                    <span>Quản lý người dùng</span>
+                                </Link>
+                            </Menu.Item>
+                        }
+                        {lstPermission.indexOf("PER-GROUP") > -1 &&
                             <Menu.Item key="#/system-control/grant-permission" >
                                 <Link to={'/system-control/grant-permission'} className="nav-link" >
                                     <Icon type="flag" />
