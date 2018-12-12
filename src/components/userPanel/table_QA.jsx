@@ -49,11 +49,11 @@ const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInp
             render: (text, record) =>
                 filterParam.currentStatus != -2 ?
                     <span>
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("QUES-ANS-3") > -1 &&
                             <Link to={'/forums/post-qa/' + record.qa_id}
                                 className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
                         }
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("QUES-ANS-4") > -1 &&
                             <span>
                                 <Divider type="vertical" />
                                 <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.qa_id)}>
@@ -64,10 +64,10 @@ const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInp
                     </span>
                     :
                     <span>
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("QUES-ANS-5") > -1 &&
                             <a onClick={() => onRestore(record.qa_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
                         }
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("QUES-ANS-6") > -1 &&
                             <span>
                                 <Divider type="vertical" />
                                 <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.qa_id)}>
@@ -80,7 +80,7 @@ const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInp
     ]
     return (
         <div>
-            {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+            {lstPermission.indexOf("QUES-ANS-2") > -1 &&
                 <Button type="primary" size='large' className="margin-bottom-5">
                     <Link to={'/forums/post-qa/'}
                         className="nav-link" >Add</Link>
@@ -88,12 +88,12 @@ const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInp
             }
             <span className={filterParam.currentStatus != -2 ? "hidden-element" : ""}>
                 <Divider type="vertical" />
-                {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                {lstPermission.indexOf("QUES-ANS-5") > -1 &&
                     <Button type="primary" size='large' disabled={rowSelection == undefined || rowSelection.selectedRowKeys.length == 0} className="margin-bottom-5" onClick={handleRestore}>
                         Restore
             </Button>
                 }
-                {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                {lstPermission.indexOf("QUES-ANS-6") > -1 &&
                     <span>
                         <Divider type="vertical" />
                         <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có muốn xóa không?" onConfirm={() => handleDelete()}>

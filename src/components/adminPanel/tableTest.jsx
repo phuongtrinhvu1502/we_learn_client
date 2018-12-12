@@ -31,7 +31,7 @@ const TableOpportunity = ({ listTest, filterDropdownVisible, searchText, changeI
             filterDropdownVisible: filterDropdownVisible.test_name,
             onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'test_name'),
             render: (text, record) =>
-                <Link to={'/system-control/post-test/' + record.test_id}
+                <Link to={'/system-content/post-test/' + record.test_id}
                     className="nav-link" ><span>{text}</span></Link>
 
         },
@@ -50,7 +50,7 @@ const TableOpportunity = ({ listTest, filterDropdownVisible, searchText, changeI
         //         filterParam.currentStatus != -2 ?
         //             <span>
         //                 {lstPermission.indexOf("PROPERTIES-8") > -1 &&
-        //                     <Link to={'/system-control/post-test/' + record.test_id}
+        //                     <Link to={'/system-content/post-test/' + record.test_id}
         //                         className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
         //                 }
         //                 {lstPermission.indexOf("PROPERTIES-8") > -1 &&
@@ -80,9 +80,9 @@ const TableOpportunity = ({ listTest, filterDropdownVisible, searchText, changeI
     ]
     return (
         <div>
-            {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+            {lstPermission.indexOf("LIST-TEST") > -1 &&
                 <Button type="primary" size='large' className="margin-bottom-5">
-                    <Link to={'/system-control/post-test/'}
+                    <Link to={'/system-content/post-test/'}
                         className="nav-link" >Add</Link>
                 </Button>
             }

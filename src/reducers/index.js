@@ -15,6 +15,7 @@ import topic from './topic';
 import art from './art';
 import user_test from './user_test';
 import user from './user';
+import systemControl from './system_control';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -30,5 +31,6 @@ const reducers = combineReducers({
 	art: art,
 	user_test: user_test,
 	user: user,
+	systemControl: systemControl,
 });
 export default reducers;

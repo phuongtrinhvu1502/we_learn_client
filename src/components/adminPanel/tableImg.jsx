@@ -30,7 +30,7 @@ const TableOpportunity = ({ listImage, filterDropdownVisible, searchText, change
             filterDropdownVisible: filterDropdownVisible.article_title,
             onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'article_title'),
             render: (text, record) =>
-                <Link to={'/system-control/post-article/' + record.article_id}
+                <Link to={'/system-content/post-article/' + record.article_id}
                     className="nav-link" ><span>{text}</span></Link>
 
         },
@@ -43,7 +43,7 @@ const TableOpportunity = ({ listImage, filterDropdownVisible, searchText, change
                 filterParam.currentStatus != -2 ?
                     <span>
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&
-                            <Link to={'/system-control/post-article/' + record.article_id}
+                            <Link to={'/system-content/post-article/' + record.article_id}
                                 className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
                         }
                         {lstPermission.indexOf("PROPERTIES-8") > -1 &&

@@ -72,7 +72,7 @@ class GeneralInfoForm extends Component {
                     message: "Thành công",
                     description: "Tạo đề thi thành công"
                 })
-                this.props.history.push('/system-control/list-test')
+                this.props.history.push('/system-content/list-test')
             }
         }
         if (nextProps.countFetchById > this.props.countFetchById) {
@@ -458,7 +458,7 @@ class GeneralInfoForm extends Component {
                     }
                     &nbsp;
                     <Button type="primary" key="return" size='large' className="margin-bottom-5">
-                        <Link to={'/system-control/list-test'}
+                        <Link to={'/system-content/list-test'}
                             className="nav-link" >Trở lại</Link>
                     </Button>
                 </Row>

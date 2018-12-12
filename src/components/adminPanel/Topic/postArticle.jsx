@@ -46,7 +46,7 @@ class FormTemplate extends Component {
                     message: "Success",
                     description: "Thêm mới thành công"
                 })
-                this.props.history.push("/system-control/list-article/")
+                this.props.history.push("/system-content/list-article/")
             }
             else if (nextProps.actionName == "update") {
                 notification.success({
@@ -135,7 +135,7 @@ class FormTemplate extends Component {
                     </Button>
                     &nbsp;
                     <Button type="primary" className="text-right btn btn-success">
-                        <Link to={'/system-control/list-article'}
+                        <Link to={'/system-content/list-article'}
                             className="nav-link" >Trở lại</Link>
                     </Button>
                 </Row>

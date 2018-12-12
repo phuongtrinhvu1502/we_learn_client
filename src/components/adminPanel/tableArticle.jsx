@@ -30,7 +30,7 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
             filterDropdownVisible: filterDropdownVisible.atc_title,
             onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'atc_title'),
             render: (text, record) =>
-                <Link to={'/system-control/post-atc/' + record.atc_id}
+                <Link to={'/system-content/post-atc/' + record.atc_id}
                     className="nav-link" ><span>{text}</span></Link>
 
         },
@@ -48,11 +48,11 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
             render: (text, record) =>
                 filterParam.currentStatus != -2 ?
                     <span>
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
-                            <Link to={'/system-control/post-atc/' + record.atc_id}
+                        {lstPermission.indexOf("TOPIC-CONTENT-3") > -1 &&
+                            <Link to={'/system-content/post-atc/' + record.atc_id}
                                 className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
                         }
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("TOPIC-CONTENT-4") > -1 &&
                             <span>
                                 <Divider type="vertical" />
                                 <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.atc_id)}>
@@ -63,10 +63,10 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
                     </span>
                     :
                     <span>
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("TOPIC-CONTENT-5") > -1 &&
                             <a onClick={() => onRestore(record.atc_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
                         }
-                        {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                        {lstPermission.indexOf("TOPIC-CONTENT-6") > -1 &&
                             <span>
                                 <Divider type="vertical" />
                                 <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.atc_id)}>
@@ -79,20 +79,20 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
     ]
     return (
         <div>
-            {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+            {lstPermission.indexOf("TOPIC-CONTENT-2") > -1 &&
                 <Button type="primary" size='large' className="margin-bottom-5">
-                    <Link to={'/system-control/post-atc/'}
+                    <Link to={'/system-content/post-atc/'}
                         className="nav-link" >Add</Link>
                 </Button>
             }
             <span className={filterParam.currentStatus != -2 ? "hidden-element" : ""}>
                 <Divider type="vertical" />
-                {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                {lstPermission.indexOf("TOPIC-CONTENT-5") > -1 &&
                     <Button type="primary" size='large' disabled={rowSelection == undefined || rowSelection.selectedRowKeys.length == 0} className="margin-bottom-5" onClick={handleRestore}>
                         Restore
             </Button>
                 }
-                {lstPermission.indexOf("PROPERTIES-8") > -1 &&
+                {lstPermission.indexOf("TOPIC-CONTENT-6") > -1 &&
                     <span>
                         <Divider type="vertical" />
                         <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có muốn xóa không?" onConfirm={() => handleDelete()}>

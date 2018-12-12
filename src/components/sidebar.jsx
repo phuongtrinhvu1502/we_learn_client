@@ -41,10 +41,7 @@ class Sidebar extends Component {
             })
         }
 
-        if (window.location.hash.includes('/area/')) {
-            this.setState({ activeKey: "subMenuArea" })
-        }
-        else if (window.location.hash.includes('/forums/')) {
+        if (window.location.hash.includes('/forums/')) {
             this.setState({ activeKey: "subMenuForum" })
         }
         else if (window.location.hash.includes('/grammar/')) {
@@ -53,11 +50,8 @@ class Sidebar extends Component {
         else if (window.location.hash.includes('/test/')) {
             this.setState({ activeKey: "subMenuTest" })
         }
-        else if (window.location.hash.includes('/properties/')) {
-            this.setState({ activeKey: "subMenuProperties" })
-        }
-        else if (window.location.hash.includes('/place-type/')) {
-            this.setState({ activeKey: "subMenuProperties" })
+        else if (window.location.hash.includes('/system-content/')) {
+            this.setState({ activeKey: "subMenuContent" })
         }
         else if (window.location.hash.includes('/system-control/')) {
             this.setState({ activeKey: "subMenuSystem" })
@@ -72,10 +66,7 @@ class Sidebar extends Component {
                 })
             }
 
-            if (nextProps.hash.includes('/area/')) {
-                this.setState({ activeKey: "subMenuArea" })
-            }
-            else if (nextProps.hash.includes('/forums/')) {
+            if (nextProps.hash.includes('/forums/')) {
                 this.setState({ activeKey: "subMenuForum" })
             }
             else if (nextProps.hash.includes('/grammar/')) {
@@ -84,11 +75,8 @@ class Sidebar extends Component {
             else if (nextProps.hash.includes('/test/')) {
                 this.setState({ activeKey: "subMenuTest" })
             }
-            else if (nextProps.hash.includes('/properties/')) {
-                this.setState({ activeKey: "subMenuProperties" })
-            }
-            else if (nextProps.hash.includes('/place-type/')) {
-                this.setState({ activeKey: "subMenuProperties" })
+            else if (nextProps.hash.includes('/system-content/')) {
+                this.setState({ activeKey: "subMenuContent" })
             }
             else if (nextProps.hash.includes('/system-control/')) {
                 this.setState({ activeKey: "subMenuSystem" })
@@ -133,62 +121,82 @@ class Sidebar extends Component {
                             </Link>
                         </Menu.Item>
                     </SubMenu>
-                    <SubMenu key="subMenuTest" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Luyện đề thi</span></span>}>
-                        <Menu.Item key="#/test/list-test" >
-                            <Link to={'/test/list-test'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Danh sách đề thi</span>
-                            </Link>
-                        </Menu.Item>
-                    </SubMenu>
-                    <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
-                        <Menu.Item key="#/system-control/list-test" >
-                            <Link to={'/system-control/list-test'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Danh sách đề thi</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/system-control/list-article" >
-                            <Link to={'/system-control/list-article'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Danh mục</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/system-control/list-article-topic" >
-                            <Link to={'/system-control/list-article-topic'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Đề tài theo danh mục</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/system-control/list-atc" >
-                            <Link to={'/system-control/list-atc'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Bài viết theo đề tài</span>
-                            </Link>
-                        </Menu.Item>
-                        <Menu.Item key="#/system-control/upload-image" >
-                            <Link to={'/system-control/upload-image'} className="nav-link" >
-                                <Icon type="flag" />
-                                <span>Upload Ảnh</span>
-                            </Link>
-                        </Menu.Item>
-                        {lstPermission.indexOf("PER-GROUP") > -1 &&
-                            <Menu.Item key="#/system-control/list-user" >
-                                <Link to={'/system-control/list-user'} className="nav-link" >
-                                    <Icon type="flag" />
-                                    <span>Quản lý người dùng</span>
-                                </Link>
-                            </Menu.Item>
-                        }
-                        {lstPermission.indexOf("PER-GROUP") > -1 &&
-                            <Menu.Item key="#/system-control/grant-permission" >
-                                <Link to={'/system-control/grant-permission'} className="nav-link" >
-                                    <Icon type="flag" />
-                                    <span>Quản lý phân quyền</span>
-                                </Link>
-                            </Menu.Item>
-                        }
-                    </SubMenu>
+                    {lstPermission.indexOf("TEST") > -1 &&
+                        <SubMenu key="subMenuTest" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Luyện đề thi</span></span>}>
+                            {lstPermission.indexOf("USER-TEST") > -1 &&
+                                <Menu.Item key="#/test/list-test" >
+                                    <Link to={'/test/list-test'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Danh sách đề thi</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                        </SubMenu>
+                    }
+                    {lstPermission.indexOf("CONTENT") > -1 &&
+                        <SubMenu key="subMenuContent" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý nội dung</span></span>}>
+                            {lstPermission.indexOf("LIST-TEST") > -1 &&
+                                <Menu.Item key="#/system-content/list-test" >
+                                    <Link to={'/system-content/list-test'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Danh sách đề thi</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("ARTICLE") > -1 &&
+                                <Menu.Item key="#/system-content/list-article" >
+                                    <Link to={'/system-content/list-article'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Danh mục</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("ARTICLE-TOPIC") > -1 &&
+                                <Menu.Item key="#/system-content/list-article-topic" >
+                                    <Link to={'/system-content/list-article-topic'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Đề tài theo danh mục</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("TOPIC-CONTENT") > -1 &&
+                                <Menu.Item key="#/system-content/list-atc" >
+                                    <Link to={'/system-content/list-atc'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Bài viết theo đề tài</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("IMAGE-UPLOAD") > -1 &&
+                                <Menu.Item key="#/system-content/upload-image" >
+                                    <Link to={'/system-content/upload-image'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Upload Ảnh</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                        </SubMenu>
+                    }
+                    {lstPermission.indexOf("SYS") > -1 &&
+                        <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
+                            {lstPermission.indexOf("USER-MANAGER") > -1 &&
+                                <Menu.Item key="#/system-control/list-user" >
+                                    <Link to={'/system-control/list-user'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Quản lý người dùng</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("PER-GROUP") > -1 &&
+                                <Menu.Item key="#/system-control/grant-permission" >
+                                    <Link to={'/system-control/grant-permission'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Quản lý phân quyền</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                        </SubMenu>
+                    }
                 </Menu>
             </Sider>
         )

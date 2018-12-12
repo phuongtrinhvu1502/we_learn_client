@@ -87,53 +87,107 @@ const routes = [
 			},
 			//System control article
 			{
-				path: '/system-control/list-article',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/list-article',
+				component: (lstPermission.indexOf("ARTICLE") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/Topic/listArticle.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
-				path: '/system-control/post-article/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postArticle.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/post-article/:id?',
+				component: (lstPermission.indexOf("ARTICLE") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/Topic/postArticle.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			//System control user
 			{
 				path: '/system-control/list-user',
-				component: asyncComponent(() => System.import('../containers/adminPanel/listUser.jsx')
-					.then(module => module.default), { name: 'name' })
+				component: (lstPermission.indexOf("USER-MANAGER") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/listUser.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			//System control topic
 			{
-				path: '/system-control/list-article-topic',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopic.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/list-article-topic',
+				component: (lstPermission.indexOf("ARTICLE-TOPIC") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/Topic/listTopic.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
-				path: '/system-control/post-article-topic/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/post-article-topic/:id?',
+				component: (lstPermission.indexOf("ARTICLE-TOPIC") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/Topic/postTopic.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			//System control Article topic content
 			{
-				path: '/system-control/list-atc',
-				component: asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/list-atc',
+				component: (lstPermission.indexOf("TOPIC-CONTENT") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/listArticle.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
-				path: '/system-control/post-atc/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/post-atc/:id?',
+				component: (lstPermission.indexOf("TOPIC-CONTENT") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/postArticle.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			//System control Test
 			{
-				path: '/system-control/list-test',
-				component: asyncComponent(() => System.import('../containers/adminPanel/listTest.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/list-test',
+				component: (lstPermission.indexOf("LIST-TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/listTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
-				path: '/system-control/post-test/:id?',
-				component: asyncComponent(() => System.import('../containers/adminPanel/postTest.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/post-test/:id?',
+				component: (lstPermission.indexOf("LIST-TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/postTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			//List QA
 			{
@@ -154,25 +208,55 @@ const routes = [
 			//List Test
 			{
 				path: '/test/list-test',
-				component: asyncComponent(() => System.import('../containers/test/list_test.jsx')
-					.then(module => module.default), { name: 'name' })
+				component: (lstPermission.indexOf("TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/test/list_test.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
 				path: '/test/view-test/:id?',
-				component: asyncComponent(() => System.import('../containers/test/view_test.jsx')
-					.then(module => module.default), { name: 'name' })
+				component: (lstPermission.indexOf("TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/test/view_test.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 
 			//Image
 			// {
-			// 	path: '/system-control/list-image',
+			// 	path: '/system-content/list-image',
 			// 	component: asyncComponent(() => System.import('../containers/adminPanel/listImage.jsx')
 			// 		.then(module => module.default), { name: 'name' })
 			// },
 			{
-				path: '/system-control/upload-image',
-				component: asyncComponent(() => System.import('../containers/adminPanel/uploadImg.jsx')
-					.then(module => module.default), { name: 'name' })
+				path: '/system-content/upload-image',
+				component: (lstPermission.indexOf("IMAGE-UPLOAD") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/uploadImg.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
+				path: '/system-control/grant-permission/',
+				component: (lstPermission.indexOf("IMAGE-UPLOAD") > -1) ?
+					asyncComponent(
+						() => System.import('../containers/adminPanel/grant_per.jsx').then(module => module.default),
+						{ name: 'index' }
+					) :
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
 			},
 			{
 				path: '/not-found',
