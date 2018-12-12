@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
-import { notification, Row, Pagination, Button, Radio, Divider } from 'antd';
+import {
+    notification, Row, Pagination,
+    Button, Radio, Divider, Modal
+} from 'antd';
 import '../../scss/test.scss';
 const RadioGroup = Radio.Group;
 
@@ -18,12 +21,35 @@ class ViewReadingComponent extends Component {
             current: 1,
             lstQuestionDisplay: [],
             renderQuestion: false,
+            modalResultVisible: false,
+            disabledBtn: false,
         }
         this.renderLstQuestion = this.renderLstQuestion.bind(this)
         this.changePage = this.changePage.bind(this)
         this.onChangeAnswer = this.onChangeAnswer.bind(this)
         this.setLstUserAnswerDefault = this.setLstUserAnswerDefault.bind(this)
         this.sendUserAnswer = this.sendUserAnswer.bind(this)
+        this.showResultsModal = this.showResultsModal.bind(this)
+        this.modalResultsCancel = this.modalResultsCancel.bind(this)
+        this.getCorrentAnswer = this.getCorrentAnswer.bind(this)
+    }
+
+    getCorrentAnswer() {
+        this.props.getCorrectAnswerById({ test_id: this.props.match.params.id })
+        this.modalResultsCancel()
+    }
+
+    showResultsModal() {
+        this.setState({
+            modalResultVisible: true,
+        });
+    }
+
+
+    modalResultsCancel(e) {
+        this.setState({
+            modalResultVisible: false,
+        });
     }
 
     onChangeAnswer(ta_id, tq_id) {
@@ -114,8 +140,26 @@ class ViewReadingComponent extends Component {
         }
         if (nextProps.countUpdate > this.props.countUpdate) {
             if (nextProps.actionName == "insert") {
-                alert("nộp bài thành công, yêu cầu tính toán điểm")
+                this.showResultsModal();
+                this.setState({
+                    disabledBtn: true
+                })
+                clearInterval(this.x);
+                document.getElementById("demo").innerHTML = "Kết quả (" +
+                    nextProps.correct_anwser + "/" + nextProps.total + "): "
+                    + ((nextProps.correct_anwser / nextProps.total) * 10).toFixed(2)
             }
+        }
+        if (nextProps.countFetchCorrectAnswer > this.props.countFetchCorrectAnswer) {
+            let lstQuestion = { ...this.state.lstQuestion }
+            lstQuestion.results.map((item, key) => {
+                item = Object.assign(item, nextProps.lstCorrectAnswer[key]);
+            })
+            this.setState({
+                lstQuestion,
+                renderQuestion: true,
+                current: 1,
+            })
         }
     }
 
@@ -149,6 +193,22 @@ class ViewReadingComponent extends Component {
         };
         return (
             <div>
+                <Modal className="modal-subprovider"
+                    visible={this.state.modalResultVisible}
+                    title="Kết quả"
+                    onCancel={this.modalResultsCancel}
+                    destroyOnClose={true}
+                    maskClosable={false}
+                    footer={[
+                        <Button key="show"
+                            onClick={this.getCorrentAnswer}>
+                            Xem kết quả</Button>,
+                        <Button key="back" onClick={this.modalResultsCancel}>Trở về</Button>,
+                    ]}
+                >
+                    <p>Số câu đúng: {this.props.correct_anwser}/{this.props.total}</p>
+                    <p>Điểm: <span style={{ color: 'green' }}>{((this.props.correct_anwser / this.props.total) * 10).toFixed(2)}</span></p>
+                </Modal>
                 <h3 style={{ float: 'left' }}>Làm bài thi</h3>
                 <h3 id="demo" style={{ float: 'right', color: 'green' }}>45:00</h3>
                 <Divider />
@@ -157,7 +217,9 @@ class ViewReadingComponent extends Component {
                         {
                             this.state.lstQuestionDisplay.map((item, key) =>
                                 <div>
-                                    <h5>Câu {(key + 1) + ((current - 1) * 5)} : {item.tq_content}</h5>
+                                    <h5>Câu {(key + 1) + ((current - 1) * 5)} : {item.tq_content}
+                                        <span style={{ color: '#f54261' }}>{item.correct_answer != undefined ? " (Đáp án: " + item.correct_answer + ")" : ""}</span>
+                                    </h5>
                                     <RadioGroup onChange={(e) => this.onChangeAnswer(e.target.value, item.tq_id)}>
                                         {item.lst_anwser.map(itemAnswer =>
                                             <Radio style={radioStyle} value={itemAnswer.ta_id}>{itemAnswer.ta_content}</Radio>
@@ -178,11 +240,26 @@ class ViewReadingComponent extends Component {
                             pageSize={5}
                             total={this.state.lstQuestion.total} />
                         <Button
-                            style={{ color: '#fff', background: '#5cb85c', borderColor: '#4cae4c', marginTop: '10px' }}
+                            style={{ marginTop: '10px' }}
+                            type="primary"
+                            className="btn btn-success"
                             onClick={() => this.sendUserAnswer()}
+                            disabled={this.state.disabledBtn}
                         >
                             Nộp bài
                         </Button>
+                        {
+                            this.state.disabledBtn &&
+                            <span>
+                                &nbsp;
+                                <Button type="primary" className="btn btn-success"
+                                    style={{ marginTop: '10px' }}
+                                >
+                                    <Link to={'/test/list-test'}
+                                        className="nav-link" >Trở lại</Link>
+                                </Button>
+                            </span>
+                        }
                     </Row>
                 </Row>
             </div>

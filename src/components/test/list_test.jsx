@@ -33,7 +33,7 @@ class ListReadingComponent extends Component {
                                     <p>Số câu: <b>{testItem.question_number}</b></p>
                                     <p>Thời lượng: <b>45 phút</b></p>
                                     <p>Trạng thái: <b>{testItem.status == 0 ? "Chưa làm" : "Đã làm"}</b></p>
-                                    {/* <p>Điểm: <b>{testItem.last_point.toFixed(2)}</b></p> */}
+                                    <p>Điểm: <b>{testItem.last_point.toFixed(2)}</b></p>
                                 </div>
                                 <div className="button-test">
                                     <a href={"#/test/view-test/" + testItem.test_id} className={testItem.status == 0 ? "btn btn-info" : "btn btn-success"}>

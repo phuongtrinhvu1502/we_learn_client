@@ -110,3 +110,8 @@ thead.ant-table-thead>tr>th {
 .ant-select-selection-selected-value{
   color: gray;
 }
+
+.ant-btn-primary[disabled], .btn[disabled],{
+  background-color: #777!important;
+  color: white!important;
+}
