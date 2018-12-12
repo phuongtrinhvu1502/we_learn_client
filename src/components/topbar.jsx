@@ -38,6 +38,18 @@ class Topbar extends Component {
                     </span>
                 }
                 <a href="#/user/change-password/" className="logout">{this.userInfo != undefined ? this.userInfo.username : ""}</a>
+                {this.userInfo != undefined && this.userInfo.group_code == "USER_PRE" &&
+                    <img className="logout" style={{ width: 35, marginTop: 18, marginRight: 10 }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkL0X1SCqaJk6pXz4xGwzRVRblft-_-hH-JJkp_UfrbswyfzlWGg" />
+                }
+                {
+                    this.userInfo != undefined && this.userInfo.group_code == "USER" &&
+                    <div>
+                        <span className="logout"><Divider type="vertical" /></span>
+                        <a href="#/user/go-premium/" className="logout">
+                            <img style={{ width: 120 }} src="https://c1.staticflickr.com/5/4860/44457445640_b5fb3b09f7_o.png" />
+                        </a>
+                    </div>
+                }
             </Header>
         );
     }

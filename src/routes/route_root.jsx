@@ -40,6 +40,14 @@ const routes = [
 					.then(module => module.default), { name: 'login' })
 			},
 			{
+				path: '/user/change-password/',
+				component:
+					asyncComponent(
+						() => System.import('../containers/change_password.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
 				path: '/resend-active-code',
 				component: asyncComponent(() => System.import('../containers/resend_active_code.jsx')
 					.then(module => module.default), { name: 'login' })
@@ -53,6 +61,12 @@ const routes = [
 				path: '/sign-up',
 				component: asyncComponent(() => System.import('../containers/signup.jsx')
 					.then(module => module.default), { name: 'sign-up' })
+			},
+			//Go premium
+			{
+				path: '/user/go-premium',
+				component: asyncComponent(() => System.import('../containers/go_premium.jsx')
+					.then(module => module.default), { name: 'name' })
 			},
 			//Article
 			// {

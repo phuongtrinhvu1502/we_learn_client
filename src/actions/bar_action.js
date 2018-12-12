@@ -81,3 +81,9 @@ export const resendActiveCode = (params) => {
 	let type = 'RESEND_ACTIVE_CODE'
 	return requestPostJsonReturnDispatch(url, params, type)
 }
+
+export const changePassword = (params) => {
+    let url = '/user/update-password';
+    let type = 'CHANGE_PASSWORD'
+    return requestPutJsonReturnDispatch(url, params, type)
+}
