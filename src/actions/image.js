@@ -4,7 +4,7 @@ import {
 } from './index.js';
 
 export const listImagePagination = (params) => {
-    let url = 'image/get-image-by-page';
+    let url = 'document/get-doc-by-page';
     let type = 'LIST_IMAGE_PAGINATION'
     return requestPostJsonReturnDispatch(url, params, type)
 }
@@ -16,7 +16,7 @@ export const insertImage = (params) => {
 }
 
 export const deleteImage = (params) => {
-    let url = '/image/delete'
+    let url = '/document/delete'
     let type = 'DELETE_IMAGE'
     return requestDeleteJsonReturnDispatch(url, params, type)
 }

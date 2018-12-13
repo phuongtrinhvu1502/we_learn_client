@@ -5,7 +5,10 @@ import moment from 'moment'
 import TableImage from '../../components/adminPanel/tableImg.jsx';
 import InsertImage from '../../components/adminPanel/filterImg.jsx';
 import { listImagePagination, deleteImage, insertImage } from '../../actions/image';
-import { Upload, Select, Button, Row, Col, Collapse, Divider, Input, Form, DatePicker, notification } from 'antd';
+import {
+    Upload, Select, Button, Row, Col, Collapse, Divider,
+    Pagination, Input, Form, DatePicker, notification
+} from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -16,16 +19,13 @@ class ListPlaceType extends Component {
         this.state = {
             img_lstfile: [],
             filterParam: {
-                article_title: '',
-                article_type: -1,
+                file_name: '',
                 status: -1,
                 currentStatus: -1
             },
             filterDropdownVisible: {
-                article_title: false,
             },
             searchText: {
-                article_title: '',
             },
             filtered: false,
             pagination: {
@@ -38,52 +38,39 @@ class ListPlaceType extends Component {
             },
             selectedRowKeys: [],
         }
-        this.searchInput = undefined;
-
         //Xử lý filter
         this.onInsert = this.onInsert.bind(this);
 
         //Xử lý table
         this.onDelete = this.onDelete.bind(this)
-        this.resetSelected = this.resetSelected.bind(this)
-        this.handleTableChange = this.handleTableChange.bind(this)
-        this.changePageSize = this.changePageSize.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.onInputChange = this.onInputChange.bind(this)
-        this.changeInputSearch = this.changeInputSearch.bind(this)
-        this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(this)
+        this.handlePageChange = this.handlePageChange.bind(this)
     }
 
-    onInputChange(e, column) {
-        let searchText = this.state.searchText
-        searchText[column] = e.target.value
-        this.setState({ searchText: searchText });
-        let filterDropdownVisible = { ...this.state.filterDropdownVisible }
-        filterDropdownVisible[column] = false
+    copyUrl(url) {
+        let element = document.createElement('input')
+        document.body.appendChild(element);
+        element.value = url
+        element.select()
+        document.execCommand('copy');
+        notification.success({
+            message: 'Thành công',
+            description: 'Đường dẫn ảnh đã được copy vào Clipboard'
+        });
+    }
 
-        let filterObject = { ...this.state.filterParam }
+    handlePageChange(paginate) {
         let pagination = { ...this.state.pagination }
-        pagination.current = 1
-        this.setState({ pagination: pagination, filterParam: filterObject })
-        let params = Object.assign({}, pagination, filterObject, this.state.searchText);
-        this.props.listImagePagination(params);
-    }
-
-    changeInputSearch(ele) {
-        this.searchInput = ele
-    }
-
-    onFilterDropdownVisibleChange(visible, column) {
-        let filterDropdownVisible = this.state.filterDropdownVisible
-        filterDropdownVisible[column] = visible
+        pagination.current = paginate
         this.setState({
-            filterDropdownVisible: filterDropdownVisible,
-        }, () => this.searchInput && this.searchInput.focus());
+            pagination
+        })
+        let params = Object.assign({}, pagination, this.state.filterParam);
+        this.props.listImagePagination(params)
     }
 
     componentDidMount() {
         let params = { ...this.state.pagination, ...this.state.filterParam }
-        // this.props.listImagePagination(params);
+        this.props.listImagePagination(params);
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -94,15 +81,27 @@ class ListPlaceType extends Component {
         if (nextProps.countFetchPage > this.props.countFetchPage) {
             const pagination = { ...this.state.pagination }
             pagination.total = nextProps.listImage.total
-            // this.resetSelected();
             this.setState({
                 pagination
             })
         }
+        if (nextProps.countUpdate > this.props.countUpdate) {
+            if (nextProps.actionName == "insert") {
+                notification.success({
+                    message: 'Thành công',
+                    description: 'Thêm mới ảnh thành công'
+                });
+                this.setState({
+                    img_lstfile: []
+                })
+                let params = Object.assign({}, this.state.pagination, this.state.filterParam);
+                this.props.listImagePagination(params);
+            }
+        }
         if (nextProps.countDelete > this.props.countDelete) {
             notification.success({
                 message: 'Thành công',
-                description: 'Xóa bài viết thành công'
+                description: 'Xóa ảnh thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
             this.props.listImagePagination(params);
@@ -114,56 +113,6 @@ class ListPlaceType extends Component {
             img_id
         }
         this.props.deleteImage(params)
-    }
-
-    resetSelected() {
-        setTimeout(() => {
-            this.setState({
-                selectedRowKeys: []
-            });
-        }, 100);
-    }
-
-    handleDelete() {
-        if (this.state.selectedRowKeys.length == 0) {
-            return;
-        }
-        let lstId = "";
-        this.state.selectedRowKeys.forEach(function (val, index) {
-            lstId += val + ",";
-        })
-        this.props.deleteImage({ img_id: lstId.substring(0, lstId.length - 1) });
-    }
-
-    handleTableChange(pagination, filters, sorter) {
-        let filterParam = { ...this.state.filterParam }
-        let params = Object.assign({}, filterParam);
-        params.pageSize = pagination.pageSize
-        params.current = pagination.current
-        if (sorter.columnKey != null || sorter.columnKey != undefined) {
-            params.sortField = sorter.columnKey;
-            params.sortOrder = sorter.order;
-            pagination.sortField = sorter.columnKey;
-            pagination.sortOrder = sorter.order;
-        }
-        else {
-            pagination.sortField = null;
-            pagination.sortOrder = null;
-        }
-        this.setState({
-            pagination: pagination
-        })
-        this.props.listImagePagination(params)
-
-    }
-    changePageSize(value) {
-        let paginationState = { ...this.state.pagination }
-        paginationState.pageSize = value
-        this.setState({
-            pagination: paginationState
-        })
-        let params = Object.assign({}, paginationState, this.state.filterParam)
-        this.props.listImagePagination(params)
     }
 
     onInsert() {
@@ -221,18 +170,18 @@ class ListPlaceType extends Component {
             },
             onChange: (info) => {
                 let fileList = info.fileList;
-                if (info.file.status === "error") {
-                    fileList = fileList.slice(1, 6);
-                }
-                else {
-                    if (fileList.length > 5) {
-                        fileList.shift()
-                        notification.error({
-                            message: 'Thông báo',
-                            description: 'Tối đa 5 file.'
-                        });
-                    }
-                }
+                // if (info.file.status === "error") {
+                //     fileList = fileList.slice(1, 6);
+                // }
+                // else {
+                //     if (fileList.length > 5) {
+                //         fileList.shift()
+                //         notification.error({
+                //             message: 'Thông báo',
+                //             description: 'Tối đa 5 file.'
+                //         });
+                //     }
+                // }
                 this.setState({ img_lstfile: fileList });
             },
             multiple: true,
@@ -259,43 +208,52 @@ class ListPlaceType extends Component {
             listType: "picture"
         };
 
-
         return (
             <div>
-                <Collapse className="collapse-search-area-frm">
-                    <Panel header="Tìm kiếm">
-                        <Row>
-                            <Col className="gutter-row list-provider-filter" span={12}>
-                                <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Ảnh">
-                                    <Upload {...props_upload} fileList={this.state.img_lstfile}>
-                                        <Button type="primary" className="btn btn-success" id="images">Add</Button>
-                                    </Upload>
-                                </FormItem>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col className="gutter-row" span={24}>
-                                <Button type="primary" className={"margin-bottom-5"} style={{ float: 'right' }} onClick={this.onInsert}>Thêm Ảnh</Button>
-                            </Col>
-                        </Row>
-                    </Panel>
-                </Collapse >
-                <TableImage rowKey='index'
-                    pagination={this.state.pagination}
-                    searchText={this.state.searchText}
-                    filterDropdownVisible={this.state.filterDropdownVisible}
-                    onInputChange={this.onInputChange}
-                    searchInput={this.searchInput}
-                    changeInputSearch={this.changeInputSearch}
-                    onFilterDropdownVisibleChange={this.onFilterDropdownVisibleChange}
-                    handleTableChange={this.handleTableChange}
-                    onDelete={this.onDelete}
-                    changePageSize={this.changePageSize}
-                    listImage={this.props.listImage}
-                    filterParam={this.state.filterParam}
-                    handleDelete={this.handleDelete}
-                    rowSelection={rowSelection}
-                />
+                <Row>
+                    <Collapse className="collapse-search-area-frm">
+                        <Panel header="Tìm kiếm">
+                            <Row>
+                                <Col className="gutter-row list-provider-filter" span={12}>
+                                    <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Ảnh">
+                                        <Upload {...props_upload} fileList={this.state.img_lstfile}>
+                                            <Button type="primary" className="btn btn-success" id="images">Add</Button>
+                                        </Upload>
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col className="gutter-row" span={24}>
+                                    <Button type="primary" className={"margin-bottom-5"} style={{ float: 'right' }} onClick={this.onInsert}>Thêm Ảnh</Button>
+                                </Col>
+                            </Row>
+                        </Panel>
+                    </Collapse >
+                    <Row>
+                        {
+                            this.props.listImage.results.map((item, key) => {
+                                return (
+                                    <div className="box-image col-md-3 col-sm-4 col-xs-6">
+                                        <div className="box-image-content" onClick={() => this.copyUrl(item.url)}>
+                                            <div className="image-content">
+                                                <img src={item.url} />
+                                            </div>
+                                            <div className="text-content">
+                                                {item.file_name}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </Row>
+                    <Row style={{ float: 'right', marginTop: "5px" }}>
+                        <Pagination defaultCurrent={1}
+                            onChange={this.handlePageChange}
+                            total={this.props.listImage.total}
+                            pageSize={this.state.pagination.pageSize} />
+                    </Row>
+                </Row>
             </div>
         )
     }
@@ -303,6 +261,7 @@ class ListPlaceType extends Component {
 const mapStateToProps = (state) => {
     return {
         listImage: state.img.listImage,
+        actionName: state.img.actionName,
         success: state.img.success,
         msg: state.img.msg,
         countDelete: state.img.countDelete,

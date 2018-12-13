@@ -1,6 +1,9 @@
 
 const initialState = {
-    listImage: [],
+    listImage: {
+        results: [],
+        total: 0,
+    },
     actionName: '',
     countUpdate: 0,
     countDelete: 0,
@@ -14,7 +17,11 @@ const img = (state = initialState, action = {}) => {
     switch (action.type) {
         case 'LIST_IMAGE_PAGINATION':
             return {
-                ...state, listImage: action.data.data ? action.data.data : [], success: action.data.success,
+                ...state, listImage: action.data.data ? action.data.data : {
+                    results: [],
+                    total: 0,
+                },
+                success: action.data.success,
                 countFetchPage: state.countFetchPage + 1
             }
         case 'INSERT_IMAGE':
