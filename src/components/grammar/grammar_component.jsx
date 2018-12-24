@@ -16,7 +16,7 @@ class FormTemplate extends Component {
         this.state = {
         }
     }
-    
+
     componentDidMount() {
         this.props.getListArticleByType({ type_id: 2 });
     }
@@ -41,7 +41,7 @@ class FormTemplate extends Component {
                             </div>
                             {
                                 articleItem.listTopic.map((at, at_key) => {
-                                    if (at_key == 2 || ((3 % at_key) == 2) && at_key != 1)
+                                    if (at_key == 2 || ((at_key % 3) == 2) && at_key != 1)
                                         return (
                                             <div>
                                                 <div className="col-md-4 col-sm-6 col-xs-12">
@@ -51,7 +51,7 @@ class FormTemplate extends Component {
                                                             {
                                                                 at.listContent.map(atc =>
                                                                     <li>
-                                                                        <a href="/phan-loai-tinh-tu-cd">
+                                                                        <a href={"#/article/view-article/" + atc.atc_id}>
                                                                             <span>{atc.atc_title}</span>
                                                                         </a>
                                                                     </li>
@@ -72,7 +72,7 @@ class FormTemplate extends Component {
                                                         {
                                                             at.listContent.map(atc =>
                                                                 <li>
-                                                                    <a href="/phan-loai-tinh-tu-cd">
+                                                                    <a href={"#/article/view-article/" + atc.atc_id}>
                                                                         <span>{atc.atc_title}</span>
                                                                     </a>
                                                                 </li>

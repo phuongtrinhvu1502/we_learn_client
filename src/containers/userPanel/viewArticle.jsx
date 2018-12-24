@@ -12,7 +12,7 @@ class viewArticle extends Component {
     render() {
         return (
             <div>
-                <h3>{this.props.articleItem.article_title}</h3>
+                <h3>{this.props.articleItem.atc_title}</h3>
                 <p>Đăng bởi: {this.props.articleItem.full_name}</p>
                 <Divider />
                 <Article {...this.props}

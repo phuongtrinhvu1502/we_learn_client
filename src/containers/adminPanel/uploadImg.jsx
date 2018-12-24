@@ -211,24 +211,20 @@ class ListPlaceType extends Component {
         return (
             <div>
                 <Row>
-                    <Collapse className="collapse-search-area-frm">
-                        <Panel header="Tìm kiếm">
-                            <Row>
-                                <Col className="gutter-row list-provider-filter" span={12}>
-                                    <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Ảnh">
-                                        <Upload {...props_upload} fileList={this.state.img_lstfile}>
-                                            <Button type="primary" className="btn btn-success" id="images">Add</Button>
-                                        </Upload>
-                                    </FormItem>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col className="gutter-row" span={24}>
-                                    <Button type="primary" className={"margin-bottom-5"} style={{ float: 'right' }} onClick={this.onInsert}>Thêm Ảnh</Button>
-                                </Col>
-                            </Row>
-                        </Panel>
-                    </Collapse >
+                    <Row>
+                        <Col className="gutter-row list-provider-filter" span={12}>
+                            <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Ảnh">
+                                <Upload {...props_upload} fileList={this.state.img_lstfile}>
+                                    <Button type="primary" className="btn btn-success" id="images">Add</Button>
+                                </Upload>
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className="gutter-row" span={24}>
+                            <Button type="primary" className={"margin-bottom-5"} style={{ float: 'right' }} onClick={this.onInsert}>Thêm Ảnh</Button>
+                        </Col>
+                    </Row>
                     <Row>
                         {
                             this.props.listImage.results.map((item, key) => {
@@ -247,12 +243,15 @@ class ListPlaceType extends Component {
                             })
                         }
                     </Row>
-                    <Row style={{ float: 'right', marginTop: "5px" }}>
-                        <Pagination defaultCurrent={1}
-                            onChange={this.handlePageChange}
-                            total={this.props.listImage.total}
-                            pageSize={this.state.pagination.pageSize} />
-                    </Row>
+                    {
+                        this.props.listImage.total > 0 &&
+                        <Row style={{ textAlign: "center", marginTop: "5px" }}>
+                            <Pagination defaultCurrent={1}
+                                onChange={this.handlePageChange}
+                                total={this.props.listImage.total}
+                                pageSize={this.state.pagination.pageSize} />
+                        </Row>
+                    }
                 </Row>
             </div>
         )

@@ -37,7 +37,7 @@ class FormTemplate extends Component {
                 this.props.history.push('/not-found')
         }
         if (nextProps.countFetchById > this.props.countFetchById) {
-            let contentBlock = htmlToDraft(nextProps.articleItem.article_content);
+            let contentBlock = htmlToDraft(nextProps.articleItem.atc_content);
             if (contentBlock) {
                 let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 let editorState = EditorState.createWithContent(contentState);
@@ -62,11 +62,11 @@ class FormTemplate extends Component {
         return (
             <div>
                 <Row>
-                    {ReactHtmlParser(this.props.articleItem.article_content)}
+                    {ReactHtmlParser(this.props.articleItem.atc_content)}
                 </Row>
                 <Row style={{ textAlign: 'center', marginTop: '5px' }}>
                     <Button type="primary" className="text-right btn btn-success">
-                        <Link to={'/'}
+                        <Link to={'/grammar/all-grammar'}
                             className="nav-link" >Back</Link>
                     </Button>
                 </Row>

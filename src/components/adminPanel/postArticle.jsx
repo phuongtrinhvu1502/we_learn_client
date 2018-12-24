@@ -128,7 +128,7 @@ class FormTemplate extends Component {
                         <FormItem {...formItemLayout} label="Nhập tiêu đề bài viết">
                             {getFieldDecorator('atc_title',
                                 {
-                                    rules: [{ type: "string", max: 20, message: "Không nhập quá 20 ký tự" },
+                                    rules: [{ type: "string", max: 50, message: "Không nhập quá 50 ký tự" },
                                     { type: "string", required: true, whitespace: true, message: "Nhập Nhập tiêu đề bài viết" },
                                     ],
                                 }
