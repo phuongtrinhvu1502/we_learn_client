@@ -16,6 +16,9 @@ import art from './art';
 import user_test from './user_test';
 import user from './user';
 import systemControl from './system_control';
+import writingTest from './writingTest';
+import viewWritingTest from './viewWritingTest';
+import writingTestTopic from './writingTestTopic';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -32,5 +35,8 @@ const reducers = combineReducers({
 	user_test: user_test,
 	user: user,
 	systemControl: systemControl,
+	writingTest: writingTest,
+	viewWritingTest: viewWritingTest,
+	writingTestTopic: writingTestTopic,
 });
 export default reducers;

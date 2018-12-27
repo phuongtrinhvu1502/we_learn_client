@@ -189,6 +189,29 @@ const routes = [
 						{ name: 'index' }
 					)
 			},
+			//System control Writing Test
+			{
+				path: '/system-content/list-writing-test',
+				component: (lstPermission.indexOf("LIST-TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/listWritingTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
+				path: '/system-content/post-writing-test/:id?',
+				component: (lstPermission.indexOf("LIST-TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/postWritingTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
 			//List QA
 			{
 				path: '/forums/list-qa',
@@ -221,6 +244,40 @@ const routes = [
 				path: '/test/view-test/:id?',
 				component: (lstPermission.indexOf("TEST") > -1) ?
 					asyncComponent(() => System.import('../containers/test/view_test.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			//List Writing Test
+			{
+				path: '/test/list-writing-test',
+				component: (lstPermission.indexOf("TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/test/listWritingTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
+				path: '/test/do-writing-test',
+				component: (lstPermission.indexOf("TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/test/doWritingTest.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
+				path: '/test/view-writing-test/:id?',
+				component: (lstPermission.indexOf("TEST") > -1) ?
+					asyncComponent(() => System.import('../containers/test/viewWritingTest.jsx')
 						.then(module => module.default), { name: 'name' })
 					:
 					asyncComponent(

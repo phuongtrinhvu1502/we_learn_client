@@ -151,6 +151,14 @@ class Sidebar extends Component {
                                     </Link>
                                 </Menu.Item>
                             }
+                            {lstPermission.indexOf("LIST-TEST") > -1 &&
+                                <Menu.Item key="#/system-content/list-writing-test" >
+                                    <Link to={'/system-content/list-writing-test'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Danh sách đề thi viết</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
                             {lstPermission.indexOf("ARTICLE") > -1 &&
                                 <Menu.Item key="#/system-content/list-article" >
                                     <Link to={'/system-content/list-article'} className="nav-link" >
