@@ -4,7 +4,7 @@ import { Table, Divider, Popconfirm, Button, Select, Tooltip, Icon } from 'antd'
 import FilterTable from '../ultilities/filter_table.jsx'
 import cookie from 'react-cookies'
 
-const lstPermission = cookie.load('lstPermission') || [];
+const userInfo = cookie.load('userInfo')
 
 const TableOpportunity = ({ listTest, filterDropdownVisible, searchText, changeInputSearch, onFilterDropdownVisibleChange, onInputChange, pagination,
     searchInput, changePageSize, filterParam, rowSelection, handleTableChange }) => {
@@ -92,6 +92,7 @@ const TableOpportunity = ({ listTest, filterDropdownVisible, searchText, changeI
                 bordered
                 pagination={pagination}
                 onChange={handleTableChange}
+                rowClassName={(record, index) => record.is_premium === 1 ? 'alert-warning' : ''}
                 dataSource={data}
                 scrollY={500} />
         </div>

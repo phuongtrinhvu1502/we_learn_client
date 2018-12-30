@@ -1,6 +1,8 @@
 
 const initialState = {
-    testItem: {},
+    topicItem: {},
+    lstCommentByUser: [],
+    lstCommentByManager: [],
     listTest: [],
     listTestByUser: [],
     actionName: '',
@@ -29,7 +31,10 @@ const writingTestTopic = (state = initialState, action = {}) => {
             }
         case 'GET_WRITING_TEST_TOPIC_BY_ID':
             return {
-                ...state, testItem: action.data.data ? action.data.data : {},
+                ...state,
+                topicItem: action.data.topicItem ? action.data.topicItem : {},
+                lstCommentByUser: action.data.lstCommentByUser ? action.data.lstCommentByUser : [],
+                lstCommentByManager: action.data.lstCommentByManager ? action.data.lstCommentByManager : [],
                 success: action.data.success, msg: action.data.msg, countFetchById: state.countFetchById + 1,
             }
         case 'INSERT_WRITING_TEST_TOPIC':

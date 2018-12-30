@@ -6,7 +6,7 @@ import { scrollToErrorForm } from '../../actions/reuse_action/reuse';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import CommentPanel from '../ultilities/commentPanel.jsx';
+import CommentPanel from '../ultilities/commentWritingTest.jsx';
 import cookie from 'react-cookies'
 
 
@@ -15,11 +15,17 @@ class FormTemplate extends Component {
         super(props)
         this.state = {
             editorState: EditorState.createEmpty(),
+            lstComment: [],
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.countFetchById > this.props.countFetchById) {
+            let lstComment = []
+            lstComment = lstComment.concat(nextProps.lstCommentByManager, nextProps.lstCommentByUser)
+            this.setState({
+                lstComment
+            })
         }
     }
 
@@ -36,18 +42,14 @@ class FormTemplate extends Component {
 
         return (
             <div>
-                <Row>
-                    {this.props.testItem.wtt_content}
-                </Row>
-                <Divider />
                 <CommentPanel
                     match={this.props.match}
-                    listCommentByPage={this.props.listCommentByPage}
-                    lstComment={this.props.lstComment}
+                    lstComment={this.state.lstComment}
                     postComment={this.props.postComment}
+                    fetchTestById={this.props.fetchTestById}
                     editComment={this.props.editComment}
-                    countUpdate={this.props.countUpdate}
-                    actionName={this.props.actionName}
+                    countUpdateComment={this.props.countUpdateComment}
+                    actionNameComment={this.props.actionNameComment}
                 />
             </div>
         )

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTestById } from '../../actions/writingTestTopic';
-import { viewWritingTestById, postComment, editComment, listCommentByPage } from '../../actions/viewWritingTest';
+import { postComment, editComment } from '../../actions/viewWritingTest';
 import ViewTest from '../../components/test/view_writing_test.jsx';
-import { notification, Input, Divider } from 'antd';
+import { notification, Input, Divider, Row } from 'antd';
 
 class PostTest extends Component {
     constructor(props) {
@@ -19,7 +19,15 @@ class PostTest extends Component {
     render() {
         return (
             <div>
-                <h3>{this.props.testItem.wt_title}</h3>
+                <h3>{this.props.topicItem.wt_title}</h3>
+                <Row>
+                    {this.props.topicItem.wt_content}
+                </Row>
+                <Divider />
+                <h3>Bài làm của {this.props.topicItem.full_name}</h3>
+                <Row>
+                    {this.props.topicItem.wtt_content}
+                </Row>
                 <Divider />
                 <ViewTest {...this.props} />
             </div>
@@ -28,7 +36,9 @@ class PostTest extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        testItem: state.writingTestTopic.testItem,
+        topicItem: state.writingTestTopic.topicItem,
+        lstCommentByUser: state.writingTestTopic.lstCommentByUser,
+        lstCommentByManager: state.writingTestTopic.lstCommentByManager,
         actionName: state.writingTestTopic.actionName,
         countFetchById: state.writingTestTopic.countFetchById,
         msg: state.writingTestTopic.msg,
@@ -36,14 +46,8 @@ const mapStateToProps = (state) => {
         countUpdate: state.writingTestTopic.countUpdate,
         data: state.writingTestTopic.data,
 
-        qaItem: state.viewWritingTest.qaItem,
-        lstComment: state.viewWritingTest.lstComment,
-        actionName: state.viewWritingTest.actionName,
-        countFetchById: state.viewWritingTest.countFetchById,
-        msg: state.viewWritingTest.msg,
-        success: state.viewWritingTest.success,
-        countUpdate: state.viewWritingTest.countUpdate,
-        data: state.viewWritingTest.data,
+        actionNameComment: state.viewWritingTest.actionName,
+        countUpdateComment: state.viewWritingTest.countUpdate,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -51,17 +55,11 @@ const mapDispatchToProps = (dispatch) => {
         fetchTestById: (params) => {
             dispatch(fetchTestById(params))
         },
-        viewWritingTestById: (params) => {
-            dispatch(viewWritingTestById(params))
-        },
         postComment: (params) => {
             dispatch(postComment(params))
         },
         editComment: (params) => {
             dispatch(editComment(params))
-        },
-        listCommentByPage: (params) => {
-            dispatch(listCommentByPage(params))
         },
     }
 }

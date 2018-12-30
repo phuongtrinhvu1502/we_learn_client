@@ -16,7 +16,7 @@ class FormTemplate extends Component {
             // editorState: EditorState.createEmpty(),
             paginateComment: {
                 current: 1,
-                pageSize: 10,
+                pageSize: 1,
             },
             is_edited: undefined,
         }
@@ -41,8 +41,8 @@ class FormTemplate extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.countUpdate > this.props.countUpdate) {
-            if (nextProps.actionName == "postComment") {
+        if (nextProps.countUpdateComment > this.props.countUpdateComment) {
+            if (nextProps.actionNameComment == "postComment") {
                 notification.success({
                     message: "Thành công",
                     description: "Đăng comment thành công"
@@ -50,10 +50,9 @@ class FormTemplate extends Component {
                 this.setState({
                     editorState: EditorState.createEmpty(),
                 })
-                let paginateComment = { ...this.state.paginateComment }
-                this.props.listCommentByPage(paginateComment)
+                this.props.fetchTestById(this.props.match.params.id)
             }
-            else if (nextProps.actionName == "editComment") {
+            else if (nextProps.actionNameComment == "editComment") {
                 notification.success({
                     message: "Thành công",
                     description: "Cập nhật comment thành công"
@@ -65,8 +64,7 @@ class FormTemplate extends Component {
                 this.props.form.setFieldsValue({
                     content: undefined
                 })
-                let paginateComment = { ...this.state.paginateComment }
-                this.props.listCommentByPage(paginateComment)
+                this.props.fetchTestById(this.props.match.params.id)
             }
         }
     }
@@ -77,13 +75,7 @@ class FormTemplate extends Component {
         this.setState({
             paginateComment
         })
-        this.props.listCommentByPage(paginateComment)
-    }
-
-    componentDidMount() {
-        if (this.props.match.params.id != undefined) {
-            this.props.listCommentByPage(Object.assign(this.state.paginateComment, { qa_id: this.props.match.params.id }))
-        }
+        // this.props.fetchTestById(paginateComment)
     }
 
     onEditorStateChange(editorState) {
@@ -94,12 +86,12 @@ class FormTemplate extends Component {
 
     handleSubmit() {
         let params = {};
-        params.qa_id = this.props.match.params.id
+        params.wtt_id = this.props.match.params.id
         params.content = this.props.form.getFieldsValue().content
         if (this.state.is_edited == undefined)
             this.props.postComment(params)
         else {
-            params.qa_comment_id = this.state.is_edited
+            params.wtc_id = this.state.is_edited
             this.props.editComment(params)
         }
     }
@@ -151,9 +143,10 @@ class FormTemplate extends Component {
                 }
                 <Row>
                     {
-                        this.props.lstComment.results != undefined && this.props.lstComment.results.map(item => {
+                        this.props.lstComment != undefined && this.props.lstComment.map(item => {
                             return (
-                                <div className="cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                <div className={item.is_admin == 1 ?
+                                    "cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12 alert-success" : "cmt-box col-md-12 col-sm-12 col-xs-12 col-lg-12"}>
                                     <div className="cmt-user">
                                         <div className="cmt-user-info col-md-2 col-sm-2 col-xs-2 col-lg-2">
                                             <div className="cmt-user-avatar col-md-12 col-sm-12 col-xs-12 col-lg-12">
@@ -181,12 +174,15 @@ class FormTemplate extends Component {
                         })
                     }
                 </Row>
-                <Row style={{ float: 'right', marginTop: "5px" }}>
-                    <Pagination defaultCurrent={1}
-                        onChange={this.handleCommentChange}
-                        total={this.props.lstComment.total}
-                        pageSize={this.state.paginateComment.pageSize} />
-                </Row>
+                {/* {
+                    this.props.lstComment.length > 0 &&
+                    <Row style={{ float: 'right', marginTop: "5px" }}>
+                        <Pagination defaultCurrent={1}
+                            onChange={this.handleCommentChange}
+                            total={this.props.lstComment.length}
+                            pageSize={this.state.paginateComment.pageSize} />
+                    </Row>
+                } */}
             </div>
         )
     }

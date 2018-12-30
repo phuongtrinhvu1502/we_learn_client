@@ -19,19 +19,9 @@ const initialState = {
 }
 const viewWritingTest = (state = initialState, action = {}) => {
     switch (action.type) {
-        case 'VIEW_WRITING_TEST_BY_ID':
-            return {
-                ...state, qaItem: action.data.data ? action.data.data : {}, success: action.data.success,
-                countFetchPage: state.countFetchPage + 1
-            }
-        case 'LIST_COMMENT_WRITING_TEST_BY_PAGE':
-            return {
-                ...state, lstComment: action.data.data ? action.data.data : {}, success: action.data.success,
-                countFetchLstCmt: state.countFetchLstCmt + 1
-            }
-        case 'POST_COMMENT_WRITING_TEST_QA':
+        case 'POST_COMMENT_WRITING_TEST_TOPIC':
             return { ...state, actionName: 'postComment', countUpdate: state.countUpdate + 1, }
-        case 'EDIT_COMMENT_WRITING_TEST_QA':
+        case 'EDIT_COMMENT_WRITING_TEST_TOPIC':
             return { ...state, actionName: 'editComment', countUpdate: state.countUpdate + 1, }
         default:
             return state;

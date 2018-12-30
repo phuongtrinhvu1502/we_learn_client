@@ -10,19 +10,13 @@ export const viewWritingTestById = (params) => {
 }
 
 export const postComment = (params) => {
-    let url = '/qa-comment/insert'
-    let type = 'POST_COMMENT_WRITING_TEST_QA'
+    let url = '/writing-test-topic/insert-comment'
+    let type = 'POST_COMMENT_WRITING_TEST_TOPIC'
     return requestPostJsonReturnDispatch(url, params, type)
 }
 
 export const editComment = (params) => {
-    let url = '/qa-comment/update'
-    let type = 'EDIT_COMMENT_WRITING_TEST_QA'
-    return requestPostJsonReturnDispatch(url, params, type)
-}
-
-export const listCommentByPage = (params) => {
-    let url = '/qa-comment/list-comment-by-page'
-    let type = 'LIST_COMMENT_WRITING_TEST_BY_PAGE'
+    let url = '/writing-test-topic/update-comment'
+    let type = 'EDIT_COMMENT_WRITING_TEST_TOPIC'
     return requestPostJsonReturnDispatch(url, params, type)
 }
