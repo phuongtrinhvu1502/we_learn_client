@@ -133,7 +133,7 @@ class ListArticle extends Component {
         if (nextProps.countDelete > this.props.countDelete) {
             notification.success({
                 message: 'Thành công',
-                description: 'Xóa bài viết thành công'
+                description: 'Xóa Danh mục thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
             this.props.listArticlePagination(params);
@@ -141,7 +141,7 @@ class ListArticle extends Component {
         if (nextProps.countRemove > this.props.countRemove) {
             notification.success({
                 message: 'Thành công',
-                description: 'Xóa tạm thời bài viết thành công'
+                description: 'Xóa tạm thời Danh mục thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
             this.props.listArticlePagination(params);
@@ -156,23 +156,23 @@ class ListArticle extends Component {
         }
     }
 
-    onDelete(at_id) {
+    onDelete(article_id) {
         let params = {
-            at_id
+            article_id
         }
         this.props.deleteArticle(params)
     }
 
-    onRemove(at_id) {
+    onRemove(article_id) {
         let params = {
-            at_id: at_id
+            article_id: article_id
         }
         this.props.removeArticle(params)
     }
 
-    onRestore(at_id) {
+    onRestore(article_id) {
         let params = {
-            at_id: at_id
+            article_id: article_id
         }
         this.props.restoreArticle(params)
     }
@@ -193,7 +193,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreArticle({ at_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreArticle({ article_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -203,7 +203,7 @@ class ListArticle extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteArticle({ at_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteArticle({ article_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {

@@ -134,7 +134,7 @@ class ListTopic extends Component {
         if (nextProps.countDelete > this.props.countDelete) {
             notification.success({
                 message: 'Thành công',
-                description: 'Xóa bài viết thành công'
+                description: 'Xóa Đề tài thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
             this.props.listTopicPagination(params);
@@ -142,7 +142,7 @@ class ListTopic extends Component {
         if (nextProps.countRemove > this.props.countRemove) {
             notification.success({
                 message: 'Thành công',
-                description: 'Xóa tạm thời bài viết thành công'
+                description: 'Xóa tạm thời Đề tài thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
             this.props.listTopicPagination(params);

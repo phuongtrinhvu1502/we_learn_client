@@ -35,7 +35,7 @@ const TableOpportunity = ({ listArticle, filterDropdownVisible, searchText, chan
 
         },
         {
-            title: 'Danh mục', dataIndex: "article_type_name", width: '20%',
+            title: 'Loại', dataIndex: "article_type_name", width: '20%',
         },
         {
             title: 'Ngày tạo', dataIndex: "created_date", width: '15%',
