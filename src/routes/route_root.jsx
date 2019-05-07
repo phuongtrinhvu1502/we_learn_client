@@ -323,7 +323,18 @@ const routes = [
 						{ name: 'index' }
 					)
 				)
-			}
+			},
+			//List course
+			{
+				path: '/grammar/all-course',
+				component: asyncComponent(() => System.import('../containers/grammar/list_course.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
+			{
+				path: '/grammar/view-course/:id?',
+				component: asyncComponent(() => System.import('../containers/grammar/view_course.jsx')
+					.then(module => module.default), { name: 'name' })
+			},
 		]
 	}
 ]

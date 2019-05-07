@@ -120,6 +120,12 @@ class Sidebar extends Component {
                                 <span>Ngữ pháp</span>
                             </Link>
                         </Menu.Item>
+                        <Menu.Item key="#/grammar/all-course" >
+                            <Link to={'/grammar/all-course'} className="nav-link" >
+                                <Icon type="flag" />
+                                <span>Khóa học</span>
+                            </Link>
+                        </Menu.Item>
                     </SubMenu>
                     {lstPermission.indexOf("TEST") > -1 &&
                         <SubMenu key="subMenuTest" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-user"></i>&nbsp;&nbsp;<span>Luyện đề thi</span></span>}>
