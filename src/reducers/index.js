@@ -19,6 +19,8 @@ import systemControl from './system_control';
 import writingTest from './writingTest';
 import viewWritingTest from './viewWritingTest';
 import writingTestTopic from './writingTestTopic';
+import course from './course';
+import viewCourse from './viewCourse';
 const reducers = combineReducers({
 	utility: utility,
 	bar_reducer: bar_reducer,
@@ -38,5 +40,7 @@ const reducers = combineReducers({
 	writingTest: writingTest,
 	viewWritingTest: viewWritingTest,
 	writingTestTopic: writingTestTopic,
+	course: course,
+	viewCourse: viewCourse,
 });
 export default reducers;

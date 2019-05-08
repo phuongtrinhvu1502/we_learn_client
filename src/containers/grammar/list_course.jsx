@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom';
 import moment from 'moment'
 import TableQA from '../../components/grammar/table_course.jsx';
 import FilterQA from '../../components/grammar/filter_course.jsx';
-import { listQAPagination, removeQA, restoreQA, deleteQA, setLastSearchQA } from '../../actions/qa';
+import { listCoursePagination, removeCourse, restoreCourse, deleteCourse, setLastSearchCourse } from '../../actions/course';
 import { notification } from 'antd';
 class ListPlaceType extends Component {
     constructor(props) {
         super(props)
         this.state = {
             filterParam: {
-                qa_title: '',
+                course_title: '',
                 status: -1,
                 currentStatus: -1
             },
             filterDropdownVisible: {
-                qa_title: false,
+                course_title: false,
             },
             searchText: {
-                qa_title: '',
+                course_title: '',
             },
             filtered: false,
             pagination: {
@@ -64,7 +64,7 @@ class ListPlaceType extends Component {
         pagination.current = 1
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject, this.state.searchText);
-        this.props.listQAPagination(params);
+        this.props.listCoursePagination(params);
     }
 
     changeInputSearch(ele) {
@@ -94,7 +94,7 @@ class ListPlaceType extends Component {
         } else {
             params = { ...this.state.pagination, ...this.state.filterParam }
         }
-        this.props.listQAPagination(params);
+        this.props.listCoursePagination(params);
     }
 
     getValueFromAnotherObj(childObj, parentObj) {
@@ -103,7 +103,7 @@ class ListPlaceType extends Component {
 
     componentWillUnmount() {
         let params = Object.assign({}, this.state.pagination, this.state.filterParam)
-        this.props.setLastSearchQA(params)
+        this.props.setLastSearchCourse(params)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -118,7 +118,7 @@ class ListPlaceType extends Component {
         }
         if (nextProps.countFetchPage > this.props.countFetchPage) {
             const pagination = { ...this.state.pagination }
-            pagination.total = nextProps.listQA.total
+            pagination.total = nextProps.listCourse.total
             // this.resetSelected();
             this.setState({
                 pagination
@@ -130,7 +130,7 @@ class ListPlaceType extends Component {
                 description: 'Xóa bài viết thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listQAPagination(params);
+            this.props.listCoursePagination(params);
         }
         if (nextProps.countRemove > this.props.countRemove) {
             notification.success({
@@ -138,7 +138,7 @@ class ListPlaceType extends Component {
                 description: 'Xóa tạm thời bài viết thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listQAPagination(params);
+            this.props.listCoursePagination(params);
         }
         if (nextProps.countRestore > this.props.countRestore) {
             notification.success({
@@ -146,7 +146,7 @@ class ListPlaceType extends Component {
                 description: 'Hoàn tác thành công'
             });
             let params = Object.assign({}, this.state.pagination, this.state.filterParam);
-            this.props.listQAPagination(params);
+            this.props.listCoursePagination(params);
         }
     }
 
@@ -154,21 +154,21 @@ class ListPlaceType extends Component {
         let params = {
             qa_id
         }
-        this.props.deleteQA(params)
+        this.props.deleteCourse(params)
     }
 
     onRemove(qa_id) {
         let params = {
             qa_id: qa_id
         }
-        this.props.removeQA(params)
+        this.props.removeCourse(params)
     }
 
     onRestore(qa_id) {
         let params = {
             qa_id: qa_id
         }
-        this.props.restoreQA(params)
+        this.props.restoreCourse(params)
     }
 
     resetSelected() {
@@ -187,7 +187,7 @@ class ListPlaceType extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreQA({ qa_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreCourse({ qa_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -197,7 +197,7 @@ class ListPlaceType extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteQA({ qa_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteCourse({ qa_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {
@@ -218,7 +218,7 @@ class ListPlaceType extends Component {
         this.setState({
             pagination: pagination
         })
-        this.props.listQAPagination(params)
+        this.props.listCoursePagination(params)
 
     }
     changePageSize(value) {
@@ -228,7 +228,7 @@ class ListPlaceType extends Component {
             pagination: paginationState
         })
         let params = Object.assign({}, paginationState, this.state.filterParam)
-        this.props.listQAPagination(params)
+        this.props.listCoursePagination(params)
     }
 
     changeStatusFilter(value) {
@@ -241,15 +241,15 @@ class ListPlaceType extends Component {
 
     clearFilter() {
         let filterParam = {
-            qa_title: '',
+            course_title: '',
             status: -1,
             currentStatus: -1
         }
         let filterDropdownVisible = {
-            qa_title: false,
+            course_title: false,
         }
         let searchText = {
-            qa_title: '',
+            course_title: '',
         }
         let pagination = {
             pageSize: 10,
@@ -263,7 +263,7 @@ class ListPlaceType extends Component {
 
         this.setState({ pagination, filterParam, searchText, filterDropdownVisible, selectedRowKeys })
         let params = Object.assign({}, pagination, filterParam);
-        this.props.listQAPagination(params);
+        this.props.listCoursePagination(params);
         this.resetSelected();
     }
 
@@ -275,7 +275,7 @@ class ListPlaceType extends Component {
         this.setState({ pagination: pagination, filterParam: filterObject })
         let params = Object.assign({}, pagination, filterObject);
         this.resetSelected();
-        this.props.listQAPagination(params);
+        this.props.listCoursePagination(params);
     }
 
     render() {
@@ -316,7 +316,7 @@ class ListPlaceType extends Component {
                     onRemove={this.onRemove}
                     onRestore={this.onRestore}
                     changePageSize={this.changePageSize}
-                    listQA={this.props.listQA}
+                    listCourse={this.props.listCourse}
                     filterParam={this.state.filterParam}
                     handleDelete={this.handleDelete}
                     handleRestore={this.handleRestore}
@@ -328,33 +328,33 @@ class ListPlaceType extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        listQA: state.qa.listQA,
-        success: state.qa.success,
-        msg: state.qa.msg,
-        countDelete: state.qa.countDelete,
-        countRemove: state.qa.countRemove,
-        countRestore: state.qa.countRestore,
-        countFetchPage: state.qa.countFetchPage,
-        countUpdate: state.qa.countUpdate,
-        lastSearchObj: state.qa.lastSearchObj,
+        listCourse: state.course.listCourse,
+        success: state.course.success,
+        msg: state.course.msg,
+        countDelete: state.course.countDelete,
+        countRemove: state.course.countRemove,
+        countRestore: state.course.countRestore,
+        countFetchPage: state.course.countFetchPage,
+        countUpdate: state.course.countUpdate,
+        lastSearchObj: state.course.lastSearchObj,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        listQAPagination: (params) => {
-            dispatch(listQAPagination(params))
+        listCoursePagination: (params) => {
+            dispatch(listCoursePagination(params))
         },
-        removeQA: (params) => {
-            dispatch(removeQA(params))
+        removeCourse: (params) => {
+            dispatch(removeCourse(params))
         },
-        restoreQA: (params) => {
-            dispatch(restoreQA(params))
+        restoreCourse: (params) => {
+            dispatch(restoreCourse(params))
         },
-        deleteQA: (params) => {
-            dispatch(deleteQA(params))
+        deleteCourse: (params) => {
+            dispatch(deleteCourse(params))
         },
-        setLastSearchQA: (param) => {
-            dispatch(setLastSearchQA(param))
+        setLastSearchCourse: (param) => {
+            dispatch(setLastSearchCourse(param))
         },
     }
 }

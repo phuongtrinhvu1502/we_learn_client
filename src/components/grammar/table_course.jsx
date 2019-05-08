@@ -6,9 +6,9 @@ import cookie from 'react-cookies'
 
 const lstPermission = cookie.load('lstPermission') || [];
 
-const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInputSearch, onFilterDropdownVisibleChange, onInputChange, pagination, onDelete, onRemove,
+const TableOpportunity = ({ listCourse, filterDropdownVisible, searchText, changeInputSearch, onFilterDropdownVisibleChange, onInputChange, pagination, onDelete, onRemove,
     searchInput, onRestore, changePageSize, handleDelete, handleRestore, filterParam, rowSelection, handleTableChange }) => {
-    let data = listQA.results;
+    let data = listCourse.results;
     let disableFunc = rowSelection == undefined || rowSelection.selectedRowKeys.length == 0
     const columns = [
         {
@@ -18,18 +18,18 @@ const TableOpportunity = ({ listQA, filterDropdownVisible, searchText, changeInp
             )
         },
         {
-            title: 'Tiêu đề bài viết', dataIndex: "qa_title", filter: false, sorter: true,
-            sortOrder: pagination.sortField == 'qa_title' ? pagination.sortOrder : false,
+            title: 'Tiêu đề bài viết', dataIndex: "course_title", filter: false, sorter: true,
+            sortOrder: pagination.sortField == 'course_title' ? pagination.sortOrder : false,
             filterDropdown: <FilterTable
-                value={searchText.qa_title}
+                value={searchText.course_title}
                 onInputChange={onInputChange}
                 searchInput={searchInput}
                 changeInputSearch={changeInputSearch}
-                fieldName="qa_title"
+                fieldName="course_title"
             />,
             filterIcon: <Icon type="filter" style={{ color: '#108ee9' }} />,
-            filterDropdownVisible: filterDropdownVisible.qa_title,
-            onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'qa_title'),
+            filterDropdownVisible: filterDropdownVisible.course_title,
+            onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'course_title'),
             render: (text, record) =>
                 <Link to={'/grammar/view-course/' + record.qa_id}
                     className="nav-link" ><span>{text}</span></Link>

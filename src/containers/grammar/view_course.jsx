@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postComment, editComment, viewQAById, listCommentByPage } from '../../actions/viewQA';
+import { postComment, editComment, viewCourseById, listCommentCourseByPage } from '../../actions/viewCourse';
 import QA from '../../components/grammar/view_course.jsx';
 import { notification, Input, Divider } from 'antd';
 
@@ -12,8 +12,8 @@ class viewQA extends Component {
     render() {
         return (
             <div>
-                <h3>{this.props.qaItem.qa_title}</h3>
-                <p>Đăng bởi: {this.props.qaItem.user_login}</p>
+                <h3>{this.props.courseItem.course_title}</h3>
+                <p>Đăng bởi: {this.props.courseItem.user_login}</p>
                 <Divider />
                 <QA {...this.props}
                 />
@@ -23,14 +23,14 @@ class viewQA extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        qaItem: state.viewQA.qaItem,
-        lstComment: state.viewQA.lstComment,
-        actionName: state.viewQA.actionName,
-        countFetchById: state.viewQA.countFetchById,
-        msg: state.viewQA.msg,
-        success: state.viewQA.success,
-        countUpdate: state.viewQA.countUpdate,
-        data: state.viewQA.data,
+        courseItem: state.viewCourse.courseItem,
+        lstComment: state.viewCourse.lstComment,
+        actionName: state.viewCourse.actionName,
+        countFetchById: state.viewCourse.countFetchById,
+        msg: state.viewCourse.msg,
+        success: state.viewCourse.success,
+        countUpdate: state.viewCourse.countUpdate,
+        data: state.viewCourse.data,
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -41,11 +41,11 @@ const mapDispatchToProps = (dispatch) => {
         editComment: (params) => {
             dispatch(editComment(params))
         },
-        viewQAById: (params) => {
-            dispatch(viewQAById(params))
+        viewCourseById: (params) => {
+            dispatch(viewCourseById(params))
         },
-        listCommentByPage: (params) => {
-            dispatch(listCommentByPage(params))
+        listCommentCourseByPage: (params) => {
+            dispatch(listCommentCourseByPage(params))
         },
     }
 }

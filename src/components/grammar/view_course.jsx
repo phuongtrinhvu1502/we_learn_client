@@ -20,13 +20,13 @@ class FormTemplate extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id != undefined) {
-            this.props.viewQAById(this.props.match.params.id)
+            this.props.viewCourseById(this.props.match.params.id)
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.countFetchById > this.props.countFetchById) {
-            let contentBlock = htmlToDraft(nextProps.qaItem.qa_content);
+            let contentBlock = htmlToDraft(nextProps.courseItem.course_content);
             if (contentBlock) {
                 let contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
                 let editorState = EditorState.createWithContent(contentState);
@@ -47,11 +47,10 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
-        console.log(this.props.qaItem.qa_content)
         return (
             <div>
                 <Row>
-                    {ReactHtmlParser(this.props.qaItem.qa_content)}
+                    {ReactHtmlParser(this.props.courseItem.course_content)}
                 </Row>
                 <Row style={{ textAlign: 'center' }}>
                     <iframe width="949" height="534" src="https://www.youtube.com/embed/BF2WnENyocc"
@@ -60,7 +59,7 @@ class FormTemplate extends Component {
                 <Divider />
                 <CommentPanel
                     match={this.props.match}
-                    listCommentByPage={this.props.listCommentByPage}
+                    listCommentByPage={this.props.listCommentCourseByPage}
                     lstComment={this.props.lstComment}
                     postComment={this.props.postComment}
                     editComment={this.props.editComment}
