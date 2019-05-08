@@ -53,7 +53,7 @@ class FormTemplate extends Component {
                     {ReactHtmlParser(this.props.courseItem.course_content)}
                 </Row>
                 <Row style={{ textAlign: 'center' }}>
-                    <iframe width="949" height="534" src="https://www.youtube.com/embed/BF2WnENyocc"
+                    <iframe width="949" height="534" src={this.props.courseItem.course_url}
                         frameBorder={0} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </Row>
                 <Divider />
