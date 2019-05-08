@@ -150,23 +150,23 @@ class ListPlaceType extends Component {
         }
     }
 
-    onDelete(qa_id) {
+    onDelete(course_id) {
         let params = {
-            qa_id
+            course_id
         }
         this.props.deleteCourse(params)
     }
 
-    onRemove(qa_id) {
+    onRemove(course_id) {
         let params = {
-            qa_id: qa_id
+            course_id: course_id
         }
         this.props.removeCourse(params)
     }
 
-    onRestore(qa_id) {
+    onRestore(course_id) {
         let params = {
-            qa_id: qa_id
+            course_id: course_id
         }
         this.props.restoreCourse(params)
     }
@@ -187,7 +187,7 @@ class ListPlaceType extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.restoreCourse({ qa_id: lstId.substring(0, lstId.length - 1) });
+        this.props.restoreCourse({ course_id: lstId.substring(0, lstId.length - 1) });
     }
     handleDelete() {
         if (this.state.selectedRowKeys.length == 0) {
@@ -197,7 +197,7 @@ class ListPlaceType extends Component {
         this.state.selectedRowKeys.forEach(function (val, index) {
             lstId += val + ",";
         })
-        this.props.deleteCourse({ qa_id: lstId.substring(0, lstId.length - 1) });
+        this.props.deleteCourse({ course_id: lstId.substring(0, lstId.length - 1) });
     }
 
     handleTableChange(pagination, filters, sorter) {

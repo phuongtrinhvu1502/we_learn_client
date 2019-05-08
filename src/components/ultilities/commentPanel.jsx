@@ -92,7 +92,10 @@ class FormTemplate extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id != undefined) {
-            this.props.listCommentByPage(Object.assign(this.state.paginateComment, { qa_id: this.props.match.params.id }))
+            if (this.props.fromCourse)
+                this.props.listCommentByPage(Object.assign(this.state.paginateComment, { course_id: this.props.match.params.id }))
+            else
+                this.props.listCommentByPage(Object.assign(this.state.paginateComment, { qa_id: this.props.match.params.id }))
         }
     }
 
@@ -104,7 +107,10 @@ class FormTemplate extends Component {
 
     handleSubmit() {
         let params = {};
-        params.qa_id = this.props.match.params.id
+        if (this.props.fromCourse)
+            params.course_id = this.props.match.params.id
+        else
+            params.qa_id = this.props.match.params.id
         // params.content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
         // if (params.content.replace(regex, '').length < 22) {
         //     notification.warn({
@@ -117,7 +123,10 @@ class FormTemplate extends Component {
         if (this.state.is_edited == undefined)
             this.props.postComment(params)
         else {
-            params.qa_comment_id = this.state.is_edited
+            if (this.props.fromCourse)
+                params.cm_id = this.state.is_edited
+            else
+                params.qa_comment_id = this.state.is_edited
             this.props.editComment(params)
         }
     }

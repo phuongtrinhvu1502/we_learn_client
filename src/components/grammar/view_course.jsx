@@ -65,6 +65,7 @@ class FormTemplate extends Component {
                     editComment={this.props.editComment}
                     countUpdate={this.props.countUpdate}
                     actionName={this.props.actionName}
+                    fromCourse={true}
                 />
             </div>
         )

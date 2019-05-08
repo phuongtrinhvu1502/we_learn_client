@@ -123,7 +123,7 @@ class Sidebar extends Component {
                         <Menu.Item key="#/grammar/all-course" >
                             <Link to={'/grammar/all-course'} className="nav-link" >
                                 <Icon type="flag" />
-                                <span>Khóa học</span>
+                                <span>Bài học</span>
                             </Link>
                         </Menu.Item>
                     </SubMenu>

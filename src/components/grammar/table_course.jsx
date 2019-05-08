@@ -31,7 +31,7 @@ const TableOpportunity = ({ listCourse, filterDropdownVisible, searchText, chang
             filterDropdownVisible: filterDropdownVisible.course_title,
             onFilterDropdownVisibleChange: (visible) => onFilterDropdownVisibleChange(visible, 'course_title'),
             render: (text, record) =>
-                <Link to={'/grammar/view-course/' + record.qa_id}
+                <Link to={'/grammar/view-course/' + record.course_id}
                     className="nav-link" ><span>{text}</span></Link>
 
         },
@@ -50,13 +50,13 @@ const TableOpportunity = ({ listCourse, filterDropdownVisible, searchText, chang
         //         filterParam.currentStatus != -2 ?
         //             <span>
         //                 {lstPermission.indexOf("QUES-ANS-3") > -1 &&
-        //                     <Link to={'/grammar/post-qa/' + record.qa_id}
+        //                     <Link to={'/grammar/post-qa/' + record.course_id}
         //                         className="nav-link"><i className="fa fa-edit" title="Cập nhật"></i></Link>
         //                 }
         //                 {lstPermission.indexOf("QUES-ANS-4") > -1 &&
         //                     <span>
         //                         <Divider type="vertical" />
-        //                         <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.qa_id)}>
+        //                         <Popconfirm className="nav-link" title="Bạn có muốn xóa bài viết này không?" onConfirm={() => onRemove(record.course_id)}>
         //                             <a href="#" title="Xóa"><i className="far fa-trash-alt"></i></a>
         //                         </Popconfirm>
         //                     </span>
@@ -65,12 +65,12 @@ const TableOpportunity = ({ listCourse, filterDropdownVisible, searchText, chang
         //             :
         //             <span>
         //                 {lstPermission.indexOf("QUES-ANS-5") > -1 &&
-        //                     <a onClick={() => onRestore(record.qa_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
+        //                     <a onClick={() => onRestore(record.course_id)} title="Hoàn tác"><i className="fas fa-window-restore"></i></a>
         //                 }
         //                 {lstPermission.indexOf("QUES-ANS-6") > -1 &&
         //                     <span>
         //                         <Divider type="vertical" />
-        //                         <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.qa_id)}>
+        //                         <Popconfirm className="nav-link" title="Xóa vĩnh viễn sẽ không hoàn tác được. Bạn có chắc chắn muốn xóa không?" onConfirm={() => onDelete(record.course_id)}>
         //                             <a href="#" title="Xóa vĩnh viễn"><i className="fas fa-eraser"></i></a>
         //                         </Popconfirm>
         //                     </span>
@@ -119,7 +119,7 @@ const TableOpportunity = ({ listCourse, filterDropdownVisible, searchText, chang
                 size='small'
                 className='table-provider'
                 columns={columns}
-                rowKey="qa_id"
+                rowKey="course_id"
                 bordered
                 pagination={pagination}
                 onChange={handleTableChange}
