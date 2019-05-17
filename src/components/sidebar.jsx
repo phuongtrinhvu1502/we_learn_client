@@ -189,6 +189,14 @@ class Sidebar extends Component {
                                     </Link>
                                 </Menu.Item>
                             }
+                            {lstPermission.indexOf("TOPIC-CONTENT") > -1 &&
+                                <Menu.Item key="#/system-content/list-course" >
+                                    <Link to={'/system-content/list-course'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Bài học</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
                             {lstPermission.indexOf("IMAGE-UPLOAD") > -1 &&
                                 <Menu.Item key="#/system-content/upload-image" >
                                     <Link to={'/system-content/upload-image'} className="nav-link" >

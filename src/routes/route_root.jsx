@@ -335,6 +335,29 @@ const routes = [
 				component: asyncComponent(() => System.import('../containers/grammar/view_course.jsx')
 					.then(module => module.default), { name: 'name' })
 			},
+			//System control bai hoc
+			{
+				path: '/system-content/list-course',
+				component: (lstPermission.indexOf("TOPIC-CONTENT") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/list_course.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
+			{
+				path: '/system-content/post-course/:id?',
+				component: (lstPermission.indexOf("TOPIC-CONTENT") > -1) ?
+					asyncComponent(() => System.import('../containers/adminPanel/post_course.jsx')
+						.then(module => module.default), { name: 'name' })
+					:
+					asyncComponent(
+						() => System.import('../containers/not_found.jsx').then(module => module.default),
+						{ name: 'index' }
+					)
+			},
 		]
 	}
 ]

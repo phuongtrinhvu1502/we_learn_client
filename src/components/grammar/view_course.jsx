@@ -37,6 +37,7 @@ class FormTemplate extends Component {
         }
     }
 
+
     render() {
         const { form } = this.props;
         const { getFieldDecorator } = form;
@@ -47,6 +48,7 @@ class FormTemplate extends Component {
             labelCol: { span: 8 },
             wrapperCol: { span: 16 },
         };
+        const iframe = '';
         return (
             <div>
                 <Row>

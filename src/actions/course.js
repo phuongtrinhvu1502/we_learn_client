@@ -21,7 +21,7 @@ export const updateCourse = (params) => {
     return requestPostJsonReturnDispatch(url, params, type)
 }
 
-export const fetchCOURSEById = (params) => {
+export const fetchCourseById = (params) => {
     let url = '/course/get-course-by-id?course_id=' + params
     let type = 'GET_COURSE_BY_ID'
     return requestGetJsonReturnDispatch(url, type)
