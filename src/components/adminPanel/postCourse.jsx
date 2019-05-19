@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, Input, Radio, Col, Select, Row, Divider, notification, DatePicker, Upload } from 'antd';
+import {
+    Button, Modal, Form, Input, Radio, Col, Select, Row,
+    Divider, notification, DatePicker, Upload, Checkbox
+} from 'antd';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
-import { stateFromHTML } from 'draft-js-import-html';
 import { scrollToErrorForm } from '../../actions/reuse_action/reuse';
-import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { Editor } from 'react-draft-wysiwyg';
@@ -79,7 +80,10 @@ class FormTemplate extends Component {
                 let params = new FormData();
                 let paramString = JSON.parse(JSON.stringify(values))
                 paramString.course_content = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
-
+                if (paramString.is_premium)
+                    paramString.is_premium = 1
+                else
+                    paramString.is_premium = 0
                 if (this.state.attachment != null && this.state.attachment.length > 0) {
                     // chỉ gửi những file thêm vào từ giao diện
                     this.state.attachment.forEach(function (element) {
@@ -166,6 +170,16 @@ class FormTemplate extends Component {
                                 }
                             )(
                                 <Input placeholder="Nhập Nhập tiêu đề bài học" />
+                            )}
+                        </FormItem>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="formInputRow" span={24}>
+                        <FormItem {...formItemLayout} label="Bài học nâng cao">
+                            {getFieldDecorator('is_premium',
+                            )(
+                                <Checkbox>Là bài học nâng cao</Checkbox>
                             )}
                         </FormItem>
                     </Col>
