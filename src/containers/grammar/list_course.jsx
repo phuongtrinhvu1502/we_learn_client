@@ -13,7 +13,8 @@ class ListPlaceType extends Component {
             filterParam: {
                 course_title: '',
                 status: -1,
-                currentStatus: -1
+                currentStatus: -1,
+                is_premium: 0,
             },
             filterDropdownVisible: {
                 course_title: false,
@@ -37,6 +38,7 @@ class ListPlaceType extends Component {
         this.onClickSearch = this.onClickSearch.bind(this);
         this.clearFilter = this.clearFilter.bind(this);
         this.changeStatusFilter = this.changeStatusFilter.bind(this);
+        this.changePremiumStatus = this.changePremiumStatus.bind(this);
 
         //Xử lý table
         this.onDelete = this.onDelete.bind(this)
@@ -50,6 +52,14 @@ class ListPlaceType extends Component {
         this.onInputChange = this.onInputChange.bind(this)
         this.changeInputSearch = this.changeInputSearch.bind(this)
         this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(this)
+    }
+
+    changePremiumStatus(value) {
+        let filterParam = { ...this.state.filterParam }
+        filterParam.is_premium = value;
+        this.setState({
+            filterParam
+        })
     }
 
     onInputChange(e, column) {
@@ -243,7 +253,8 @@ class ListPlaceType extends Component {
         let filterParam = {
             course_title: '',
             status: -1,
-            currentStatus: -1
+            currentStatus: -1,
+            is_premium: 0,
         }
         let filterDropdownVisible = {
             course_title: false,
@@ -297,12 +308,14 @@ class ListPlaceType extends Component {
         { name: "Đã xóa", type_name: -2 }]
         return (
             <div>
-                {/* <FilterQA
+                <FilterQA
                     status={status}
                     onClickSearch={this.onClickSearch}
                     changeStatusFilter={this.changeStatusFilter}
+                    changePremiumStatus={this.changePremiumStatus}
                     clearFilter={this.clearFilter}
-                /> */}
+                    filterParam={this.state.filterParam}
+                />
                 <TableQA rowKey='index'
                     pagination={this.state.pagination}
                     searchText={this.state.searchText}
