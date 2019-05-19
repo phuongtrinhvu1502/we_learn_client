@@ -87,7 +87,7 @@ class FormTemplate extends Component {
                             params.append("file", element.originFileObj)
                     });
                 }
-                params.append("course", JSON.stringify(paramString))
+                params.append("param", JSON.stringify(paramString))
 
                 if (this.props.match.params.id == undefined)
                     this.props.insertCourse(params)
