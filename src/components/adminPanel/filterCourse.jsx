@@ -8,7 +8,7 @@ const Panel = Collapse.Panel
 
 const FilterOpportunity = (props) => {
     const { filterParam, status, onClickSearch, changeStatusFilter,
-        clearFilter, changeArticleType } = props
+        clearFilter, changeArticleType, changePremiumStatus } = props
     // const dateString = moment('2014-12-13', 'YYYY-MM-DD').toDate();
     // const dateObj = new Date(dateString);
     // const momentObj = moment(dateObj);
@@ -16,6 +16,14 @@ const FilterOpportunity = (props) => {
         <Collapse className="collapse-search-area-frm">
             <Panel header="Tìm kiếm">
                 <Row>
+                    <Col className="gutter-row list-provider-filter" span={12}>
+                        <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Trạng thái">
+                            <Select placeholder="Chọn Trạng thái" value={filterParam.is_premium} onChange={changePremiumStatus}>
+                                <Select.Option key={0} value={0}>Bài học cơ bản</Select.Option>
+                                <Select.Option key={1} value={1}>Bài học nâng cao</Select.Option>
+                            </Select>
+                        </FormItem>
+                    </Col>
                     <Col className="gutter-row list-provider-filter" span={12}>
                         <FormItem labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} label="Trạng thái">
                             <Select placeholder="Chọn Trạng thái" value={filterParam.status} onChange={changeStatusFilter}>

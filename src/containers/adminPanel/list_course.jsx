@@ -16,7 +16,8 @@ class ListArticle extends Component {
             filterParam: {
                 course_title: '',
                 status: -1,
-                currentStatus: -1
+                currentStatus: -1,
+                is_premium: 0,
             },
             filterDropdownVisible: {
                 course_title: false,
@@ -41,6 +42,7 @@ class ListArticle extends Component {
         this.onClickSearch = this.onClickSearch.bind(this);
         this.clearFilter = this.clearFilter.bind(this);
         this.changeStatusFilter = this.changeStatusFilter.bind(this);
+        this.changePremiumStatus = this.changePremiumStatus.bind(this);
 
         //Xử lý table
         this.onDelete = this.onDelete.bind(this)
@@ -244,6 +246,15 @@ class ListArticle extends Component {
             filterParam
         })
     }
+
+    changePremiumStatus(value) {
+        let filterParam = { ...this.state.filterParam }
+        filterParam.is_premium = value;
+        this.setState({
+            filterParam
+        })
+    }
+
     changeArticleType(value) {
         let filterParam = { ...this.state.filterParam }
         filterParam.at_id = value;
@@ -256,7 +267,8 @@ class ListArticle extends Component {
         let filterParam = {
             course_title: '',
             status: -1,
-            currentStatus: -1
+            currentStatus: -1,
+            is_premium: 0,
         }
         let filterDropdownVisible = {
             course_title: false,
@@ -315,6 +327,7 @@ class ListArticle extends Component {
                     onClickSearch={this.onClickSearch}
                     changeStatusFilter={this.changeStatusFilter}
                     changeArticleType={this.changeArticleType}
+                    changePremiumStatus={this.changePremiumStatus}
                     clearFilter={this.clearFilter}
                     filterParam={this.state.filterParam}
                 />
