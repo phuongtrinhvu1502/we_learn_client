@@ -210,6 +210,14 @@ class Sidebar extends Component {
                     {lstPermission.indexOf("SYS") > -1 &&
                         <SubMenu key="subMenuSystem" title={<span><i style={{ width: '16px', height: '16px' }} className="fas fa-cogs"></i>&nbsp;&nbsp;<span>Quản lý hệ thống</span></span>}>
                             {lstPermission.indexOf("USER-MANAGER") > -1 &&
+                                <Menu.Item key="#/system-control/sign-up-manager" >
+                                    <Link to={'/system-control/sign-up-manager'} className="nav-link" >
+                                        <Icon type="flag" />
+                                        <span>Lập tài khoản quản lý</span>
+                                    </Link>
+                                </Menu.Item>
+                            }
+                            {lstPermission.indexOf("USER-MANAGER") > -1 &&
                                 <Menu.Item key="#/system-control/list-user" >
                                     <Link to={'/system-control/list-user'} className="nav-link" >
                                         <Icon type="flag" />

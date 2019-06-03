@@ -58,6 +58,12 @@ export const signUp = (params) => {
 	return requestPostJsonReturnDispatch(url, params, type)
 }
 
+export const signUpManager = (params) => {
+	let url = '/sign-up-manager'
+	let type = 'SIGN_UP_MANAGER'
+	return requestPostJsonReturnDispatch(url, params, type)
+}
+
 export const sidebarCollapse = () => {
 	return {
 		type: 'SIDEBAR_COLLAPSE'
@@ -83,7 +89,7 @@ export const resendActiveCode = (params) => {
 }
 
 export const changePassword = (params) => {
-    let url = '/user/update-password';
-    let type = 'CHANGE_PASSWORD'
-    return requestPutJsonReturnDispatch(url, params, type)
+	let url = '/user/update-password';
+	let type = 'CHANGE_PASSWORD'
+	return requestPutJsonReturnDispatch(url, params, type)
 }

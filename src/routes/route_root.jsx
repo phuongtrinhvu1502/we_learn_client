@@ -358,6 +358,11 @@ const routes = [
 						{ name: 'index' }
 					)
 			},
+			{
+				path: '/system-control/sign-up-manager',
+				component: asyncComponent(() => System.import('../containers/signup_manager.jsx')
+					.then(module => module.default), { name: 'sign-up-manager' })
+			},
 		]
 	}
 ]

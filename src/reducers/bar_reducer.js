@@ -27,6 +27,8 @@ const bar_reducer = (state = initialState, action = {}) => {
 			return { ...state, msg: action.data, logoutSuccess: true, }
 		case 'SIGN_UP':
 			return { ...state, countSignUp: state.countSignUp + 1, }
+		case 'SIGN_UP_MANAGER':
+			return { ...state, countSignUp: state.countSignUp + 1, }
 		case 'ACTIVE_ACCOUNT':
 			return { ...state, countActive: state.countActive + 1, }
 		case 'RESEND_ACTIVE_CODE':
