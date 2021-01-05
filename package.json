@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "antd": "^3.3.0",
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bootstrap": "^3.3.7",
     "draft-js-import-html": "^1.2.1",
